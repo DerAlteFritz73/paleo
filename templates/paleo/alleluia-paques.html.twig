@@ -1,0 +1,128 @@
+{% extends 'base.html.twig' %}
+{% set nav_actif = 'alleluia_paques' %}
+{% set route_de = 'paleo_de_alleluia_paques' %}
+{% set route_en = 'paleo_en_alleluia_paques' %}
+
+{% block titre %}Alleluia. Pascha nostrum{% endblock %}
+{% block meta_description %}L'Alleluia Pascha nostrum, messe du jour de Pâques : un second jubilus à comparer avec celui de Noël, dans un mode tout différent.{% endblock %}
+
+{% block contenu %}
+<h1>Exemple 6 — <span class="mot-latin">Alleluia. Pascha nostrum</span></h1>
+<p class="chapeau">
+    L'Alleluia du jour de Pâques. Même forme que celui de Noël, mais un tout autre éclat&nbsp;:
+    l'occasion idéale de <strong>comparer deux jubilus</strong> et d'entendre ce que le
+    <em>mode</em> change à une mélodie.
+</p>
+
+<div class="fiche">
+    <dl>
+        <dt>Genre</dt><dd>Alleluia (acclamation avant l'Évangile)</dd>
+        <dt>Occasion</dt><dd>Messe du jour de Pâques, et tout le temps pascal</dd>
+        <dt>Texte</dt><dd>1<sup>re</sup> lettre aux Corinthiens (1 Co 5, 7)</dd>
+        <dt>Mode</dt><dd>Mode VII (mode de <em>sol</em>, clair et élancé)</dd>
+        <dt>Style</dt><dd><strong>Mélismatique</strong>&nbsp;: un verset bref, une vocalise ample</dd>
+        <dt>Dans le <em>Triplex</em></dt><dd>p. 197</dd>
+    </dl>
+</div>
+
+<div class="lecteur-audio">
+    <span class="etiquette">Écouter le chant</span>
+    <p class="note-audio">Écoutez d'abord l'Alleluia de Noël, puis celui-ci&nbsp;: le mode II se recueille, le mode VII s'élance.</p>
+    <div class="videos-audio">
+        {# Ajoutez ici vos interprétations, sur le modèle des autres pages de chant :
+           <figure class="video-yt">
+             <div class="ratio">
+               <iframe src="https://www.youtube-nocookie.com/embed/IDENTIFIANT"
+                       title="Alleluia Pascha nostrum — interprète" loading="lazy"
+                       referrerpolicy="strict-origin-when-cross-origin"
+                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                       allowfullscreen></iframe>
+             </div>
+             <figcaption><strong>Nom de l'interprète</strong></figcaption>
+           </figure> #}
+        <p class="note-audio"><em>Enregistrements à insérer&nbsp;: idéalement le même ensemble
+           que pour l'Alleluia de Noël, pour que la comparaison porte sur le chant et non sur
+           les voix.</em></p>
+    </div>
+</div>
+
+<h2>Le texte et sa traduction</h2>
+<div class="texte-latin">
+    <div class="entete lat">Latin</div>
+    <div class="entete fr">Français</div>
+    <div class="lat">Alleluia.</div>
+    <div class="fr">Alléluia.</div>
+    <div class="lat"><span class="chip">Verset</span> Pascha nostrum immolatus est Christus.</div>
+    <div class="fr">Le Christ, notre Pâque, a été immolé.</div>
+</div>
+
+<div class="encadre def">
+    <span class="etiquette">Rappel — le mode</span>
+    <p>
+        Le <strong>mode</strong> est la «&nbsp;famille de notes&nbsp;» dans laquelle une
+        mélodie se meut&nbsp;: sa note de repos, ses degrés préférés, sa couleur. Le grégorien
+        en compte huit. Deux chants de même forme et de même longueur peuvent ainsi produire
+        des impressions opposées&nbsp;: c'est exactement ce qui se passe entre le mode II de
+        Noël, grave et intérieur, et le mode VII pascal, lumineux et montant.
+    </p>
+</div>
+
+<h2>Deux Alleluias, une même mécanique</h2>
+<p class="lettrine">
+    Reprenez la page précédente et posez les deux chants côte à côte&nbsp;: vous verrez la
+    même architecture. Le mot <span class="mot-latin">Alleluia</span>, son jubilus, un verset
+    confié au soliste, puis le retour du jubilus. Ce que le temps pascal ajoute, c'est
+    l'ampleur&nbsp;: la vocalise s'étire davantage, comme si la joie de Pâques demandait plus
+    d'air.
+</p>
+
+<h3>Un exercice de comparaison</h3>
+<ul>
+    <li>Comptez, dans les deux chants, le nombre de neumes du jubilus&nbsp;: la différence
+        se voit avant de s'entendre.</li>
+    <li>Cherchez la <strong>note de repos</strong> (celle où la mélodie retombe)&nbsp;:
+        <em>ré</em> pour Noël, <em>sol</em> pour Pâques.</li>
+    <li>Repérez les <strong>quilismas</strong>&nbsp;: dans les montées pascales, ils sont
+        nombreux — la voix prend son élan.</li>
+</ul>
+
+<div class="encadre astuce">
+    <span class="etiquette">Le rôle des notations anciennes ici</span>
+    <p>
+        C'est le moment de vérifier une chose amusante&nbsp;: sur deux jubilus différents,
+        les <strong>lettres significatives</strong> reviennent aux mêmes endroits
+        stratégiques — juste avant une montée, au sommet d'une courbe, à la toute fin. Laon
+        (au-dessus) et Saint-Gall (en dessous) ne décorent pas&nbsp;: ils
+        <strong>articulent</strong>.
+    </p>
+</div>
+
+<h2>Voir les trois notations</h2>
+<div class="facsimile">
+    <p>📜 <strong>Emplacement pour le fac-similé de «&nbsp;Alleluia. Pascha nostrum&nbsp;»</strong></p>
+    <p>Idéalement, placez ce fac-similé <em>juste sous</em> celui de l'Alleluia de Noël&nbsp;:
+       la comparaison des deux jubilus devient alors immédiate.<br>
+       <code>&lt;img src="{{ asset('assets/img/alleluia-paques.jpg') }}" alt="Alleluia Pascha nostrum dans le Graduale Triplex"&gt;</code></p>
+</div>
+
+<div class="legende-triplex">
+    <span><span class="pastille laon"></span> Laon, au-dessus&nbsp;: le rythme du jubilus</span>
+    <span><span class="pastille vat"></span> Notation carrée, au centre&nbsp;: les notes</span>
+    <span><span class="pastille sg"></span> Saint-Gall, en dessous&nbsp;: le geste et les appuis</span>
+</div>
+
+<div class="encadre">
+    <span class="etiquette">À retenir pour ce chant</span>
+    <p>
+        Avec ces deux Alleluias, vous avez fait le tour des styles&nbsp;: syllabique,
+        neumatique, mélismatique, et la forme responsoriale qui les fait dialoguer. Il ne
+        reste plus qu'à garder le vocabulaire sous la main&nbsp;: direction le
+        <a href="{{ path('paleo_glossaire') }}">glossaire</a>.
+    </p>
+</div>
+
+<div class="suite">
+    <a class="prec" href="{{ path('paleo_alleluia_noel') }}">Exemple 5&nbsp;: Alleluia. Dies sanctificatus</a>
+    <a class="suiv" href="{{ path('paleo_glossaire') }}">Glossaire &amp; bibliographie</a>
+</div>
+{% endblock %}

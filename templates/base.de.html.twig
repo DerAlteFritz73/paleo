@@ -1,0 +1,66 @@
+{#
+   base.de.html.twig — Hauptvorlage des Blogs „Paléo“ (deutsche Fassung)
+   ---------------------------------------------------------------------------
+   Jede Seite erweitert diese Vorlage :  {% extends 'base.de.html.twig' %}
+   und füllt anschließend die Blöcke  {% block titre %}  und  {% block contenu %}.
+
+   Die Variable  nav_actif  (in jeder Seite über {% set nav_actif = '...' %} gesetzt)
+   hebt den aktuellen Reiter im Menü hervor.  route_fr / route_en enthalten die
+   Routennamen derselben Seite in den anderen Sprachen (Sprachumschalter).
+#}
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titre %}Paléo{% endblock %} — Paléo, der gregorianische Choral Schritt für Schritt</title>
+    <meta name="description" content="{% block meta_description %}Die Neumen und den gregorianischen Choral anhand des Graduale Triplex entdecken. Ein allgemein verständlicher Blog für Einsteiger.{% endblock %}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <header class="site-header">
+        <div class="bandeau">
+            <h1 class="titre-site"><a href="{{ path('paleo_de_index') }}">Paléo</a></h1>
+            <p class="sous-titre">Der gregorianische Choral und seine Neumen, Schritt für Schritt erklärt</p>
+            <nav class="choix-langue" aria-label="Sprachauswahl">
+                <a href="{{ path(route_fr) }}" lang="fr" hreflang="fr" title="Diese Seite auf Französisch">FR</a>
+                <span class="langue-actuelle" aria-current="true" lang="de">DE</span>
+                <a href="{{ path(route_en) }}" lang="en" hreflang="en" title="This page in English">EN</a>
+            </nav>
+        </div>
+        <nav class="site-nav" aria-label="Hauptnavigation">
+            <ul>
+                <li><a href="{{ path('paleo_de_index') }}"     {{ nav_actif == 'accueil'  ? 'aria-current="page"' : '' }}>Startseite</a></li>
+                <li><a href="{{ path('paleo_de_histoire') }}"   {{ nav_actif == 'histoire' ? 'aria-current="page"' : '' }}>Gregorianisch&nbsp;?</a></li>
+                <li><a href="{{ path('paleo_de_notation') }}"   {{ nav_actif == 'notation' ? 'aria-current="page"' : '' }}>Grundlagen</a></li>
+                <li><a href="{{ path('paleo_de_triplex') }}"    {{ nav_actif == 'triplex'  ? 'aria-current="page"' : '' }}>Das Graduale Triplex</a></li>
+                <li><a href="{{ path('paleo_de_puer') }}"       {{ nav_actif == 'puer'     ? 'aria-current="page"' : '' }}>Puer natus est</a></li>
+                <li><a href="{{ path('paleo_de_viderunt') }}"   {{ nav_actif == 'viderunt' ? 'aria-current="page"' : '' }}>Viderunt omnes</a></li>
+                <li><a href="{{ path('paleo_de_lux') }}"        {{ nav_actif == 'lux'      ? 'aria-current="page"' : '' }}>Lux fulgebit</a></li>
+                <li><a href="{{ path('paleo_de_victimae') }}"   {{ nav_actif == 'victimae' ? 'aria-current="page"' : '' }}>Victimæ paschali</a></li>
+                <li><a href="{{ path('paleo_de_alleluia_noel') }}"   {{ nav_actif == 'alleluia_noel'   ? 'aria-current="page"' : '' }}>Alleluia (Weihnachten)</a></li>
+                <li><a href="{{ path('paleo_de_alleluia_paques') }}" {{ nav_actif == 'alleluia_paques' ? 'aria-current="page"' : '' }}>Alleluia (Ostern)</a></li>
+                <li><a href="{{ path('paleo_de_glossaire') }}"  {{ nav_actif == 'glossaire'? 'aria-current="page"' : '' }}>Glossar</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block contenu %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <div class="inner">
+            <p>
+                <a class="btn-pdf" href="{{ asset('assets/paleo-blog-de.pdf') }}" download>
+                    ⬇ Den ganzen Blog als PDF herunterladen (A4)
+                </a>
+            </p>
+            <p><strong>Paléo</strong> — ein allgemein verständlicher Blog über musikalische Paläographie.</p>
+            <p>Alle Beispiele verweisen auf das <em>Graduale Triplex</em> (Solesmes, 1979).
+               Denken Sie daran, eigene Faksimiles einzufügen oder auf rechtefreie Quellen zu verlinken.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,171 @@
+{% extends 'base.html.twig' %}
+{% set nav_actif = 'glossaire' %}
+{% set route_de = 'paleo_de_glossaire' %}
+{% set route_en = 'paleo_en_glossaire' %}
+
+{% block titre %}Glossaire{% endblock %}
+{% block meta_description %}Petit lexique du chant grégorien : neumes, styles, notations. Tous les mots clés du blog réunis et expliqués simplement.{% endblock %}
+
+{% block contenu %}
+<h1>Petit glossaire du chant grégorien</h1>
+<p class="chapeau">
+    Tous les mots clés croisés au fil du blog, réunis et expliqués en une phrase.
+    À garder sous la main pendant votre lecture.
+</p>
+
+<h2>Les styles de chant</h2>
+<table class="grille">
+    <thead><tr><th>Terme</th><th>En clair</th></tr></thead>
+    <tbody>
+        <tr><td><strong>Syllabique</strong></td><td>Une note par syllabe. Le texte reste très clair. Ex.&nbsp;: la séquence <span class="mot-latin">Victimæ paschali</span>.</td></tr>
+        <tr><td><strong>Neumatique</strong></td><td>Quelques notes (2 à 4) par syllabe. Ex.&nbsp;: l'introït <span class="mot-latin">Puer natus est</span>.</td></tr>
+        <tr><td><strong>Mélismatique</strong></td><td>De nombreuses notes sur une seule syllabe. Ex.&nbsp;: le graduel <span class="mot-latin">Viderunt omnes</span>.</td></tr>
+        <tr><td><strong>Mélisme</strong></td><td>La longue guirlande de notes elle-même, chantée sur une voyelle.</td></tr>
+        <tr><td><strong>Jubilus</strong></td><td>Le grand mélisme de joie, typiquement sur le «&nbsp;a&nbsp;» de l'<span class="mot-latin">Alleluia</span>.</td></tr>
+    </tbody>
+</table>
+
+<h2>Les neumes de base</h2>
+<table class="grille">
+    <thead><tr><th>Neume</th><th>Mouvement de la voix</th></tr></thead>
+    <tbody>
+        <tr><td><strong>Punctum</strong></td><td>Une note (petit carré).</td></tr>
+        <tr><td><strong>Virga</strong></td><td>Une note (carré à queue), souvent plus aiguë.</td></tr>
+        <tr><td><strong>Pes</strong> <span class="mot-latin">(podatus)</span></td><td>Deux notes qui montent.</td></tr>
+        <tr><td><strong>Clivis</strong> <span class="mot-latin">(flexa)</span></td><td>Deux notes qui descendent.</td></tr>
+        <tr><td><strong>Torculus</strong></td><td>Trois notes&nbsp;: bas · haut · bas.</td></tr>
+        <tr><td><strong>Porrectus</strong></td><td>Trois notes&nbsp;: haut · bas · haut.</td></tr>
+        <tr><td><strong>Scandicus</strong></td><td>Trois notes (ou plus) qui montent.</td></tr>
+        <tr><td><strong>Climacus</strong></td><td>Une note puis une cascade descendante de losanges.</td></tr>
+    </tbody>
+</table>
+
+<h2>Les signes de nuance</h2>
+<table class="grille">
+    <thead><tr><th>Signe</th><th>Ce qu'il demande</th></tr></thead>
+    <tbody>
+        <tr><td><strong>Quilisma</strong></td><td>Note légère en dents de scie, tremplin vers la note suivante&nbsp;; on allonge un peu la note précédente.</td></tr>
+        <tr><td><strong>Épisème</strong></td><td>Petit trait&nbsp;: on pose, on élargit la note.</td></tr>
+        <tr><td><strong>Lettre <span class="mot-latin">c</span></strong></td><td><span class="mot-latin">celeriter</span> — rapidement, sans appuyer.</td></tr>
+        <tr><td><strong>Lettre <span class="mot-latin">t</span></strong></td><td><span class="mot-latin">tenete</span> — tenez, allongez.</td></tr>
+        <tr><td><strong>Lettre <span class="mot-latin">a</span></strong></td><td><span class="mot-latin">altius</span> — plus haut.</td></tr>
+    </tbody>
+</table>
+
+<h2>Les notations et le livre</h2>
+<table class="grille">
+    <thead><tr><th>Terme</th><th>En clair</th></tr></thead>
+    <tbody>
+        <tr><td><strong>Neume</strong></td><td>Signe notant un ou plusieurs sons sur une même syllabe (du grec <span class="mot-latin">pneuma</span>, souffle).</td></tr>
+        <tr><td><strong>Portée / tétragramme</strong></td><td>Les quatre lignes sur lesquelles s'écrit la notation carrée.</td></tr>
+        <tr><td><strong>Clé</strong></td><td>Repère de début de ligne (clé d'<em>ut</em> ou de <em>fa</em>) qui situe les demi-tons.</td></tr>
+        <tr><td><strong>Diastématique</strong></td><td>Notation qui indique les hauteurs exactes (la notation carrée).</td></tr>
+        <tr><td><strong>Adiastématique</strong></td><td>Notation «&nbsp;en champ libre&nbsp;» qui montre le geste sans les hauteurs précises (les neumes anciens).</td></tr>
+        <tr><td><strong><span class="mot-latin">Litteræ significativæ</span></strong></td><td>Les petites lettres ajoutées aux neumes pour préciser le rythme ou l'expression.</td></tr>
+        <tr><td><strong>Mode</strong></td><td>La «&nbsp;famille de notes&nbsp;» et la couleur d'une mélodie (huit modes en grégorien).</td></tr>
+        <tr><td><strong>Graduale Triplex</strong></td><td>Livre de Solesmes (1979) superposant trois notations&nbsp;: Laon (haut), carrée (centre), Saint-Gall (bas).</td></tr>
+        <tr><td><strong>Laon (ms 239)</strong></td><td>Manuscrit du IX<sup>e</sup> s.&nbsp;; écriture <em>messine</em>, réputée pour sa précision rythmique.</td></tr>
+        <tr><td><strong>Saint-Gall</strong></td><td>Manuscrits suisses (<span class="mot-latin">Cantatorium</span> 359, Einsiedeln 121)&nbsp;; écriture claire du geste mélodique.</td></tr>
+    </tbody>
+</table>
+
+<h2>Les genres de chant rencontrés</h2>
+<table class="grille">
+    <thead><tr><th>Genre</th><th>Rôle dans la messe</th></tr></thead>
+    <tbody>
+        <tr><td><strong>Introït</strong></td><td>Chant d'entrée. Ex.&nbsp;: <span class="mot-latin">Puer natus est</span>, <span class="mot-latin">Lux fulgebit</span>.</td></tr>
+        <tr><td><strong>Graduel</strong></td><td>Chant méditatif après la 1<sup>re</sup> lecture. Ex.&nbsp;: <span class="mot-latin">Viderunt omnes</span>.</td></tr>
+        <tr><td><strong>Séquence</strong></td><td>Chant strophique avant l'Évangile, aux grandes fêtes. Ex.&nbsp;: <span class="mot-latin">Victimæ paschali laudes</span>.</td></tr>
+        <tr><td><strong>Alleluia</strong></td><td>Acclamation avant l'Évangile, prolongée par le <em>jubilus</em>. Ex.&nbsp;: <span class="mot-latin">Dies sanctificatus</span>, <span class="mot-latin">Pascha nostrum</span>.</td></tr>
+    </tbody>
+</table>
+
+<div class="encadre astuce">
+    <span class="etiquette">Pour aller plus loin</span>
+    <p>
+        Le meilleur apprentissage reste l'oreille&nbsp;: écoutez des enregistrements de ces
+        six chants (de nombreux monastères en diffusent librement) en suivant le texte,
+        puis en suivant les neumes. Peu à peu, le dessin et le son se rejoindront.
+    </p>
+</div>
+
+<h2>Bibliographie &amp; ressources</h2>
+<p>
+    Une sélection pour approfondir, du plus accessible au plus spécialisé. <em>Pensez à
+    vérifier les conditions de réutilisation</em> avant de reproduire images, partitions ou
+    enregistrements sur votre site.
+</p>
+
+<h3>Ouvrages d'introduction</h3>
+<ul class="biblio">
+    <li>
+        <span class="auteur">Saulnier, Daniel.</span> <em>Le chant grégorien.</em> Solesmes.
+        <span class="ref-note">Petite synthèse claire et abordable&nbsp;: la suite idéale de ce blog.</span>
+    </li>
+    <li>
+        <span class="auteur">Hiley, David.</span> <em>Gregorian Chant.</em> Cambridge University Press, 2009.
+        <span class="ref-note">Introduction de référence en anglais, très pédagogique.</span>
+    </li>
+</ul>
+
+<h3>Ouvrages spécialisés</h3>
+<ul class="biblio">
+    <li>
+        <span class="auteur">Cardine, Eugène.</span> <em>Sémiologie grégorienne.</em> Solesmes, 1970.
+        <span class="ref-note">Le livre fondateur de la lecture des neumes anciens (Saint-Gall, Laon)&nbsp;; technique.</span>
+    </li>
+    <li>
+        <span class="auteur">Apel, Willi.</span> <em>Gregorian Chant.</em> Indiana University Press, 1958.
+        <span class="ref-note">Une somme classique sur l'histoire, les genres et les formes.</span>
+    </li>
+    <li>
+        <span class="auteur">Abbaye de Solesmes.</span> <em>Paléographie Musicale</em> (collection, à partir de 1889).
+        <span class="ref-note">Fac-similés commentés de manuscrits&nbsp;; à l'origine de la restauration moderne.</span>
+    </li>
+</ul>
+
+<h3>Éditions de chant</h3>
+<ul class="biblio">
+    <li>
+        <span class="auteur">Abbaye de Solesmes.</span> <em>Graduale Triplex.</em> Solesmes, 1979
+        — et l'<em>Offertoriale Triplex</em> (Solesmes, 1985) pour les offertoires et leurs versets.
+        <span class="ref-note">L'édition au cœur de ce blog&nbsp;: notation carrée + neumes de Laon et de Saint-Gall.</span>
+    </li>
+    <li>
+        <span class="auteur">Abbaye de Solesmes.</span> <em>Graduale Romanum.</em> (édition Vaticane).
+        <span class="ref-note">Le graduel officiel en notation carrée seule.</span>
+    </li>
+</ul>
+
+<h3>Manuscrits numérisés &amp; ressources en ligne (accès libre)</h3>
+<ul class="biblio">
+    <li>
+        <span class="auteur">e-codices.</span> Bibliothèque virtuelle des manuscrits de Suisse.
+        <span class="ref-note">Témoins majeurs de Saint-Gall&nbsp;: <em>Cantatorium</em> (ms 359), antiphonaire de Hartker (ms 390/391), et Einsiedeln 121.</span>
+    </li>
+    <li>
+        <span class="auteur">Gallica.</span> Bibliothèque numérique de la BnF.
+        <span class="ref-note">De nombreux manuscrits liturgiques, dont la tradition de Laon.</span>
+    </li>
+    <li>
+        <span class="auteur">GregoBase&nbsp;; Cantus Database.</span> Bases de partitions et de chants grégoriens.
+        <span class="ref-note">Pour retrouver, cataloguer et transcrire une pièce précise.</span>
+    </li>
+</ul>
+
+<div class="encadre">
+    <span class="etiquette">À écouter</span>
+    <p>
+        Les interprétations citées dans ce blog (Solesmes, Silos, <strong>Organum</strong> /
+        Marcel Pérès, <strong>Ensemble Anne-Marie Deschamps</strong>) sont réunies, prêtes à
+        comparer, sur chaque page de chant — commencez par
+        <a href="{{ path('paleo_puer') }}">Puer natus est</a>. Le contexte historique complet
+        se trouve, lui, dans <a href="{{ path('paleo_histoire') }}">Vous avez dit «&nbsp;grégorien&nbsp;»&nbsp;?</a>
+    </p>
+</div>
+
+<div class="suite">
+    <a class="prec" href="{{ path('paleo_victimae') }}">Exemple 4&nbsp;: Victimæ paschali</a>
+    <a class="suiv" href="{{ path('paleo_index') }}">Retour à l'accueil</a>
+</div>
+{% endblock %}

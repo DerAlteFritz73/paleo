@@ -1,0 +1,9 @@
+# Caches de Python, reconstruits à chaque exécution.
+__pycache__/
+*.py[cod]
+
+# Cruft d'éditeur et de système.
+.DS_Store
+*~
+.idea/
+.vscode/

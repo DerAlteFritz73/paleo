@@ -1,0 +1,2646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Paléo — Gregorian chant step by step</title>
+<style>
+/* =========================================================================
+   Paléo — Blog de vulgarisation sur les neumes et le chant grégorien
+   Feuille de style partagée
+   Thème « manuscrit » : parchemin, rubriques rouges, initiales dorées.
+   Compatible clair / sombre (prefers-color-scheme).
+   ========================================================================= */
+
+:root {
+  --parchemin:      #f6efe1;
+  --parchemin-fonce:#efe4cf;
+  --encre:          #2b2622;
+  --encre-douce:    #5c534a;
+  --rubrique:       #a01818;   /* le rouge des rubriques médiévales */
+  --rubrique-clair: #c94a3a;
+  --or:             #b9932f;
+  --or-clair:       #e0c168;
+  --ligne:          #d9cbb0;
+  --portee:         #9a8f78;   /* couleur des lignes de portée */
+  --bleu-laon:      #2f6f8f;   /* neumes de Laon (repère visuel) */
+  --vert-sg:        #4f7a3a;   /* neumes de Saint-Gall (repère visuel) */
+  --carte:          #fffdf7;
+  --ombre:          rgba(60, 45, 20, 0.12);
+
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua",
+           Georgia, "Times New Roman", serif;
+  --sans:  "Segoe UI", Roboto, Helvetica, Arial, system-ui, sans-serif;
+
+  --largeur-max: 820px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --parchemin:      #201d19;
+    --parchemin-fonce:#2a2621;
+    --encre:          #ece3d2;
+    --encre-douce:    #b3a893;
+    --rubrique:       #e0705f;
+    --rubrique-clair: #f0917f;
+    --or:             #d8b45a;
+    --or-clair:       #f0d488;
+    --ligne:          #3d3730;
+    --portee:         #6b6152;
+    --bleu-laon:      #6fb6d6;
+    --vert-sg:        #8cc06a;
+    --carte:          #262119;
+    --ombre:          rgba(0, 0, 0, 0.4);
+  }
+}
+
+/* ------------------------------------------------------------------ Reset */
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1.12rem;
+  line-height: 1.7;
+  color: var(--encre);
+  background-color: var(--parchemin);
+  background-image:
+    radial-gradient(circle at 15% 10%, rgba(255,255,255,0.35), transparent 45%),
+    radial-gradient(circle at 85% 90%, rgba(160,24,24,0.04), transparent 40%);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --------------------------------------------------------------- En-tête */
+.site-header {
+  border-bottom: 3px double var(--or);
+  background: var(--parchemin-fonce);
+}
+.site-header .bandeau {
+  max-width: var(--largeur-max);
+  margin: 0 auto;
+  padding: 1.4rem 1.2rem 1rem;
+  text-align: center;
+}
+.site-header .titre-site {
+  font-size: 2rem;
+  margin: 0;
+  letter-spacing: 0.04em;
+  color: var(--rubrique);
+}
+.site-header .titre-site a { color: inherit; text-decoration: none; }
+.site-header .sous-titre {
+  margin: 0.2rem 0 0;
+  font-style: italic;
+  color: var(--encre-douce);
+  font-size: 1rem;
+}
+
+/* ------------------------------------------------- Sélecteur de langue */
+.choix-langue {
+  display: flex;
+  justify-content: center;
+  gap: 0.35rem;
+  margin-top: 0.7rem;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+}
+.choix-langue a,
+.choix-langue .langue-actuelle {
+  padding: 0.2rem 0.55rem;
+  border: 1px solid var(--ligne);
+  border-radius: 999px;
+  text-decoration: none;
+  color: var(--encre-douce);
+  line-height: 1.6;
+}
+.choix-langue a:hover,
+.choix-langue a:focus-visible {
+  color: var(--rubrique);
+  border-color: var(--rubrique);
+  background: var(--fond-doux, transparent);
+}
+.choix-langue .langue-actuelle {
+  color: var(--parchemin, #fff);
+  background: var(--rubrique);
+  border-color: var(--rubrique);
+  font-weight: 700;
+}
+
+/* --------------------------------------------------------------- Menu nav */
+.site-nav {
+  background: var(--rubrique);
+}
+.site-nav ul {
+  max-width: var(--largeur-max);
+  margin: 0 auto;
+  padding: 0 0.6rem;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.1rem;
+}
+.site-nav a {
+  display: block;
+  padding: 0.55rem 0.85rem;
+  color: #f8ead0;
+  text-decoration: none;
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  border-bottom: 3px solid transparent;
+}
+.site-nav a:hover,
+.site-nav a[aria-current="page"] {
+  color: #fff;
+  border-bottom-color: var(--or-clair);
+  background: rgba(0,0,0,0.12);
+}
+
+/* --------------------------------------------------------------- Contenu */
+main {
+  max-width: var(--largeur-max);
+  margin: 0 auto;
+  padding: 2.2rem 1.2rem 3rem;
+}
+
+h1, h2, h3 { font-weight: 600; line-height: 1.25; }
+h1 {
+  font-size: 2rem;
+  color: var(--rubrique);
+  margin: 0 0 0.3rem;
+}
+.chapeau {
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--encre-douce);
+  margin: 0 0 2rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid var(--ligne);
+}
+h2 {
+  font-size: 1.55rem;
+  margin: 2.5rem 0 0.8rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 2px solid var(--or);
+  display: inline-block;
+}
+h3 {
+  font-size: 1.2rem;
+  color: var(--rubrique-clair);
+  margin: 1.8rem 0 0.5rem;
+}
+
+p { margin: 0 0 1.1rem; }
+a { color: var(--rubrique); }
+
+/* Lettrine (initiale ornée) sur le premier paragraphe */
+.lettrine::first-letter {
+  float: left;
+  font-size: 4.2rem;
+  line-height: 0.72;
+  padding: 0.35rem 0.55rem 0 0;
+  color: var(--or);
+  font-weight: 700;
+  font-family: var(--serif);
+}
+
+/* ----------------------------------------------------------- Composants */
+
+/* Encadré « le saviez-vous / à retenir » */
+.encadre {
+  background: var(--carte);
+  border: 1px solid var(--ligne);
+  border-left: 5px solid var(--or);
+  border-radius: 4px;
+  padding: 1rem 1.3rem;
+  margin: 1.6rem 0;
+  box-shadow: 0 2px 8px var(--ombre);
+}
+.encadre.def   { border-left-color: var(--bleu-laon); }
+.encadre.astuce{ border-left-color: var(--vert-sg); }
+.encadre .etiquette {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--rubrique);
+  margin-bottom: 0.3rem;
+}
+.encadre.def    .etiquette { color: var(--bleu-laon); }
+.encadre.astuce .etiquette { color: var(--vert-sg); }
+.encadre p:last-child { margin-bottom: 0; }
+
+/* Fiche « carte d'identité » d'un chant */
+.fiche {
+  background: var(--carte);
+  border: 1px solid var(--ligne);
+  border-radius: 6px;
+  padding: 0.4rem 1.3rem;
+  margin: 1.5rem 0 2rem;
+  box-shadow: 0 2px 8px var(--ombre);
+}
+.fiche dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.35rem 1.2rem;
+  margin: 0.8rem 0;
+}
+.fiche dt {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--rubrique);
+  font-weight: 700;
+  align-self: baseline;
+}
+.fiche dd { margin: 0; }
+
+/* Bloc « Écouter le chant » + lecteur audio */
+.lecteur-audio {
+  background: var(--carte);
+  border: 1px solid var(--ligne);
+  border-left: 5px solid var(--rubrique);
+  border-radius: 6px;
+  padding: 1rem 1.3rem;
+  margin: 1.6rem 0;
+  box-shadow: 0 2px 8px var(--ombre);
+}
+.lecteur-audio .etiquette {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--rubrique);
+  margin-bottom: 0.5rem;
+}
+.lecteur-audio .etiquette::before { content: "♪ "; }
+.lecteur-audio audio { width: 100%; margin: 0.2rem 0 0.4rem; }
+
+/* Grille des interprétations (vidéos YouTube) */
+.videos-audio {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+  margin: 0.8rem 0 0.4rem;
+}
+.video-yt { margin: 0; }
+.video-yt .ratio {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--ligne);
+}
+/* Repli pour navigateurs sans aspect-ratio */
+@supports not (aspect-ratio: 16 / 9) {
+  .video-yt .ratio { height: 0; padding-bottom: 56.25%; }
+}
+.video-yt .ratio iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.video-yt figcaption {
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  color: var(--encre-douce);
+  margin-top: 0.4rem;
+  line-height: 1.35;
+}
+.video-yt figcaption strong { color: var(--encre); }
+
+.lecteur-audio .note-audio {
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  color: var(--encre-douce);
+  margin: 0.3rem 0 0;
+}
+.lecteur-audio .note-audio code {
+  background: var(--parchemin-fonce);
+  padding: 0.05rem 0.3rem;
+  border-radius: 3px;
+}
+
+/* Emplacement pour insérer un fac-similé / scan du Graduale Triplex */
+.facsimile {
+  margin: 1.6rem 0;
+  border: 1px dashed var(--portee);
+  border-radius: 6px;
+  background: repeating-linear-gradient(
+      -45deg, transparent, transparent 12px,
+      rgba(154,143,120,0.06) 12px, rgba(154,143,120,0.06) 24px);
+  padding: 2.2rem 1.2rem;
+  text-align: center;
+  color: var(--encre-douce);
+  font-family: var(--sans);
+  font-size: 0.9rem;
+}
+.facsimile img { max-width: 100%; height: auto; border-radius: 4px; }
+.facsimile figcaption {
+  margin-top: 0.7rem;
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+/* Bloc de texte latin + traduction côte à côte */
+.texte-latin {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.2rem 2rem;
+  background: var(--parchemin-fonce);
+  border-radius: 6px;
+  padding: 1.2rem 1.4rem;
+  margin: 1.5rem 0;
+}
+.texte-latin .lat { font-style: italic; }
+.texte-latin .fr  { color: var(--encre-douce); }
+.texte-latin .entete {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--rubrique);
+  border-bottom: 1px solid var(--ligne);
+  padding-bottom: 0.2rem;
+  margin-bottom: 0.3rem;
+}
+@media (max-width: 600px) {
+  .texte-latin { grid-template-columns: 1fr; }
+  .texte-latin .entete.fr { margin-top: 0.8rem; }
+}
+
+/* Figure pédagogique (partition en neumes) */
+.figure-neume {
+  margin: 1.6rem 0;
+  background: var(--carte);
+  border: 1px solid var(--ligne);
+  border-radius: 6px;
+  padding: 1.2rem 1rem 1rem;
+  box-shadow: 0 2px 8px var(--ombre);
+  text-align: center;
+}
+.figure-neume .partition-scroll { overflow-x: auto; }
+.figure-neume svg { display: block; margin: 0 auto; max-width: 100%; height: auto; }
+.figure-neume figcaption {
+  margin-top: 0.8rem;
+  font-size: 0.92rem;
+  color: var(--encre-douce);
+  font-style: italic;
+  max-width: 46ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Galerie de neumes (schémas SVG) */
+.galerie-neumes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.carte-neume {
+  background: var(--carte);
+  border: 1px solid var(--ligne);
+  border-radius: 6px;
+  padding: 0.8rem;
+  text-align: center;
+  box-shadow: 0 2px 6px var(--ombre);
+}
+.carte-neume svg { display: block; margin: 0 auto 0.4rem; }
+.carte-neume .nom {
+  font-weight: 700;
+  color: var(--rubrique);
+  display: block;
+}
+.carte-neume .desc {
+  font-size: 0.85rem;
+  color: var(--encre-douce);
+  font-family: var(--sans);
+}
+
+/* couleurs de repérage pour les traits SVG */
+.svg-portee  { stroke: var(--portee); stroke-width: 1; }
+.svg-neume   { fill: var(--encre); stroke: var(--encre); }
+.svg-laon    { fill: var(--bleu-laon); stroke: var(--bleu-laon); }
+.svg-sg      { fill: var(--vert-sg);  stroke: var(--vert-sg); }
+
+/* Bibliographie (liste de références, retrait bibliographique) */
+.biblio { list-style: none; padding: 0; margin: 0.6rem 0 1.4rem; }
+.biblio li {
+  padding: 0.35rem 0 0.35rem 1.6rem;
+  text-indent: -1.6rem;
+  border-bottom: 1px solid var(--ligne);
+  line-height: 1.5;
+}
+.biblio li:last-child { border-bottom: 0; }
+.biblio .auteur { font-variant: small-caps; letter-spacing: 0.02em; }
+.biblio .ref-note {
+  display: block;
+  text-indent: 0;
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  color: var(--encre-douce);
+  margin-top: 0.15rem;
+}
+
+/* Tableau (lettres significatives, glossaire) */
+table.grille {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.4rem 0;
+  font-size: 0.98rem;
+}
+table.grille caption {
+  text-align: left;
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--encre-douce);
+  margin-bottom: 0.4rem;
+}
+table.grille th, table.grille td {
+  border: 1px solid var(--ligne);
+  padding: 0.5rem 0.7rem;
+  text-align: left;
+  vertical-align: top;
+}
+table.grille th {
+  background: var(--parchemin-fonce);
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--rubrique);
+}
+table.grille tr:nth-child(even) td { background: rgba(0,0,0,0.02); }
+
+/* Légende de couleurs des trois notations */
+.legende-triplex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  margin: 1.2rem 0;
+  font-family: var(--sans);
+  font-size: 0.9rem;
+}
+.legende-triplex span { display: inline-flex; align-items: center; gap: 0.4rem; }
+.legende-triplex .pastille {
+  width: 0.9rem; height: 0.9rem; border-radius: 50%;
+  display: inline-block;
+}
+.pastille.sg   { background: var(--vert-sg); }
+.pastille.vat  { background: var(--encre); }
+.pastille.laon { background: var(--bleu-laon); }
+
+/* Navigation entre les 4 exemples (pied de page d'article) */
+.suite {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 3rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--ligne);
+  font-family: var(--sans);
+  font-size: 0.92rem;
+}
+.suite a { text-decoration: none; font-weight: 600; }
+.suite .prec::before { content: "‹ "; }
+.suite .suiv::after  { content: " ›"; }
+
+/* Grille de cartes sur la page d'accueil */
+.grille-cartes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.2rem;
+  margin: 1.8rem 0;
+}
+.carte-lien {
+  display: block;
+  background: var(--carte);
+  border: 1px solid var(--ligne);
+  border-top: 4px solid var(--rubrique);
+  border-radius: 6px;
+  padding: 1.1rem 1.2rem;
+  text-decoration: none;
+  color: var(--encre);
+  box-shadow: 0 2px 8px var(--ombre);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.carte-lien:hover { transform: translateY(-3px); box-shadow: 0 6px 16px var(--ombre); }
+.carte-lien .num {
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--or);
+  font-weight: 700;
+}
+.carte-lien h3 { margin: 0.2rem 0 0.4rem; color: var(--rubrique); }
+.carte-lien p { margin: 0; font-size: 0.95rem; color: var(--encre-douce); }
+
+/* --------------------------------------------------------------- Pied de page */
+.site-footer {
+  border-top: 3px double var(--or);
+  background: var(--parchemin-fonce);
+  color: var(--encre-douce);
+  font-family: var(--sans);
+  font-size: 0.85rem;
+}
+.site-footer .inner {
+  max-width: var(--largeur-max);
+  margin: 0 auto;
+  padding: 1.4rem 1.2rem;
+  text-align: center;
+}
+.site-footer a { color: var(--rubrique-clair); }
+.btn-pdf {
+  display: inline-block;
+  background: var(--rubrique);
+  color: #f8ead0 !important;
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 0.55rem 1.1rem;
+  border-radius: 999px;
+  border: 1px solid var(--or);
+  margin-bottom: 0.6rem;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.btn-pdf:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--ombre);
+  color: #fff !important;
+}
+.btn-pdf.grand { font-size: 1.05rem; padding: 0.7rem 1.5rem; margin-bottom: 0; }
+
+/* Bandeau d'appel au téléchargement (page d'accueil) */
+.hero-pdf {
+  text-align: center;
+  margin: 1.8rem 0 2.2rem;
+  padding: 1.4rem 1rem;
+  background: var(--carte);
+  border: 1px solid var(--ligne);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px var(--ombre);
+}
+.hero-pdf-note {
+  display: block;
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  color: var(--encre-douce);
+  margin-top: 0.6rem;
+}
+
+/* --------------------------------------------------------------- Divers */
+.chip {
+  display: inline-block;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: var(--parchemin-fonce);
+  border: 1px solid var(--ligne);
+  border-radius: 999px;
+  padding: 0.12rem 0.6rem;
+  color: var(--encre-douce);
+}
+.mot-latin { font-style: italic; }
+abbr[title] { text-decoration: underline dotted; cursor: help; }
+
+
+/* ===================== Surcharges spécifiques à l'impression ===================== */
+@page { size: A4; margin: 16mm 15mm 18mm; }
+
+html, body {
+  background: #fff !important;
+  background-image: none !important;
+  font-size: 10.7pt;
+  line-height: 1.55;
+}
+.pdf-wrap { max-width: none; margin: 0; padding: 0; }
+
+/* Sauts de page entre chapitres */
+.page-blog { break-before: page; page-break-before: always; padding-top: 0.2mm; }
+.page-blog.first { break-before: auto; page-break-before: auto; }
+
+/* Évite de couper titres et blocs au mauvais endroit */
+h1, h2, h3 { break-after: avoid; page-break-after: avoid; }
+.encadre, .fiche, .figure-neume, .texte-latin, .lecteur-audio,
+table.grille, .facsimile, .carte-neume, .biblio li {
+  break-inside: avoid; page-break-inside: avoid;
+}
+h1 { font-size: 19pt; }
+h2 { font-size: 15pt; }
+h3 { font-size: 12.5pt; }
+
+/* Liens : couleur d'encre, lisibles en noir & blanc */
+a { color: var(--rubrique) !important; text-decoration: none; }
+
+/* Grilles de cartes : plus compactes en papier */
+.grille-cartes, .galerie-neumes { gap: 0.6rem; }
+.carte-lien { box-shadow: none; }
+
+/* Liste d'écoutes (remplace les vidéos) */
+.videos-audio { display: block; margin: 0.4rem 0; }
+.ecoute-item {
+  display: flex; justify-content: space-between; gap: 1rem;
+  padding: 0.2rem 0; border-bottom: 1px dotted var(--ligne);
+  font-family: var(--sans); font-size: 0.82rem;
+}
+.ecoute-nom { color: var(--encre); }
+.ecoute-url { color: var(--encre-douce); white-space: nowrap; }
+
+/* Le sélecteur de langue n'a pas de sens sur papier */
+.choix-langue { display: none !important; }
+
+/* Allège les ombres/gradients coûteux en encre */
+.encadre, .fiche, .carte-neume, .lecteur-audio, .figure-neume { box-shadow: none; }
+
+/* ---- Couverture ---- */
+.cover {
+  break-after: page; page-break-after: always;
+  min-height: 245mm; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center;
+}
+.cover .emoji { font-size: 46pt; margin-bottom: 0.4rem; }
+.cover h1 {
+  font-size: 40pt; color: var(--rubrique); margin: 0 0 0.4rem;
+  letter-spacing: 0.04em; border: 0;
+}
+.cover .sub { font-size: 15pt; font-style: italic; color: var(--encre-douce); margin: 0 0 2rem; }
+.cover .desc { font-size: 12pt; max-width: 30rem; margin: 0 auto; }
+.cover .rule { width: 60mm; border: 0; border-top: 3px double var(--or); margin: 1.6rem auto; }
+.cover .meta { font-family: var(--sans); font-size: 9.5pt; color: var(--encre-douce); margin-top: 2rem; }
+
+/* ---- Sommaire ---- */
+.toc-page { break-after: page; page-break-after: always; }
+.toc-page h1 { border: 0; }
+ol.toc { list-style: none; counter-reset: toc; padding: 0; margin: 1.5rem 0; }
+ol.toc li { counter-increment: toc; padding: 0.5rem 0; border-bottom: 1px solid var(--ligne); }
+ol.toc a { text-decoration: none; color: var(--encre) !important; font-size: 12.5pt; }
+ol.toc li::before {
+  content: counter(toc) ". "; color: var(--or); font-weight: 700;
+  font-family: var(--sans); margin-right: 0.4rem;
+}
+</style>
+</head>
+<body>
+<div class="pdf-wrap">
+
+  <div class="cover">
+    <div class="emoji">📜🎵</div>
+    <h1>Paléo</h1>
+    <p class="sub">Gregorian chant and its neumes, explained step by step</p>
+    <hr class="rule">
+    <p class="desc">A plain-language journey through six chants from the <em>Graduale Triplex</em>&nbsp;: <em>Puer natus est</em>, <em>Viderunt omnes</em>, <em>Lux fulgebit</em>, <em>Victimæ paschali laudes</em> and the two <em>Alleluias</em> of Christmas and Easter.</p>
+    <p class="meta">Printable version · 26/07/2026</p>
+  </div>
+
+  <div class="toc-page">
+    <h1>Contents</h1>
+    <ol class="toc">
+        <li><a href="#accueil"><span class="toc-t">Introduction</span></a></li>
+        <li><a href="#histoire"><span class="toc-t">What do we mean by “Gregorian”?</span></a></li>
+        <li><a href="#notation"><span class="toc-t">The basics of the notation</span></a></li>
+        <li><a href="#triplex"><span class="toc-t">The Graduale Triplex</span></a></li>
+        <li><a href="#puer-natus-est"><span class="toc-t">Example 1 — Puer natus est · introit · T. p. 47</span></a></li>
+        <li><a href="#viderunt-omnes"><span class="toc-t">Example 2 — Viderunt omnes · gradual · T. p. 48</span></a></li>
+        <li><a href="#lux-fulgebit"><span class="toc-t">Example 3 — Lux fulgebit · introit · T. p. 44</span></a></li>
+        <li><a href="#victimae-paschalis"><span class="toc-t">Example 4 — Victimæ paschali laudes · sequence · T. p. 198</span></a></li>
+        <li><a href="#alleluia-noel"><span class="toc-t">Example 5 — Alleluia. Dies sanctificatus · Christmas · T. p. 46</span></a></li>
+        <li><a href="#alleluia-paques"><span class="toc-t">Example 6 — Alleluia. Pascha nostrum · Easter · T. p. 197</span></a></li>
+        <li><a href="#glossaire"><span class="toc-t">Glossary & bibliography</span></a></li>
+    </ol>
+  </div>
+
+<section class="page-blog first" id="accueil">
+
+<h1>Welcome to the neume workshop</h1>
+<p class="chapeau">
+    This blog is for anyone who is curious&nbsp;: no knowledge of music, of Latin or of
+    medieval history is required. Step by step, we are going to learn how to
+    «&nbsp;read&nbsp;» Gregorian chant as it is written in a fascinating book, the
+    <em>Graduale Triplex</em>.
+</p>
+
+<p class="lettrine">
+    Imagine a chant more than a thousand years old, handed down first by word of mouth, then
+    written with little signs traced by hand&nbsp;: the <strong>neumes</strong>. These signs
+    look nothing like our present-day notes&nbsp;; they are drawings that suggest the
+    <em>gesture</em> of the voice — rising, falling, lingering, bouncing. Learning to read
+    them is rather like learning to decipher an ancient script&nbsp;: strange at first, then
+    surprisingly logical.
+</p>
+
+<h2>What is this about&nbsp;?</h2>
+
+<h3>Gregorian chant, in a nutshell</h3>
+<p>
+    Gregorian chant is the official chant of the Roman Catholic liturgy, fixed between the
+    <abbr title="8th and 9th centuries">8<sup>th</sup> and the 9<sup>th</sup>
+    century</abbr>. It is sung <strong>in Latin</strong>, <strong>in a single voice</strong>
+    (we call it <em>monodic</em>&nbsp;: everyone sings the same melody) and <strong>without
+    any instrumental accompaniment</strong>. It is a «&nbsp;bare&nbsp;» chant, entirely at
+    the service of the sacred text.
+cré.
+</p>
+
+<div class="encadre def">
+    <span class="etiquette">Definition — Neume</span>
+    <p>
+        A <strong>neume</strong> is a sign noting one or more sounds sung on a single
+        syllable. The word comes from the Greek <span class="mot-latin">pneuma</span>,
+        «&nbsp;breath&nbsp;». A neume may be worth a single note… or a whole little spray of
+        notes thrown out on one vowel.
+    </p>
+</div>
+
+<h3>Why a «&nbsp;triple&nbsp;» book&nbsp;?</h3>
+<p>
+    The <strong><em>Graduale Triplex</em></strong> (published by the abbey of Solesmes in
+    1979) is a chant book that superimposes <strong>three scripts</strong> for one and the
+    same chant — hence its name «&nbsp;triplex&nbsp;», triple&nbsp;:
+</p>
+<ul>
+    <li>
+in the centre, modern <strong>square notation</strong>, on a staff, giving the exact pitch
+of every note&nbsp;;
+</li>
+    <li>above, the <strong>neumes of Laon</strong>, copied from a manuscript of the 9<sup>th</sup> century&nbsp;;</li>
+    <li>below, the <strong>neumes of St Gall</strong>, taken from other early manuscripts.</li>
+</ul>
+<p>
+    Looking at all three at once, you get both <em>the right note</em> (thanks to the square
+    notation) and <em>the way to sing it</em> — lively, weighty, light, drawn out — thanks
+    to the two early scripts. We shall go into all of this on <a href="#triplex">the page devoted to it</a>.
+</p>
+
+<div class="encadre astuce">
+    <span class="etiquette">How to read this blog</span>
+    <p>
+        If you are starting out, follow the order of the tabs&nbsp;: begin with <a href="#notation">The basics</a>, then <a href="#triplex">The Graduale Triplex</a>, before tackling the six sample chants. Each chant
+        illustrates different neumes, from the plainest to the most ornate.
+    </p>
+</div>
+
+<h2>Our six sample chants</h2>
+<p>
+    To keep things concrete, we start from six famous chants&nbsp;: four pieces from
+    Christmas and Easter, completed by the <strong>two Alleluias</strong> of those same
+    Masses — enough to run through the whole palette of neumes, from the soberest to the
+    most jubilant.
+</p>
+
+<div class="grille-cartes">
+    <a class="carte-lien" href="#puer-natus-est">
+        <span class="num">Example 1 · Introit</span>
+        <h3>Puer natus est</h3>
+        <p>The entrance chant of the Mass of Christmas Day. Ideal for reading your first neumes.</p>
+    </a>
+    <a class="carte-lien" href="#viderunt-omnes">
+        <span class="num">Example 2 · Gradual</span>
+        <h3>Viderunt omnes</h3>
+        <p>A highly ornate chant&nbsp;: dozens of notes on a single syllable (the melisma).</p>
+    </a>
+    <a class="carte-lien" href="#lux-fulgebit">
+        <span class="num">Example 3 · Introit</span>
+        <h3>Lux fulgebit</h3>
+        <p>The entrance chant of the Christmas Mass at dawn. Perfect for nuances of duration.</p>
+    </a>
+    <a class="carte-lien" href="#victimae-paschalis">
+        <span class="num">Example 4 · Sequence</span>
+        <h3>Victimæ paschali laudes</h3>
+        <p>The Easter sequence&nbsp;: a later form, almost a sung dialogue.</p>
+    </a>
+    <a class="carte-lien" href="#alleluia-noel">
+        <span class="num">Example 5 · Alleluia</span>
+        <h3>Alleluia. Dies sanctificatus</h3>
+        <p>
+The Alleluia of Christmas Day&nbsp;: the jubilus, that great melisma of joy on the final
+«&nbsp;a&nbsp;».
+</p>
+    </a>
+    <a class="carte-lien" href="#alleluia-paques">
+        <span class="num">Example 6 · Alleluia</span>
+        <h3>Alleluia. Pascha nostrum</h3>
+        <p>
+The Alleluia of Easter Day&nbsp;: the same form, another mode — a chance to compare two
+jubili.
+</p>
+    </a>
+</div>
+
+
+</section>
+<section class="page-blog" id="histoire">
+
+<h1>What do we mean by «&nbsp;Gregorian&nbsp;»&nbsp;?</h1>
+<p class="chapeau">
+    Before reading the neumes, let us go back in time. Where does this chant come
+    from&nbsp;? Why does it bear the name of a pope&nbsp;? And why did an alphabet have to
+    be <em>invented</em> in order to write it down&nbsp;? A short history, without jargon.
+</p>
+
+<h2>1. What exactly is Gregorian chant&nbsp;?</h2>
+<p class="lettrine">
+    Gregorian chant is <strong>plainchant</strong>&nbsp;: a <strong>single melodic
+    line</strong>, sung <strong>in unison</strong> (everyone on the same note), <strong>with
+    no instrumental accompaniment whatever</strong>, and in Latin. No harmony, no
+    orchestra&nbsp;: nothing but voices and a sacred text. This plainness is not
+    poverty&nbsp;; it is a choice, turned wholly towards prayer and towards making the words
+    intelligible.
+</p>
+
+<div class="encadre def">
+    <span class="etiquette">Definition — Plainchant</span>
+    <p>
+        <strong>Plainchant</strong> (from the Latin <span class="mot-latin">cantus
+        planus</span>, «&nbsp;even chant&nbsp;») is the monodic liturgical chant of the
+        Latin Church. «&nbsp;Gregorian&nbsp;» is the name of its most widespread form, the
+        one that established itself in the Carolingian period.
+    </p>
+</div>
+
+<h2>2. A misleading name&nbsp;: Pope Gregory</h2>
+<p>
+    <strong>Gregory I, known as «&nbsp;the Great&nbsp;»</strong>, was pope from 590 to 604.
+    He is one of the great figures of late antiquity&nbsp;: a tireless reformer, the
+    organiser of the Church of Rome, a considerable spiritual author (we owe him the
+    <em>Pastoral Rule</em> and the <em>Dialogues</em>). Tradition also credits him with
+    reorganising the Roman liturgy and its <span class="mot-latin">schola cantorum</span>,
+    the pope's school of singers. From there to making him the <em>author</em> of all the
+    chant that bears his name was but one step… which the Middle Ages cheerfully took.
+</p>
+
+<h3>The legend of the dove</h3>
+<p>
+    Around 873, nearly three centuries after his death, a <em>Life</em> of Gregory tells a
+    scene that was to make its fortune&nbsp;: the pope receives the melodies directly from
+    the <strong>Holy Spirit</strong>, in the shape of a <strong>dove</strong> perched by his
+    ear, while he dictates them to a secretary. Medieval iconography seized on the story and
+    repeated it endlessly&nbsp;: Gregory writing, the dove on his shoulder, and often a
+    scribe spying on him from behind a curtain, astounded to see him break off… and then
+    resume, inspired. It is this image that adorns, for instance, the frontispiece of the
+    antiphonary of Hartker (St Gall).
+</p>
+
+<div class="facsimile">
+    <p>🕊️ <strong>Space for an illustration</strong></p>
+    <p>
+Insert here an illumination of Gregory the Great and the dove (for example the frontispiece
+of the <em>Hartker antiphonary</em>, St Gall, ms 390/391, digitised on e-codices, or another
+copyright-free image).<br> <code>&lt;img src="assets/img/gregoire-colombe.jpg" alt="Gregory the Great inspired by the dove of the Holy Spirit"&gt;</code>
+</p>
+</div>
+
+<h3>What history says</h3>
+<p>
+    It is a <strong>fine legend</strong> — but a legend. Gregory died in 604&nbsp;; yet the
+    repertory as we know it only took shape in the 8<sup>th</sup>–9<sup>th</sup> centuries,
+    from the meeting of <em>Roman</em> chant with <em>Frankish</em> usage (we speak of a
+    «&nbsp;Romano-Frankish&nbsp;» synthesis). Gregory may well have set liturgical reforms
+    in motion&nbsp;; he did not «&nbsp;compose&nbsp;» these melodies, and he never saw a
+    neume — they would appear only two and a half centuries after him.
+</p>
+
+<h3>Why the name stuck</h3>
+<p>
+    So why «&nbsp;Gregorian&nbsp;»&nbsp;? Because the attribution was
+    <strong>useful</strong>. When the Carolingians set out to impose Roman chant on the
+    whole of Europe (see below), there was nothing like placing it under the patronage of a
+    prestigious pope&nbsp;: that gave it the authority of Rome and the prestige of sanctity.
+    The «&nbsp;Gregory&nbsp;» <em>label</em> served as a seal of authenticity. The name has
+    stuck&nbsp;; the reality is more collective, later — and, let us say it, more
+    interesting.
+</p>
+
+<div class="encadre def">
+    <span class="etiquette">Key point</span>
+    <p>
+        Gregory the Great is the <strong>symbolic patron</strong> of Gregorian chant, not
+        its author. Remembering that is to understand that Gregorian chant is a
+        <strong>collective work</strong>, shaped by generations of singers, and not the
+        miraculous dictation of one man.
+    </p>
+</div>
+
+<h2>3. Before Charlemagne&nbsp;: eastern roots</h2>
+<p class="lettrine">
+    Christian chant did not come out of nowhere. The very first Christians were, for the
+    most part, <strong>Jews</strong> familiar with the chant of the
+    <strong>synagogue</strong> (<em>Hebrew cantillation</em>)&nbsp;: for them, singing the
+    word of God went without saying. Around the Mediterranean they were also steeped in
+    other traditions — <strong>Byzantine</strong>, and later <strong>Arab-Muslim</strong>
+    (<em>Quranic cantillation</em>) — all of which share the same reflex&nbsp;: the sacred
+    word is <em>sung</em>, it is not simply read.
+</p>
+
+<h3>Musical examples</h3>
+<div class="encadre astuce">
+    <span class="etiquette">To listen side by side</span>
+    <p>
+        Three pieces of listening are enough to hear the family likeness&nbsp;: a
+        <strong>cantillation of the Torah</strong> (with its <span
+        class="mot-latin">te'amim</span>), a <strong>Byzantine hymn</strong> and a
+        <strong>call to prayer</strong> (<span class="mot-latin">adhan</span>), then a
+        <strong>Gregorian psalmody</strong> for comparison.
+    </p>
+    
+</div>
+
+<h3>The legacy of the synagogue&nbsp;: psalmody</h3>
+<p>
+    At the heart of Gregorian chant are the <strong>psalms</strong> — those 150 poems
+    inherited from the Hebrew Bible, sung for more than two thousand years. Christians
+    inherited from them the practice of <strong>psalmody</strong> (singing a psalm to a
+    simple melodic formula), but also its two great ways of doing so&nbsp;:
+</p>
+<ul>
+    <li>
+<strong>responsorial</strong>&nbsp;: a soloist sings the verses and the assembly answers
+with a refrain&nbsp;;
+</li>
+    <li>
+<strong>antiphonal</strong>&nbsp;: two choirs answer one another in alternation — a practice
+the West (St Ambrose in Milan) did indeed import from the East.
+</li>
+</ul>
+<p>
+    More striking still&nbsp;: some Hebrew words passed unchanged into the mouths of Latin
+    singers. When you hear <strong><span class="mot-latin">Alleluia</span></strong> (from
+    the Hebrew <em>Hallelou-Yah</em>, «&nbsp;praise the Lord&nbsp;»), <strong>Amen</strong>,
+    <strong>Hosanna</strong> or <strong>Sabaoth</strong>, you are hearing a direct thread
+    linking the synagogue to the choir of the monks.
+</p>
+
+<h3>Byzantium and the Christian East</h3>
+<p>
+    The other great neighbour is the <strong>Byzantine world</strong> (the Greek-speaking
+    Christian East). To it we probably owe one of the most structuring features of Gregorian
+    chant&nbsp;: the organisation of the melodies into <strong>eight modes</strong>. The
+    Byzantines had their system of eight «&nbsp;tones&nbsp;» (the <span
+    class="mot-latin">oktoechos</span>)&nbsp;; the Carolingian theorists set up, in
+    parallel, the eight modes of the West. A direct borrowing is hard to prove — but the
+    kinship of spirit is plain.
+</p>
+<p>
+    From the East too comes a certain <strong>taste for ornament</strong>&nbsp;: those long
+    vocalises on a single syllable (the <strong>melisma</strong>, see the gradual <a
+    href="#viderunt-omnes">Viderunt omnes</a>) call to mind the fervour of
+    eastern chants. It is no accident that ensembles such as <strong>Organum</strong>
+    (Marcel Pérès) embrace, in their performances, this colouring from the East.
+</p>
+
+<h3>One and the same gesture&nbsp;: the sacred word sung</h3>
+<p>
+    Let us widen the view further&nbsp;: the <strong>muezzin</strong>'s call to prayer
+    (<span class="mot-latin">adhan</span>), the <strong>cantillation</strong> of the Torah,
+    Christian psalmody… three different worlds, one and the same fundamental gesture —
+    carrying a sacred text on a melody, to engrave it in the memory and lift it above
+    ordinary speech. Gregorian chant is one branch of that great Mediterranean tree.
+</p>
+
+<div class="encadre astuce">
+    <span class="etiquette">A historian's caution</span>
+    <p>
+        Talking about «&nbsp;influences&nbsp;» calls for modesty&nbsp;: since everything was
+        handed down <strong>orally</strong>, we have no recording of these ancient chants.
+        We reason by <em>kinship</em> and by clues (words, structures, written testimony),
+        not by evidence of sound. So keep «&nbsp;family likeness&nbsp;» rather than
+        «&nbsp;copy&nbsp;».
+    </p>
+</div>
+
+<div class="encadre def">
+    <span class="etiquette">Your question — can the scripts be compared?</span>
+    <p>
+        Yes, and it is fascinating&nbsp;! Several traditions independently invented signs
+        «&nbsp;above the text&nbsp;» very close, in spirit, to our neumes&nbsp;:
+    </p>
+    <ul>
+        <li>
+the Hebrew <strong>te'amim</strong> (cantillation accents of the Torah)&nbsp;: little signs
+placed around the words to guide the melody — exactly the same idea of a gestural
+aide-mémoire&nbsp;;
+</li>
+        <li>
+<strong>Byzantine notation</strong> («&nbsp;palaeo-Byzantine&nbsp;» neumes), likewise at
+first indicating the gesture, before becoming more precise&nbsp;;
+</li>
+        <li>
+the <strong>Arab-Muslim</strong> tradition, long essentially oral (handed down from master
+to disciple).
+</li>
+    </ul>
+    <p>
+        In other words&nbsp;: everywhere, people first <em>memorised</em>, then wrote down
+        <em>reminders</em> — never, at the outset, a complete score.
+    </p>
+</div>
+
+<h2>4. The Carolingian unification</h2>
+<p>
+    By the 8<sup>th</sup> century the Christian liturgy was everywhere in Europe… but in
+    <strong>very different forms from one region to another</strong>&nbsp;: «&nbsp;Old
+    Roman&nbsp;» chant, Gallican in Gaul, Ambrosian in Milan, Mozarabic in Spain, Beneventan
+    in southern Italy. As everything was handed down <strong>orally</strong>, each region
+    sang «&nbsp;its own way&nbsp;», and the melodies drifted.
+</p>
+<p>
+    <strong>Charlemagne</strong> (following his father Pepin) wanted to unify his empire —
+    through chant as well. He imposed <strong>«&nbsp;Roman chant&nbsp;»</strong> as the
+    standard. From the meeting of that Roman chant with Frankish usage was born the
+    repertory we call <strong>Gregorian</strong> today. The unification was as political as
+    it was spiritual.
+</p>
+
+<h2>5. 9<sup>th</sup> century&nbsp;: the invention of neumes (about 850)</h2>
+<p>
+    One large problem remained&nbsp;: how to make sure that everyone sang the <em>same</em>
+    thing, when nothing was written down&nbsp;? The answer appeared around
+    <strong>850</strong>&nbsp;: people began adding little <strong>signs above the
+    text</strong>, the <strong>neumes</strong>.
+</p>
+<p>
+    Careful, this is the crucial point&nbsp;: these first neumes <strong>note neither the
+    exact pitches, nor the intervals, nor a measured rhythm</strong>. They indicate only
+    <em>how each syllable is to be sung</em> — rising, falling, pressing, lightening — and
+    certain vocal effects. They are <strong>aides-mémoire</strong>&nbsp;: they serve to
+    <em>recover</em> a melody one already knows by heart, not to discover it.
+</p>
+
+<h3>A demonstration&nbsp;: «&nbsp;Frère Jacques&nbsp;» in neumes</h3>
+<p>
+    To get a real feel for this, let us play a game&nbsp;: here is the beginning of
+    <em>Frère Jacques</em> written «&nbsp;in the old manner&nbsp;», with neumes floating
+    above the syllables, with no staff. The dotted line stands for the
+    <strong>gesture</strong> of the voice.
+</p>
+
+<figure class="figure-neume">
+    <div class="partition-scroll">
+        <svg width="560" height="100" viewBox="0 0 560 100" role="img" aria-label="Frère Jacques written in adiastematic neumes: signs rising and falling above the syllables, with no staff">
+            <!-- geste mélodique (contour) -->
+            <polyline points="40,60 105,52 170,44 235,60" fill="none" stroke="var(--rubrique-clair)" stroke-width="1.5" stroke-dasharray="3 3"/>
+            <polyline points="320,60 385,52 450,44 515,60" fill="none" stroke="var(--rubrique-clair)" stroke-width="1.5" stroke-dasharray="3 3"/>
+            <!-- notes (puncta) -->
+            <g class="svg-neume">
+                <rect x="34" y="56" width="12" height="9" rx="1"/>
+                <rect x="99" y="48" width="12" height="9" rx="1"/>
+                <rect x="164" y="40" width="12" height="9" rx="1"/>
+                <rect x="229" y="56" width="12" height="9" rx="1"/>
+                <rect x="314" y="56" width="12" height="9" rx="1"/>
+                <rect x="379" y="48" width="12" height="9" rx="1"/>
+                <rect x="444" y="40" width="12" height="9" rx="1"/>
+                <rect x="509" y="56" width="12" height="9" rx="1"/>
+            </g>
+            <!-- syllabes -->
+            <g fill="var(--encre)" font-family="serif" font-size="14" text-anchor="middle">
+                <text x="40"  y="88">Frè</text>
+                <text x="105" y="88">re</text>
+                <text x="170" y="88">Jac</text>
+                <text x="235" y="88">ques</text>
+                <text x="320" y="88">Frè</text>
+                <text x="385" y="88">re</text>
+                <text x="450" y="88">Jac</text>
+                <text x="515" y="88">ques</text>
+            </g>
+        </svg>
+    </div>
+    <figcaption>
+        <em>Frère Jacques</em> in «&nbsp;adiastematic&nbsp;» neumes (without a staff)&nbsp;:
+        you <strong>recognise</strong> the tune… but only because you already know it&nbsp;!
+        There is no way of deciphering it without having it in your head.
+    </figcaption>
+</figure>
+
+<div class="encadre astuce">
+    <span class="etiquette">The point to take away</span>
+    <p>
+        That is the <em>whole</em> logic of the first neumes&nbsp;: a singer who knows the
+        melody finds his bearings in it instantly&nbsp;; a beginner is left helpless. What
+        is still missing is the information about <strong>precise pitches</strong>. That is
+        exactly what square notation was to bring.
+    </p>
+</div>
+
+<h2>6. 11<sup>th</sup> century&nbsp;: square notation</h2>
+<p>
+    From the 11<sup>th</sup> century onwards a decisive step was taken&nbsp;: the signs were
+    aligned on a <strong>staff</strong>, which gradually settled at <strong>four
+    lines</strong>. From then on, the height of a sign on the staff indicated the pitch of
+    the sound. The notation does not give an <em>absolute</em> pitch (the choir adapts it to
+    its voices), but it notes precisely the <strong>intervals</strong> between the notes.
+    Here is the same beginning of <em>Frère Jacques</em>, this time «&nbsp;set down&nbsp;»
+    on a staff&nbsp;:
+</p>
+
+<figure class="figure-neume">
+    <div class="partition-scroll">
+        <svg width="300" height="96" viewBox="0 0 300 96" role="img" aria-label="The beginning of Frère Jacques in square notation on a four-line staff, with a C clef">
+            <!-- portée 4 lignes -->
+            <line x1="10" y1="25" x2="290" y2="25" class="svg-portee"/>
+            <line x1="10" y1="37" x2="290" y2="37" class="svg-portee"/>
+            <line x1="10" y1="49" x2="290" y2="49" class="svg-portee"/>
+            <line x1="10" y1="61" x2="290" y2="61" class="svg-portee"/>
+            <!-- clé d'ut : le vide de la clé tombe SUR la 3e ligne (y=49) = do -->
+            <rect x="16" y="37" width="4" height="24" class="svg-neume"/>
+            <rect x="21" y="37" width="6" height="7" class="svg-neume"/>
+            <rect x="21" y="54" width="6" height="7" class="svg-neume"/>
+            <!-- notes : do (3e ligne, 49) · ré (interligne, 43) · mi (2e ligne, 37) · do -->
+            <rect x="70"  y="45" width="12" height="9" rx="1" class="svg-neume"/>
+            <rect x="120" y="39" width="12" height="9" rx="1" class="svg-neume"/>
+            <rect x="170" y="33" width="12" height="9" rx="1" class="svg-neume"/>
+            <rect x="220" y="45" width="12" height="9" rx="1" class="svg-neume"/>
+            <!-- syllabes -->
+            <g fill="var(--encre)" font-family="serif" font-size="13" text-anchor="middle">
+                <text x="76"  y="86">Frè</text>
+                <text x="126" y="86">re</text>
+                <text x="176" y="86">Jac</text>
+                <text x="226" y="86">ques</text>
+            </g>
+        </svg>
+    </div>
+    <figcaption>
+        The same «&nbsp;Frè-re Jac-ques&nbsp;» (<span class="mot-latin">do · re · mi ·
+        do</span>) in square notation&nbsp;: now it can be read even by someone who does not
+        know it. The details of this script are in <a href="#notation">The basics</a>.
+    </figcaption>
+</figure>
+
+<h2>7. Solesmes&nbsp;: the great restoration</h2>
+<p>
+    Let us leap forward in time. Over the centuries Gregorian chant had become
+    <strong>disfigured</strong>&nbsp;: melodies shortened, weighed down,
+    «&nbsp;modernised&nbsp;» editions full of mistakes. In the 19<sup>th</sup> century a
+    small abbey in the Sarthe was to change everything and give the chant back its authentic
+    face&nbsp;: <strong>Solesmes</strong>.
+</p>
+
+<h3>Dom Guéranger and the Benedictine revival</h3>
+<p>
+    In <strong>1833</strong>, <strong>Dom Prosper Guéranger</strong> refounded the abbey of
+    Saint-Pierre de <strong>Solesmes</strong> and restored there the Benedictine life,
+    almost extinct in France after the Revolution. Passionate about the liturgy, he wanted
+    to be done with the corrupt versions then in use and to <strong>go back to the
+    sources</strong>&nbsp;: to recover the melodies as the early manuscripts had preserved
+    them. That is the starting point of a scholarly adventure that would last more than a
+    century.
+</p>
+
+<h3>Scholarship at the service of the chant</h3>
+<p>Two monks were to turn that intuition into a rigorous method&nbsp;:</p>
+<ul>
+    <li>
+        <strong>Dom Joseph Pothier</strong> compares the manuscripts and reconstructs the
+        melodies&nbsp;; his <em>Mélodies grégoriennes</em> (1880), then his <em>Liber
+        gradualis</em> (1883), mark the return of «&nbsp;true&nbsp;» Gregorian chant.
+    </li>
+    <li>
+        <strong>Dom André Mocquereau</strong> launches in <strong>1889</strong> the
+        <strong><em>Paléographie Musicale</em></strong>&nbsp;: a monumental collection of
+        <strong>photographic facsimiles</strong> of manuscripts from all over the world. By
+        publishing side by side dozens of witnesses to the same chant, it proved, evidence
+        in hand, what the original version had been. It is the direct ancestor of the
+        approach of the <a href="#triplex"><em>Graduale Triplex</em></a>.
+    </li>
+</ul>
+
+<div class="facsimile">
+    <p>📚 <strong>Space for an illustration</strong></p>
+    <p>
+Insert here a picture of the abbey of Solesmes, a portrait of Dom Guéranger, or a plate from
+the <em>Paléographie Musicale</em>.<br> <code>&lt;img src="assets/img/solesmes.jpg" alt="The abbey of Saint-Pierre de Solesmes"&gt;</code>
+</p>
+</div>
+
+<h3>The Vatican edition and the motu proprio of Pius X (1903)</h3>
+<p>
+    The work of Solesmes received a resounding endorsement. In <strong>1903</strong>, Pope
+    <strong>Pius X</strong>, in his motu proprio <em><span class="mot-latin">Tra le
+    sollecitudini</span></em>, proclaimed Gregorian chant the <strong>model for all sacred
+    music</strong>. Hard on its heels came the <strong>Vatican edition</strong> — the
+    <em>Kyriale</em> (1905), the <em>Graduale</em> (1908) — prepared with the help of
+    Solesmes&nbsp;: it is the official reference in <strong>square notation</strong>.
+</p>
+
+<table class="grille">
+    <caption>A few landmarks of the restoration</caption>
+    <thead><tr><th>Date</th><th>Event</th></tr></thead>
+    <tbody>
+        <tr><td>1833</td><td>Dom Guéranger refounds the abbey of Solesmes.</td></tr>
+        <tr><td>1880</td><td>Dom Pothier, <em>Les Mélodies grégoriennes</em>.</td></tr>
+        <tr><td>1889</td><td>Dom Mocquereau launches the <em>Paléographie Musicale</em>.</td></tr>
+        <tr><td>1903</td><td>Motu proprio <em>Tra le sollecitudini</em> of Pius X.</td></tr>
+        <tr><td>1908</td><td>Vatican edition of the <em>Graduale Romanum</em>.</td></tr>
+        <tr><td>1979</td><td><em>Graduale Triplex</em> (the fruit of semiology).</td></tr>
+    </tbody>
+</table>
+
+<h2>8. Today's performing styles</h2>
+<p>
+    How are these melodies sung nowadays&nbsp;? There is no single answer, but several
+    schools — and that is precisely what makes listening so absorbing.
+</p>
+
+<h3>The classic «&nbsp;Solesmes method&nbsp;»</h3>
+<p>
+    To make the chant teachable, Dom Mocquereau devised a system of <strong>rhythmic
+    signs</strong> (little dots, episemas, «&nbsp;ictus&nbsp;») added to the square
+    notation. The result is the style most people have in mind&nbsp;: a <strong>flowing,
+    even and serene</strong> chant, with notes of equal length grouped in twos and threes,
+    of great purity (one thinks too of the chant of the abbey of <strong>Silos</strong>, in
+    Spain). This was long the way taught everywhere.
+</p>
+
+<h3>From method to semiology</h3>
+<p>
+    In the 20<sup>th</sup> century, still at Solesmes, <strong>Dom Eugène Cardine</strong>
+    pushed the study further&nbsp;: he scrutinised the <strong>earliest neumes</strong> (St
+    Gall, Laon) to read in them nuances of rhythm and expression that square notation had
+    erased. This is <strong>Gregorian semiology</strong> — and it is exactly what gave birth
+    to the <a href="#triplex"><em>Graduale Triplex</em></a> in 1979. In
+    other words, «&nbsp;Solesmes&nbsp;» is not frozen&nbsp;: the house that fixed the even
+    version is also the one that reopened the question of nuance.
+</p>
+
+<h3>Historically informed approaches</h3>
+<p>
+    Other artists go further still in restoring the old details, with more
+    <strong>ornate</strong> performances, sometimes tinged with the eastern influences
+    mentioned above. Such is the case of ensembles like <strong>Organum</strong> (Marcel
+    Pérès) or the <strong>Ensemble Anne-Marie Deschamps</strong> (<em>Venance
+    Fortunat</em>). Between the serenity of Solesmes and the exuberance of Organum there is
+    no «&nbsp;good&nbsp;» and «&nbsp;bad&nbsp;» chant&nbsp;: there are two ways of bringing
+    the same signs back to life.
+</p>
+
+<div class="encadre astuce">
+    <span class="etiquette">Hear the difference for yourself</span>
+    <p>
+        Each chant page brings together <strong>several performances</strong> to
+        compare&nbsp;: Solesmes, Organum, the Ensemble Deschamps… Start with <a href="#puer-natus-est">Puer natus est</a>, where the monastic style of Solesmes and
+        the approach of Organum can be heard side by side. The theory then takes on its full
+        meaning.
+    </p>
+</div>
+
+<h2>9. Going further</h2>
+<p>
+    Want to dig deeper&nbsp;? Here are a few doors in, from the most accessible to the most
+    scholarly. (Always check the conditions of reuse of images, recordings and scores before
+    publishing them on your site.)
+</p>
+
+<h3>📖 Books and references</h3>
+<ul>
+    <li>
+<strong>Daniel Saulnier, <em>Le chant grégorien</em></strong> (Solesmes) — a short, limpid
+introduction, ideal after this blog.
+</li>
+    <li>
+<strong>Eugène Cardine, <em>Gregorian Semiology</em></strong> (Solesmes, 1970) — the
+founding work on reading the early neumes&nbsp;; more technical.
+</li>
+    <li>
+<strong><em>Graduale Triplex</em></strong> (Solesmes, 1979) — the book at the heart of this
+blog, to be kept in front of you&nbsp;; and the <em>Graduale Romanum</em> for the square
+notation alone.
+</li>
+    <li>
+<strong>Willi Apel, <em>Gregorian Chant</em></strong> — a classic survey of the history and
+the forms.
+</li>
+</ul>
+
+<h3>🖥️ Digitised manuscripts (open access)</h3>
+<ul>
+    <li>
+<strong>e-codices</strong> (virtual library of the manuscripts of Switzerland)&nbsp;: it
+holds the great witnesses of <strong>St Gall</strong> — the <em>Cantatorium</em> (ms 359),
+the antiphonary of <strong>Hartker</strong> (ms 390/391) — and <strong>Einsiedeln
+121</strong>.
+</li>
+    <li>
+<strong>Gallica</strong> (BnF) and the portals of municipal libraries&nbsp;: for many
+manuscripts, including the <strong>Laon</strong> tradition.
+</li>
+    <li>
+<strong>GregoBase</strong> and the <strong>Cantus Database</strong>&nbsp;: scores and
+catalogues of Gregorian chants online, useful for tracking down a particular piece.
+</li>
+</ul>
+
+<h3>🎧 Listening and comparing</h3>
+<p>
+    The best teacher is still the ear. Listen again to the performers mentioned here —
+    Solesmes, Silos, <strong>Organum</strong> (Marcel Pérès), <strong>Ensemble Anne-Marie
+    Deschamps</strong> — straight from our chant pages&nbsp;: <a href="#puer-natus-est">Puer natus est</a>, <a href="#viderunt-omnes">Viderunt omnes</a>, <a
+    href="#lux-fulgebit">Lux fulgebit</a>, <a href="#victimae-paschalis">Victimæ paschali laudes</a> and the two <a href="#alleluia-noel">Alleluias</a>.
+</p>
+
+<div class="encadre astuce">
+    <span class="etiquette">A note of rigour</span>
+    <p>
+        This blog aims at <strong>popularisation</strong>&nbsp;: dates and facts have been
+        simplified for the sake of clarity. Before publishing anything, have the historical
+        side read over with the help of the works above&nbsp;: research (in semiology
+        especially) goes on evolving, and some attributions remain debated.
+    </p>
+</div>
+
+<div class="encadre">
+    <span class="etiquette">What to remember</span>
+    <p>
+        Gregorian chant is a <strong>plainchant</strong> unified in the Carolingian period,
+        with eastern roots, wrongly attributed to Gregory the Great. It was first written
+        down in <strong>neumes</strong> (an aide-mémoire for the gesture, 9<sup>th</sup>
+        c.), then made precise thanks to <strong>square notation</strong> on a staff
+        (11<sup>th</sup> c.). Today several schools bring it back to life. You now have the
+        whole context&nbsp;: let us move on to reading the signs themselves.
+    </p>
+</div>
+
+
+</section>
+<section class="page-blog" id="notation">
+
+<h1>The basics&nbsp;: learning to see a neume</h1>
+<p class="chapeau">
+    Before opening the <em>Graduale Triplex</em>, let us set up a few simple landmarks.
+    By the end of this page you will recognise the Gregorian staff, its clef, and about a
+    dozen fundamental neumes.
+</p>
+
+<h2>1. The four-line staff</h2>
+<p class="lettrine">
+    Our modern staff has five lines. Gregorian chant, by contrast, is written on a staff of
+    only <strong>four lines</strong> (the <span class="mot-latin">tetragram</span>). That is
+    enough, because Gregorian melodies move within a fairly narrow range. As today, the
+    <em>higher</em> a sign sits on the staff, the <em>higher</em> the sound&nbsp;; the
+    <em>lower</em> it sits, the <em>lower</em> the sound. One peculiarity worth knowing&nbsp;:
+    <strong>the clef can sit on different lines</strong> — it is not fixed once and for all as
+    in modern music, and it sometimes even changes in the middle of a piece.
+</p>
+
+<div class="encadre def">
+    <span class="etiquette">Definition — The clef</span>
+    <p>
+        A <strong>clef</strong> is a marker placed at the start of a line that names one of
+        the lines. In chant, two clefs are mainly used&nbsp;: the
+        <strong><em>C</em> clef</strong> (do) <svg width="14" height="18" viewBox="0 0 14 18" aria-hidden="true"><rect x="2" y="2" width="4" height="14" class="svg-neume"/><rect x="7" y="2" width="5" height="5" class="svg-neume"/><rect x="7" y="11" width="5" height="5" class="svg-neume"/></svg>
+        and the <strong><em>F</em> clef</strong> <svg width="14" height="18" viewBox="0 0 14 18" aria-hidden="true"><rect x="2" y="2" width="4" height="14" class="svg-neume"/><rect x="7" y="2" width="5" height="5" class="svg-neume"/><rect x="7" y="8" width="5" height="5" class="svg-neume"/></svg>.
+        They do not fix an absolute pitch
+        (the choir adjusts the pitch to its voices), but they show where the semitones fall,
+        which is enough to sing in tune.
+    </p>
+</div>
+
+<h2>2. The basic note&nbsp;: the punctum</h2>
+<p>
+    In square notation the commonest single note is the
+    <strong><span class="mot-latin">punctum</span></strong> — literally a «&nbsp;dot&nbsp;»,
+    drawn as a small square. A variant, the <strong><span class="mot-latin">virga</span></strong>
+    («&nbsp;rod&nbsp;»), is a square extended by a small stem&nbsp;; it often notes a higher
+    note. When reading, <em>punctum</em> and <em>virga</em> are both worth a single note.
+</p>
+
+<div class="galerie-neumes">
+    <div class="carte-neume">
+        <svg width="140" height="76" viewBox="0 0 140 76" role="img" aria-label="A punctum: a single square note on the staff">
+            <line x1="10" y1="20" x2="130" y2="20" class="svg-portee"/>
+            <line x1="10" y1="32" x2="130" y2="32" class="svg-portee"/>
+            <line x1="10" y1="44" x2="130" y2="44" class="svg-portee"/>
+            <line x1="10" y1="56" x2="130" y2="56" class="svg-portee"/>
+            <rect x="64" y="34" width="12" height="10" rx="1" class="svg-neume"/>
+        </svg>
+        <span class="nom">Punctum</span>
+        <span class="desc">1 note</span>
+    </div>
+    <div class="carte-neume">
+        <svg width="140" height="76" viewBox="0 0 140 76" role="img" aria-label="A virga: a square note extended by a downward stem">
+            <line x1="10" y1="20" x2="130" y2="20" class="svg-portee"/>
+            <line x1="10" y1="32" x2="130" y2="32" class="svg-portee"/>
+            <line x1="10" y1="44" x2="130" y2="44" class="svg-portee"/>
+            <line x1="10" y1="56" x2="130" y2="56" class="svg-portee"/>
+            <rect x="64" y="22" width="12" height="10" rx="1" class="svg-neume"/>
+            <rect x="73" y="30" width="3" height="26" class="svg-neume"/>
+        </svg>
+        <span class="nom">Virga</span>
+        <span class="desc">1 note (often high)</span>
+    </div>
+</div>
+
+<h2>3. Two-note neumes</h2>
+<p>
+    Things get more complex — and more interesting — when several sounds are sung
+    <strong>on a single syllable</strong>. They are then grouped into a single drawing.
+    The golden rule for reading&nbsp;: <strong>a neume is read from bottom to top and from
+    left to right</strong>, following the stroke.
+</p>
+
+<div class="galerie-neumes">
+    <div class="carte-neume">
+        <svg width="140" height="76" viewBox="0 0 140 76" role="img" aria-label="A pes: a low note then a high note joined, ascending movement">
+            <line x1="10" y1="20" x2="130" y2="20" class="svg-portee"/>
+            <line x1="10" y1="32" x2="130" y2="32" class="svg-portee"/>
+            <line x1="10" y1="44" x2="130" y2="44" class="svg-portee"/>
+            <line x1="10" y1="56" x2="130" y2="56" class="svg-portee"/>
+            <rect x="60" y="46" width="12" height="10" rx="1" class="svg-neume"/>
+            <rect x="70" y="26" width="12" height="10" rx="1" class="svg-neume"/>
+            <rect x="70" y="30" width="2" height="20" class="svg-neume"/>
+        </svg>
+        <span class="nom">Pes <span class="mot-latin">(podatus)</span></span>
+        <span class="desc">2 notes going up</span>
+    </div>
+    <div class="carte-neume">
+        <svg width="140" height="76" viewBox="0 0 140 76" role="img" aria-label="A clivis: a high note then a low note, descending movement">
+            <line x1="10" y1="20" x2="130" y2="20" class="svg-portee"/>
+            <line x1="10" y1="32" x2="130" y2="32" class="svg-portee"/>
+            <line x1="10" y1="44" x2="130" y2="44" class="svg-portee"/>
+            <line x1="10" y1="56" x2="130" y2="56" class="svg-portee"/>
+            <rect x="60" y="26" width="12" height="10" rx="1" class="svg-neume"/>
+            <rect x="60" y="30" width="2" height="22" class="svg-neume"/>
+            <rect x="70" y="46" width="12" height="10" rx="1" class="svg-neume"/>
+        </svg>
+        <span class="nom">Clivis <span class="mot-latin">(flexa)</span></span>
+        <span class="desc">2 notes going down</span>
+    </div>
+</div>
+
+<h2>4. Three-note neumes</h2>
+<p>
+    With three notes you draw small «&nbsp;waves&nbsp;». Remember these four above all —
+    you will meet them constantly&nbsp;:
+</p>
+
+<div class="galerie-neumes">
+    <div class="carte-neume">
+        <svg width="140" height="76" viewBox="0 0 140 76" role="img" aria-label="A torculus: low, high, low">
+            <line x1="10" y1="20" x2="130" y2="20" class="svg-portee"/>
+            <line x1="10" y1="32" x2="130" y2="32" class="svg-portee"/>
+            <line x1="10" y1="44" x2="130" y2="44" class="svg-portee"/>
+            <line x1="10" y1="56" x2="130" y2="56" class="svg-portee"/>
+            <rect x="52" y="44" width="12" height="10" rx="1" class="svg-neume"/>
+            <rect x="66" y="28" width="12" height="10" rx="1" class="svg-neume"/>
+            <rect x="80" y="44" width="12" height="10" rx="1" class="svg-neume"/>
+        </svg>
+        <span class="nom">Torculus</span>
+        <span class="desc">low · high · low</span>
+    </div>
+    <div class="carte-neume">
+        <svg width="140" height="76" viewBox="0 0 140 76" role="img" aria-label="A porrectus: high, low, high">
+            <line x1="10" y1="20" x2="130" y2="20" class="svg-portee"/>
+            <line x1="10" y1="32" x2="130" y2="32" class="svg-portee"/>
+            <line x1="10" y1="44" x2="130" y2="44" class="svg-portee"/>
+            <line x1="10" y1="56" x2="130" y2="56" class="svg-portee"/>
+            <polygon points="52,28 64,28 56,50 52,50" class="svg-neume"/>
+            <rect x="52" y="44" width="14" height="8" class="svg-neume"/>
+            <rect x="78" y="28" width="12" height="10" rx="1" class="svg-neume"/>
+            <rect x="64" y="32" width="2" height="18" class="svg-neume"/>
+        </svg>
+        <span class="nom">Porrectus</span>
+        <span class="desc">high · low · high</span>
+    </div>
+    <div class="carte-neume">
+        <svg width="140" height="76" viewBox="0 0 140 76" role="img" aria-label="A scandicus: three notes going up">
+            <line x1="10" y1="20" x2="130" y2="20" class="svg-portee"/>
+            <line x1="10" y1="32" x2="130" y2="32" class="svg-portee"/>
+            <line x1="10" y1="44" x2="130" y2="44" class="svg-portee"/>
+            <line x1="10" y1="56" x2="130" y2="56" class="svg-portee"/>
+            <rect x="52" y="46" width="12" height="10" rx="1" class="svg-neume"/>
+            <rect x="66" y="34" width="12" height="10" rx="1" class="svg-neume"/>
+            <rect x="80" y="20" width="12" height="10" rx="1" class="svg-neume"/>
+            <rect x="90" y="24" width="2" height="14" class="svg-neume"/>
+        </svg>
+        <span class="nom">Scandicus</span>
+        <span class="desc">3 notes going up</span>
+    </div>
+    <div class="carte-neume">
+        <svg width="140" height="76" viewBox="0 0 140 76" role="img" aria-label="A climacus: a high note then two descending diamonds">
+            <line x1="10" y1="20" x2="130" y2="20" class="svg-portee"/>
+            <line x1="10" y1="32" x2="130" y2="32" class="svg-portee"/>
+            <line x1="10" y1="44" x2="130" y2="44" class="svg-portee"/>
+            <line x1="10" y1="56" x2="130" y2="56" class="svg-portee"/>
+            <rect x="52" y="20" width="12" height="10" rx="1" class="svg-neume"/>
+            <rect x="61" y="24" width="2" height="14" class="svg-neume"/>
+            <polygon points="72,36 80,32 88,36 80,40" class="svg-neume"/>
+            <polygon points="88,48 96,44 104,48 96,52" class="svg-neume"/>
+        </svg>
+        <span class="nom">Climacus</span>
+        <span class="desc">1 note then a descent</span>
+    </div>
+</div>
+
+<div class="encadre astuce">
+    <span class="etiquette">Memory tip</span>
+    <p>
+        Many neume names «&nbsp;say&nbsp;» their own shape&nbsp;:
+        <span class="mot-latin">scandicus</span> suggests climbing (as in «&nbsp;escalade&nbsp;»),
+        <span class="mot-latin">climacus</span> going down a staircase (Greek <em>klimax</em>
+        = ladder), <span class="mot-latin">flexa</span> the bend downwards. Trust the
+        <strong>shape</strong> before memorising the name.
+    </p>
+</div>
+
+<h2>5. Two signs that change the colour of the chant</h2>
+<p>
+    Some small signs do not change the note, but the <em>way</em> it is sung.
+    Here are two essential ones, which we shall meet again in the examples&nbsp;:
+</p>
+<ul>
+    <li>
+        <strong>The <span class="mot-latin">quilisma</span></strong> — a note drawn as a
+        zigzag, light and fleeting, which acts as a springboard to the next note&nbsp;;
+        traditionally the preceding note is slightly lengthened.
+    </li>
+    <li>
+        <strong>The episema</strong> — a small horizontal stroke added above (or beside) a
+        neume to indicate that the note is <em>settled on</em>, <em>broadened</em>. It is the
+        equivalent of a slight «&nbsp;leaning&nbsp;» of the voice.
+    </li>
+</ul>
+
+<div class="galerie-neumes">
+    <div class="carte-neume">
+        <svg width="140" height="76" viewBox="0 0 140 76" role="img" aria-label="A quilisma: a note drawn as a zigzag">
+            <line x1="10" y1="20" x2="130" y2="20" class="svg-portee"/>
+            <line x1="10" y1="32" x2="130" y2="32" class="svg-portee"/>
+            <line x1="10" y1="44" x2="130" y2="44" class="svg-portee"/>
+            <line x1="10" y1="56" x2="130" y2="56" class="svg-portee"/>
+            <rect x="52" y="46" width="12" height="10" rx="1" class="svg-neume"/>
+            <path d="M66 44 l4 -6 l3 6 l4 -6 l3 6" fill="none" class="svg-neume" stroke-width="2"/>
+            <rect x="82" y="20" width="12" height="10" rx="1" class="svg-neume"/>
+            <rect x="92" y="24" width="2" height="14" class="svg-neume"/>
+        </svg>
+        <span class="nom">Quilisma</span>
+        <span class="desc">light note, springboard</span>
+    </div>
+    <div class="carte-neume">
+        <svg width="140" height="76" viewBox="0 0 140 76" role="img" aria-label="A note with an episema: a horizontal stroke marks a leaning">
+            <line x1="10" y1="20" x2="130" y2="20" class="svg-portee"/>
+            <line x1="10" y1="32" x2="130" y2="32" class="svg-portee"/>
+            <line x1="10" y1="44" x2="130" y2="44" class="svg-portee"/>
+            <line x1="10" y1="56" x2="130" y2="56" class="svg-portee"/>
+            <rect x="64" y="34" width="12" height="10" rx="1" class="svg-neume"/>
+            <rect x="62" y="30" width="16" height="2" class="svg-neume"/>
+        </svg>
+        <span class="nom">Episema</span>
+        <span class="desc">settle / broaden</span>
+    </div>
+</div>
+
+<div class="encadre">
+    <span class="etiquette">Key point</span>
+    <p>
+        A neume = a drawing read from left to right and from bottom to top. Its
+        <strong>shape</strong> tells the movement of the voice&nbsp;; a few added signs
+        (episema, quilisma) tell the <strong>manner</strong>. You now have all the basic
+        vocabulary needed to tackle the book that brings them together.
+    </p>
+</div>
+
+
+</section>
+<section class="page-blog" id="triplex">
+
+<h1>The <em>Graduale Triplex</em>&nbsp;: three scripts for a single chant</h1>
+<p class="chapeau">
+    Why three stacked notations&nbsp;? Because none of them says everything on its own.
+    Together they give both the right note and the soul of the chant.
+</p>
+
+<p class="lettrine">
+    When the monks of Solesmes published the <em>Graduale Triplex</em> in 1979, they were
+    answering an old problem. The oldest chant manuscripts (9th–11th century) are of
+    extraordinary musical subtlety&nbsp;: they notate the nuances, the leanings, the
+    impulses of the voice. But they have one major flaw&nbsp;: they <strong>do not give the
+    exact pitches</strong>. Conversely, modern square notation gives precise pitches… but
+    has lost much of those nuances. The solution&nbsp;? Superimpose the two worlds.
+</p>
+
+<div class="encadre def">
+    <span class="etiquette">The key word — diastematic</span>
+    <p>
+        A notation is <strong>diastematic</strong> when the height of the signs precisely
+        indicates the pitch of the sounds (as on a staff). It is
+        <strong>adiastematic</strong> (or «&nbsp;in campo aperto&nbsp;», in the open field)
+        when the signs float above the text&nbsp;: they show the melodic <em>gesture</em>
+        without fixing the intervals. The old neumes are adiastematic&nbsp;; square notation
+        is diastematic.
+    </p>
+</div>
+
+<h2>The three «&nbsp;storeys&nbsp;» of the page</h2>
+<p>
+    On a line of the <em>Graduale Triplex</em>, for each syllable of the text, you will find
+    three pieces of information aligned vertically&nbsp;:
+</p>
+
+<div class="legende-triplex">
+    <span><span class="pastille laon"></span>Above&nbsp;: neumes of <strong>Laon</strong></span>
+    <span><span class="pastille vat"></span>In the middle&nbsp;: <strong>square notation</strong> (Vatican edition)</span>
+    <span><span class="pastille sg"></span>Below&nbsp;: neumes of <strong>St. Gall</strong></span>
+</div>
+
+<h3>In the middle&nbsp;: the square notation (the Editio Vaticana)</h3>
+<p>
+    This is the reference layer for <strong>pitch</strong>. On its four-line staff, with its
+    clef, it tells you exactly which note to sing. It is the one we learned in <a href="#notation">The basics</a>. If you were to read only one layer to
+    «&nbsp;get out&nbsp;» the melody, it would be this one.
+</p>
+
+<h3>Above&nbsp;: the neumes of Laon</h3>
+<p>
+    They come from a 9th-century manuscript kept at Laon (the «&nbsp;manuscript 239&nbsp;»)
+    and are printed <strong>in black</strong>. This family of writing, called
+    <em>Messine</em>, is famous for its <strong>rhythmic</strong> precision&nbsp;: it
+    distinguishes short from long notes very finely, notably thanks to added letters (see
+    below).
+</p>
+
+<h3>Below&nbsp;: the neumes of St. Gall</h3>
+<p>
+    They come from manuscripts of the abbey of St. Gall (in present-day Switzerland), such
+    as the <em>Cantatorium</em> (manuscript 359) or the Einsiedeln 121 manuscript, and are
+    printed <strong>in red</strong>. This script is admired for the clarity with which it
+    draws the <strong>gesture</strong> of the melody and its articulation, likewise enriched
+    with small letters.
+</p>
+
+<div class="facsimile">
+    <p>📜 <strong>Space for a facsimile</strong></p>
+    <p>
+Insert here an extract from a page of the <em>Graduale Triplex</em> (or a copyright-free
+facsimile) showing the three superimposed storeys.<br> Example&nbsp;: <code>&lt;img src="assets/img/triplex-exemple.jpg" alt="…"&gt;</code>
+</p>
+    <p>
+<em>Mind reproduction rights&nbsp;: prefer your own photographs or freely accessible
+digitised manuscripts (e.g. e-codices, Gallica).</em>
+</p>
+</div>
+
+<h2>The «&nbsp;significative letters&nbsp;»</h2>
+<p>
+    A delightful detail&nbsp;: the old copyists added <strong>small letters</strong> beside
+    the neumes to specify the intention — rather like our markings «&nbsp;softly&nbsp;»,
+    «&nbsp;hold back&nbsp;» above a score. They are called <span class="mot-latin">litterae
+    significativae</span>. Here are some of the most frequent&nbsp;:
+</p>
+
+<table class="grille">
+    <caption>A few significative letters (usage varies between Laon and St. Gall)</caption>
+    <thead>
+        <tr><th>Letter</th><th>Latin word</th><th>Meaning for the singer</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>c</strong></td><td><span class="mot-latin">celeriter</span></td><td>quickly, without dragging</td></tr>
+        <tr><td><strong>t</strong></td><td><span class="mot-latin">tenete</span></td><td>hold, lengthen the note</td></tr>
+        <tr><td><strong>a</strong></td><td><span class="mot-latin">altius</span></td><td>higher (go well up)</td></tr>
+        <tr><td><strong>i / iu</strong></td><td><span class="mot-latin">iusum / inferius</span></td><td>lower</td></tr>
+        <tr><td><strong>l</strong></td><td><span class="mot-latin">levare</span></td><td>lifting, lightening</td></tr>
+        <tr><td><strong>m</strong></td><td><span class="mot-latin">mediocriter</span></td><td>moderately (neither too much nor too little)</td></tr>
+        <tr><td><strong>e</strong></td><td><span class="mot-latin">equaliter</span></td><td>at the same pitch</td></tr>
+    </tbody>
+</table>
+
+<div class="encadre astuce">
+    <span class="etiquette">How to use it in practice</span>
+    <p>
+        There is no need to decode everything at once&nbsp;! The comfortable method&nbsp;:
+        first read the <strong>note</strong> in the square layer in the middle, then look
+        above and below and ask yourself «&nbsp;should I press on, settle,
+        lighten&nbsp;?&nbsp;». The two old layers often confirm each other — and when they
+        diverge, that is precisely where the chant becomes fascinating to interpret.
+    </p>
+</div>
+
+<div class="encadre">
+    <span class="etiquette">Key point</span>
+    <p>
+        <strong>Triplex = 3 layers.</strong> The centre (square notation) gives <em>the
+        notes</em>&nbsp;; Laon (on top) and St. Gall (below) give <em>rhythm and
+        expression</em>. We shall now see all of that come alive in six concrete chants.
+    </p>
+</div>
+
+
+</section>
+<section class="page-blog" id="puer-natus-est">
+
+<h1>Example 1 — <span class="mot-latin">Puer natus est</span></h1>
+<p class="chapeau">
+    The entrance chant (introit) of the Mass of Christmas Day. A luminous, welcoming chant,
+    perfect for reading your very first neumes.
+</p>
+
+<div class="fiche">
+    <dl>
+        <dt>Genre</dt><dd>Introit (entrance chant / <span class="mot-latin">antiphona ad introitum</span>)</dd>
+        <dt>Occasion</dt><dd>Mass of Christmas Day (<span class="mot-latin">in die</span>), 25 December</dd>
+        <dt>Text</dt><dd>After the prophet Isaiah (Is 9, 6) and psalm 97</dd>
+        <dt>Mode</dt><dd>Mode VII (<em>sol</em> mode, called «&nbsp;angelic&nbsp;», bright and soaring)</dd>
+        <dt>Style</dt><dd>Rather <strong>neumatic</strong>&nbsp;: a few notes per syllable</dd>
+        <dt>In the <em>Triplex</em></dt><dd>p. 47</dd>
+    </dl>
+</div>
+
+<div class="lecteur-audio">
+    <span class="etiquette">Listen to the chant</span>
+    <p class="note-audio">Three interpretations, from the monastic style to the historically informed approach&nbsp;—&nbsp;ideal for comparison.</p>
+    <div class="videos-audio">
+        <div class="ecoute-item"><span class="ecoute-nom"><strong>Choir of the Monks of Saint-Pierre de Solesmes Abbey</strong></span><span class="ecoute-url">youtu.be/Kz1IUxAxYRw</span></div>
+        <div class="ecoute-item"><span class="ecoute-nom"><strong>Ensemble Organum</strong>, dir. Marcel Pérès — <em>Chant de l'Église de Rome (6th–13th c.)</em></span><span class="ecoute-url">youtu.be/h_Ez91zGm4Y</span></div>
+        <div class="ecoute-item"><span class="ecoute-nom">Tutorial&nbsp;: «&nbsp;How to sing the introit <em>Puer natus est</em>&nbsp;?&nbsp;»</span><span class="ecoute-url">youtu.be/yt9PKLNllMA</span></div>
+    </div>
+</div>
+
+<h2>The text and its translation</h2>
+<div class="texte-latin">
+    <div class="entete lat">Latin</div>
+    <div class="entete fr">English</div>
+    <div class="lat">Puer natus est nobis,<br>et filius datus est nobis&nbsp;:</div>
+    <div class="fr">A child is born to us,<br>and a son is given to us&nbsp;;</div>
+    <div class="lat">cujus imperium super humerum ejus&nbsp;:</div>
+    <div class="fr">sovereignty rests upon his shoulder&nbsp;;</div>
+    <div class="lat">et vocabitur nomen ejus magni consilii Angelus.</div>
+    <div class="fr">and he shall be called the Messenger of the great design.</div>
+</div>
+
+<h2>What to look at first</h2>
+<p class="lettrine">
+    Let us start gently, with the first word&nbsp;: <span class="mot-latin">Pu-er</span>. It
+    has two syllables, so at least two «&nbsp;packets&nbsp;» of neumes. The beauty of
+    Gregorian chant is that a single syllable can carry several notes. Our job&nbsp;: for
+    each syllable, to spot <em>how many</em> notes there are and <em>which way</em> they
+    move.
+</p>
+
+<div class="encadre astuce">
+    <span class="etiquette">Method in 3 steps</span>
+    <p>
+        1) Find the syllable in the text. 2) In the middle (square notation), count the
+        squares and follow them up and down. 3) Glance above (Laon) and below (St.
+        Gall)&nbsp;: should you press on, settle, lighten&nbsp;? That is all.
+    </p>
+</div>
+
+<h3>Syllable by syllable (start of the chant)</h3>
+<ul>
+    <li>
+        <strong><span class="mot-latin">Pu-</span></strong>&nbsp;: the chant typically takes
+        flight with a rising movement. Look here for a <strong>pes</strong> (two notes going
+        up) — the voice «&nbsp;takes off&nbsp;».
+    </li>
+    <li>
+        <strong><span class="mot-latin">-er</span></strong>&nbsp;: the voice settles, often
+        with a <strong>clivis</strong> (two notes going down) or a small group coming back
+        down to the supporting note.
+    </li>
+    <li>
+        <strong><span class="mot-latin">na-tus</span></strong>&nbsp;: listen to how the word
+        «&nbsp;born&nbsp;» is brought out&nbsp;; the neumes become more generous here
+        (several notes), underlining the most important word of the sentence.
+    </li>
+</ul>
+
+<div class="encadre def">
+    <span class="etiquette">Reminder — accent and music</span>
+    <p>
+        In chant the music follows the meaning of the text&nbsp;: important words (<span
+        class="mot-latin">Puer</span>, «&nbsp;the child&nbsp;») often receive more notes or
+        a slight leaning. This is not decorative&nbsp;: it is a way of <em>proclaiming</em>
+        the text.
+    </p>
+</div>
+
+<h2>Seeing the three notations</h2>
+<div class="facsimile">
+    <p>📜 <strong>Space for the facsimile of «&nbsp;Puer natus est&nbsp;»</strong></p>
+    <p>
+Insert here the corresponding extract from the <em>Graduale Triplex</em>, then annotate
+(arrows, colours) the neumes discussed above.<br> <code>&lt;img src="assets/img/puer-natus-est.jpg" alt="Puer natus est in the Graduale
+Triplex"&gt;</code>
+</p>
+</div>
+
+<div class="legende-triplex">
+    <span><span class="pastille laon"></span>Laon, above (the rhythm)</span>
+    <span><span class="pastille vat"></span>Square notation, centre (the notes)</span>
+    <span><span class="pastille sg"></span>St. Gall, below (the gesture)</span>
+</div>
+
+<div class="encadre">
+    <span class="etiquette">Key point for this chant</span>
+    <p>
+        <span class="mot-latin">Puer natus est</span> is a <strong>neumatic</strong>
+        chant&nbsp;: small groups of 2 to 4 notes per syllable. It is the ideal training
+        ground for recognising the <strong>pes</strong>, the <strong>clivis</strong> and the
+        <strong>torculus</strong> without being overwhelmed. The next chant will multiply
+        the notes…
+    </p>
+</div>
+
+
+</section>
+<section class="page-blog" id="viderunt-omnes">
+
+<h1>Example 2 — <span class="mot-latin">Viderunt omnes</span></h1>
+<p class="chapeau">
+    A gradual for Christmas Day, and one of the summits of Gregorian art&nbsp;: here a
+    single syllable can carry dozens of notes. Welcome to the world of the
+    <strong>melisma</strong>.
+</p>
+
+<div class="fiche">
+    <dl>
+        <dt>Genre</dt><dd>Gradual (meditative chant, after the 1st reading)</dd>
+        <dt>Occasion</dt><dd>Mass of Christmas Day</dd>
+        <dt>Text</dt><dd>Psalm 97 (98), verses 3 and 4, then verse 2</dd>
+        <dt>Mode</dt><dd>Mode V (<em>fa</em> mode, solemn and radiant)</dd>
+        <dt>Style</dt><dd><strong>Melismatic</strong>&nbsp;: long garlands of notes per syllable</dd>
+        <dt>In the <em>Triplex</em></dt><dd>p. 48</dd>
+    </dl>
+</div>
+
+<div class="lecteur-audio">
+    <span class="etiquette">Listen to the chant</span>
+    <p class="note-audio">Listen to how a single syllable stretches into a long vocalise, depending on the performer.</p>
+    <div class="videos-audio">
+        <div class="ecoute-item"><span class="ecoute-nom"><strong>Ensemble Aliénor Voices</strong></span><span class="ecoute-url">youtu.be/d-Bt8skYKrg</span></div>
+        <div class="ecoute-item"><span class="ecoute-nom"><strong>Choir of the Monks of Saint-Pierre de Solesmes Abbey</strong></span><span class="ecoute-url">youtu.be/bUJgWIbSgrE</span></div>
+        <div class="ecoute-item"><span class="ecoute-nom"><strong>Letizia Butterin</strong>, <span class="mot-latin">præcentor</span></span><span class="ecoute-url">youtu.be/ppepZucvGOc</span></div>
+    </div>
+</div>
+
+<h2>The text and its translation</h2>
+<div class="texte-latin">
+    <div class="entete lat">Latin</div>
+    <div class="entete fr">English</div>
+    <div class="lat">Viderunt omnes fines terræ<br>salutare Dei nostri&nbsp;:</div>
+    <div class="fr">All the ends of the earth have seen<br>the salvation of our God&nbsp;;</div>
+    <div class="lat">jubilate Deo, omnis terra.</div>
+    <div class="fr">acclaim God, all the earth.</div>
+    <div class="lat"><span class="chip">Verse</span> Notum fecit Dominus salutare suum&nbsp;:<br>ante conspectum gentium revelavit justitiam suam.</div>
+    <div class="fr">The Lord has made known his salvation&nbsp;;<br>in the sight of the nations he has revealed his justice.</div>
+</div>
+
+<div class="encadre def">
+    <span class="etiquette">Definition — Melisma</span>
+    <p>
+        A <strong>melisma</strong> is a group of many notes sung on a single syllable
+        (sometimes twenty, thirty notes or more&nbsp;!). It is the opposite of
+        «&nbsp;syllabic&nbsp;» chant (one note per syllable). The melisma is the voice
+        <em>rejoicing</em>, drawing out a vowel as one draws out a joy.
+    </p>
+</div>
+
+<h2>Why so many notes&nbsp;?</h2>
+<p class="lettrine">
+    A gradual is not made to be understood «&nbsp;word by word&nbsp;» like a reading&nbsp;:
+    it is a chant of contemplation, entrusted to a soloist or a small, highly trained group.
+    On key syllables — for instance the last one of <span class="mot-latin">om-nes</span> or
+    of <span class="mot-latin">ter-ræ</span> — the melody blossoms into long vocalises. So
+    do not try to «&nbsp;read fast&nbsp;»&nbsp;: here, one savours.
+</p>
+
+<h3>How to read a long melisma without getting lost</h3>
+<p>
+    Faced with a garland of notes, the key is to <strong>cut it up into familiar little
+    neumes</strong>. A melisma is never more than a sequence of bricks you already
+    know&nbsp;:
+</p>
+<ul>
+    <li>
+<strong>climacus</strong> figures (a note then a descending cascade of diamonds) — very
+frequent in descents&nbsp;;
+</li>
+    <li>
+linked <strong>pes</strong> and <strong>clivis</strong> figures, which make the line
+undulate&nbsp;;
+</li>
+    <li>
+sometimes a <strong>quilisma</strong>, that zigzag note which serves as a springboard in the
+middle of an ascent.
+</li>
+</ul>
+
+<div class="encadre astuce">
+    <span class="etiquette">The role of the old notations here</span>
+    <p>
+        In such a dense melisma, the square notation in the middle shows clearly
+        <em>which</em> notes follow one another. But it is above all the layers of
+        <strong>Laon</strong> and <strong>St. Gall</strong> that rescue the performer&nbsp;:
+        they show where to <em>speed up</em> (letter <strong>c</strong>, <span
+        class="mot-latin">celeriter</span>), where to <em>settle</em> (letter
+        <strong>t</strong>, <span class="mot-latin">tenete</span>, or an episema), so that
+        the vocalise breathes instead of turning into a mush of notes.
+    </p>
+</div>
+
+<div class="encadre def">
+    <span class="etiquette">Did you know — the jubilus</span>
+    <p>
+        The great melisma of joy is sometimes called the <span
+        class="mot-latin">jubilus</span>, typically the one that blossoms on the final
+        «&nbsp;a&nbsp;» of <span class="mot-latin">Alleluia</span>. Saint Augustine
+        described it as the song of a heart too full to find its words. <span
+        class="mot-latin">Viderunt omnes</span> belongs to that same family of exuberant
+        writing.
+    </p>
+</div>
+
+<h2>Seeing the three notations</h2>
+<div class="facsimile">
+    <p>📜 <strong>Space for the facsimile of «&nbsp;Viderunt omnes&nbsp;»</strong></p>
+    <p>
+Choose a highly ornate syllable (e.g. the melisma on <span class="mot-latin">-nes</span> of
+<span class="mot-latin">omnes</span>) and show how it breaks down into small neumes.<br>
+<code>&lt;img src="assets/img/viderunt-omnes.jpg" alt="Viderunt omnes in the
+Graduale Triplex"&gt;</code>
+</p>
+</div>
+
+<div class="encadre">
+    <span class="etiquette">Key point for this chant</span>
+    <p>
+        <span class="mot-latin">Viderunt omnes</span> illustrates the
+        <strong>melismatic</strong> style. The right reflex&nbsp;: <strong>cut up</strong>
+        the long vocalises into familiar neumes, and rely on the significative letters for
+        the rhythm. After this feast of notes, let us return to a more intimate chant&nbsp;:
+        the dawn of Christmas.
+    </p>
+</div>
+
+
+</section>
+<section class="page-blog" id="lux-fulgebit">
+
+<h1>Example 3 — <span class="mot-latin">Lux fulgebit</span></h1>
+<p class="chapeau">
+    The entrance chant of the dawn Mass at Christmas. A chant of half-light, all
+    delicacy&nbsp;: the perfect occasion to hear the <strong>nuances of duration</strong>.
+</p>
+
+<div class="fiche">
+    <dl>
+        <dt>Genre</dt><dd>Introit (entrance chant)</dd>
+        <dt>Occasion</dt><dd>Mass at dawn on Christmas Day (<span class="mot-latin">in aurora</span>), in the early morning of 25 December</dd>
+        <dt>Text</dt><dd>After Isaiah (Is 9, 2 and 9, 6) and psalm 92</dd>
+        <dt>Mode</dt><dd>Mode VIII (<em>sol</em> mode, peaceful and settled)</dd>
+        <dt>Style</dt><dd>Neumatic and measured&nbsp;: ideal for observing durations</dd>
+        <dt>In the <em>Triplex</em></dt><dd>p. 44</dd>
+    </dl>
+</div>
+
+<div class="lecteur-audio">
+    <span class="etiquette">Listen to the chant</span>
+    <p class="note-audio">As you listen, spot the <em>settled</em> notes and the <em>flowing</em> ones.</p>
+    <div class="videos-audio">
+        <div class="ecoute-item"><span class="ecoute-nom"><strong>Schola Gregoriana Vratislaviensis</strong> — <em>Lumen de lumine</em></span><span class="ecoute-url">youtu.be/qRx08y4rs2Q</span></div>
+        <div class="ecoute-item"><span class="ecoute-nom"><strong>Choir of the Monks of Solesmes</strong>, dir. Dom Jean Claire</span><span class="ecoute-url">youtu.be/X6Sx6K3GJOk</span></div>
+        <div class="ecoute-item"><span class="ecoute-nom"><em>Venance Fortunat</em> · <strong>Ensemble Anne-Marie Deschamps</strong></span><span class="ecoute-url">youtu.be/laXNboqoFU0</span></div>
+    </div>
+</div>
+
+<h2>The text and its translation</h2>
+<div class="texte-latin">
+    <div class="entete lat">Latin</div>
+    <div class="entete fr">English</div>
+    <div class="lat">Lux fulgebit hodie super nos&nbsp;:</div>
+    <div class="fr">A light shall shine upon us today&nbsp;;</div>
+    <div class="lat">quia natus est nobis Dominus&nbsp;:</div>
+    <div class="fr">for a Lord is born to us&nbsp;;</div>
+    <div class="lat">et vocabitur Admirabilis, Deus,<br>Princeps pacis, Pater futuri sæculi&nbsp;:</div>
+    <div class="fr">and he shall be called Wonderful, God,<br>Prince of peace, Father of the world to come&nbsp;;</div>
+    <div class="lat">cujus regni non erit finis.</div>
+    <div class="fr">and his reign shall have no end.</div>
+</div>
+
+<h2>The real subject here&nbsp;: the duration of the notes</h2>
+<p class="lettrine">
+    So far we have asked «&nbsp;how many notes&nbsp;?&nbsp;» and «&nbsp;do they go up or
+    down&nbsp;?&nbsp;». <span class="mot-latin">Lux fulgebit</span> invites us to a subtler
+    question&nbsp;: «&nbsp;how <em>long</em> does each note last&nbsp;?&nbsp;». For in
+    chant, not all notes have the same duration&nbsp;: some are light and fleeting, others
+    settle and broaden.
+</p>
+
+<div class="encadre def">
+    <span class="etiquette">Definition — short note, lengthened note</span>
+    <p>
+        Chant alternates <strong>short</strong> notes (the ordinary, light flow) and
+        <strong>lengthened</strong> notes, on which the voice lingers for a moment. This is
+        not a «&nbsp;square&nbsp;» rhythm like a military march&nbsp;: it is a supple
+        breathing, guided by the meaning of the text.
+    </p>
+</div>
+
+<h3>Where do you read these durations&nbsp;?</h3>
+<p>This is precisely the area where the old notations of the <em>Triplex</em> shine&nbsp;:</p>
+<ul>
+    <li>
+        <strong>The episema</strong> (small stroke) above a St. Gall neume&nbsp;:
+        «&nbsp;settle, broaden&nbsp;».
+    </li>
+    <li>
+        <strong>The letter <span class="mot-latin">t</span></strong> (<span
+        class="mot-latin">tenete</span>)&nbsp;: «&nbsp;hold the note&nbsp;».
+    </li>
+    <li>
+        <strong>The letter <span class="mot-latin">c</span></strong> (<span
+        class="mot-latin">celeriter</span>)&nbsp;: on the contrary, «&nbsp;pass quickly, do
+        not lean&nbsp;».
+    </li>
+    <li>
+        In the notation of <strong>Laon</strong>, the very shape of the stroke (rounded,
+        «&nbsp;hooked&nbsp;»…) already distinguishes short from long with remarkable
+        precision.
+    </li>
+</ul>
+
+<div class="encadre astuce">
+    <span class="etiquette">A very simple exercise</span>
+    <p>
+        On the word <span class="mot-latin">Lux</span> (the «&nbsp;light&nbsp;») and then on
+        <span class="mot-latin">fulgebit</span> («&nbsp;will shine&nbsp;»), ask
+        yourself&nbsp;: does the upper layer (Laon) or the lower one (St. Gall) tell me to
+        <em>settle</em> the voice, or to <em>flow on</em>&nbsp;? You will find that the
+        moments of leaning often fall on the words the text wants to highlight&nbsp;: the
+        light, the birth, the peace.
+    </p>
+</div>
+
+<h2>Seeing the three notations</h2>
+<div class="facsimile">
+    <p>📜 <strong>Space for the facsimile of «&nbsp;Lux fulgebit&nbsp;»</strong></p>
+    <p>
+Ideally, circle in colour the episemas and the letters <span class="mot-latin">t</span> and
+<span class="mot-latin">c</span>, to make the durations visible at a glance.<br>
+<code>&lt;img src="assets/img/lux-fulgebit.jpg" alt="Lux fulgebit in the
+Graduale Triplex"&gt;</code>
+</p>
+</div>
+
+<div class="legende-triplex">
+    <span><span class="pastille laon"></span>Laon, above&nbsp;: the shape of the stroke tells short/long</span>
+    <span><span class="pastille vat"></span>Square notation, centre&nbsp;: the notes</span>
+    <span><span class="pastille sg"></span>St. Gall, below&nbsp;: episemas, letters <em>t</em>/<em>c</em></span>
+</div>
+
+<div class="encadre">
+    <span class="etiquette">Key point for this chant</span>
+    <p>
+        With <span class="mot-latin">Lux fulgebit</span> we move from the question
+        «&nbsp;which notes&nbsp;?&nbsp;» to the question «&nbsp;what duration, what
+        leaning&nbsp;?&nbsp;». This is the heart of what makes the <em>Graduale Triplex</em>
+        so precious&nbsp;: the two old layers make audible what square notation alone leaves
+        mute.
+    </p>
+</div>
+
+
+</section>
+<section class="page-blog" id="victimae-paschalis">
+
+<h1>Example 4 — <span class="mot-latin">Victimæ paschali laudes</span></h1>
+<p class="chapeau">
+    The great Easter sequence. With it we change period and style&nbsp;: a later chant,
+    closer to the text, and even built like a little dialogue.
+</p>
+
+<div class="fiche">
+    <dl>
+        <dt>Genre</dt><dd>Sequence (<span class="mot-latin">sequentia</span>), sung before the Gospel</dd>
+        <dt>Occasion</dt><dd>Easter Day (and its octave)</dd>
+        <dt>Author</dt><dd>Attributed to Wipo of Burgundy (11th century)</dd>
+        <dt>Mode</dt><dd>Mode I (<em>re</em> mode, at once grave and luminous)</dd>
+        <dt>Style</dt><dd>Rather <strong>syllabic</strong>&nbsp;: often one note per syllable</dd>
+        <dt>In the <em>Triplex</em></dt><dd>p. 198</dd>
+    </dl>
+</div>
+
+<div class="lecteur-audio">
+    <span class="etiquette">Listen to the chant</span>
+    <p class="note-audio">Follow the dialogue «&nbsp;Dic nobis Maria…&nbsp;» by ear&nbsp;: question, then answer.</p>
+    <div class="videos-audio">
+        <div class="ecoute-item"><span class="ecoute-nom"><strong>Choir of the Monks of Saint-Pierre de Solesmes Abbey</strong></span><span class="ecoute-url">youtu.be/AneBNAmTyr8</span></div>
+        <div class="ecoute-item"><span class="ecoute-nom"><em>Venance Fortunat</em> · <strong>Ensemble Anne-Marie Deschamps</strong></span><span class="ecoute-url">youtu.be/KFFJ7mBkdB0</span></div>
+    </div>
+</div>
+
+<h2>The text and its translation</h2>
+<div class="texte-latin">
+    <div class="entete lat">Latin</div>
+    <div class="entete fr">English</div>
+    <div class="lat">Victimæ paschali laudes<br>immolent Christiani.</div>
+    <div class="fr">To the paschal victim<br>let Christians offer their praises.</div>
+    <div class="lat">Agnus redemit oves&nbsp;:<br>Christus innocens Patri reconciliavit peccatores.</div>
+    <div class="fr">The Lamb has redeemed the sheep&nbsp;;<br>Christ the innocent has reconciled sinners with the Father.</div>
+    <div class="lat">Mors et vita duello<br>conflixere mirando&nbsp;: dux vitæ mortuus, regnat vivus.</div>
+    <div class="fr">Death and life fought<br>a prodigious duel&nbsp;: the Lord of life, having died, reigns alive.</div>
+    <div class="lat"><span class="chip">Question</span> Dic nobis Maria,<br>quid vidisti in via&nbsp;?</div>
+    <div class="fr">Tell us, Mary,<br>what did you see on the way&nbsp;?</div>
+    <div class="lat"><span class="chip">Answer</span> Sepulcrum Christi viventis,<br>et gloriam vidi resurgentis…</div>
+    <div class="fr">The tomb of the living Christ,<br>and I saw the glory of the Risen One…</div>
+    <div class="lat">Scimus Christum surrexisse a mortuis vere&nbsp;:<br>tu nobis, victor Rex, miserere. Amen. Alleluia.</div>
+    <div class="fr">We know that Christ is truly risen from the dead&nbsp;;<br>have mercy on us, victorious King. Amen. Alleluia.</div>
+</div>
+
+<h2>What is a sequence&nbsp;?</h2>
+<p class="lettrine">
+    Our first three examples go back to the heart of the old Gregorian repertoire. The
+    <strong>sequence</strong>, by contrast, is a later genre (from the 9th–11th century) and
+    of a different spirit. It is a <strong>strophic</strong> chant&nbsp;: it proceeds in
+    pairs of phrases (<em>verses</em>) which, two by two, share the same melody. One idea is
+    sung, then taken up again to the same tune with a new text.
+</p>
+
+<div class="encadre def">
+    <span class="etiquette">Definition — syllabic</span>
+    <p>
+        A <strong>syllabic</strong> chant sets (most often) <em>a single note per
+        syllable</em>. It is the opposite of the teeming melisma of <a href="#viderunt-omnes">Viderunt omnes</a>. As a result, the text remains very
+        intelligible — one «&nbsp;follows&nbsp;» the words easily.
+    </p>
+</div>
+
+<h2>What changes when reading the neumes</h2>
+<p>
+    Good news&nbsp;: because the sequence is largely syllabic, the neumes are easier to spot
+    here&nbsp;! You will mostly meet isolated <strong>puncta</strong> (one note per
+    syllable), punctuated now and then by a <strong>pes</strong> or a
+    <strong>clivis</strong> at important joints. It is an excellent chant for
+    <em>consolidating</em> what you have learned, without the density of the graduals.
+</p>
+
+<div class="encadre astuce">
+    <span class="etiquette">Listen for&nbsp;: the dialogue</span>
+    <p>
+        Find the passage <span class="mot-latin">«&nbsp;Dic nobis Maria…&nbsp;»</span>
+        («&nbsp;Tell us, Mary…&nbsp;»). The text stages a <strong>question</strong> put to
+        Mary Magdalene and her <strong>answer</strong>. The melody underlines this
+        dialogue&nbsp;: it is a little sung theatre, almost a scene. Notice how, in this
+        passage, the neumes stay sober so as to let the words speak.
+    </p>
+</div>
+
+<h2>Seeing the three notations</h2>
+<div class="facsimile">
+    <p>📜 <strong>Space for the facsimile of «&nbsp;Victimæ paschali laudes&nbsp;»</strong></p>
+    <p>
+Show a pair of verses sharing the same melody&nbsp;: you then see the same line of neumes
+return beneath two different texts.<br> <code>&lt;img src="assets/img/victimae-paschalis.jpg" alt="Victimæ paschali laudes in the Graduale
+Triplex"&gt;</code>
+</p>
+</div>
+
+<div class="encadre">
+    <span class="etiquette">Key point for this chant</span>
+    <p>
+        <span class="mot-latin">Victimæ paschali laudes</span> illustrates the
+        <strong>syllabic</strong> style and the <strong>strophic</strong> form of the
+        sequence. After the abundance of the graduals, it is a return to clarity&nbsp;: one
+        note, one syllable, one word — and the Easter text offering itself almost as a
+        narrative.
+    </p>
+</div>
+
+
+</section>
+<section class="page-blog" id="alleluia-noel">
+
+<h1>Example 5 — <span class="mot-latin">Alleluia. Dies sanctificatus</span></h1>
+<p class="chapeau">
+    The acclamation that precedes the Gospel on Christmas Day. A chant built on a single
+    word — <span class="mot-latin">Alleluia</span> — and on the long vocalise that prolongs
+    it&nbsp;: the <strong>jubilus</strong>.
+</p>
+
+<div class="fiche">
+    <dl>
+        <dt>Genre</dt><dd>Alleluia (acclamation before the Gospel)</dd>
+        <dt>Occasion</dt><dd>Mass of Christmas Day (<span class="mot-latin">in die</span>), 25 December</dd>
+        <dt>Text</dt><dd>Proper verse for Christmas&nbsp;: <span class="mot-latin">Dies sanctificatus illuxit nobis…</span></dd>
+        <dt>Mode</dt><dd>Mode II (low <em>re</em> mode, recollected)</dd>
+        <dt>Style</dt><dd><strong>Melismatic</strong>&nbsp;: the word is short, the vocalise long</dd>
+        <dt>In the <em>Triplex</em></dt><dd>p. 46</dd>
+    </dl>
+</div>
+
+<div class="lecteur-audio">
+    <span class="etiquette">Listen to the chant</span>
+    <p class="note-audio">Watch for the return of the <span class="mot-latin">jubilus</span>&nbsp;: it opens the chant, then comes back after the verse.</p>
+    <div class="videos-audio">
+        
+        <p class="note-audio">
+<em>Recordings to be inserted&nbsp;: choose two or three contrasting interpretations, as on
+the previous pages.</em>
+</p>
+    </div>
+</div>
+
+<h2>The text and its translation</h2>
+<div class="texte-latin">
+    <div class="entete lat">Latin</div>
+    <div class="entete fr">English</div>
+    <div class="lat">Alleluia.</div>
+    <div class="fr">Alleluia.</div>
+    <div class="lat"><span class="chip">Verse</span> Dies sanctificatus illuxit nobis&nbsp;:<br>venite gentes, et adorate Dominum&nbsp;:</div>
+    <div class="fr">A sanctified day has shone upon us&nbsp;;<br>come, you nations, and adore the Lord&nbsp;;</div>
+    <div class="lat">quia hodie descendit lux magna super terram.</div>
+    <div class="fr">for today a great light has come down upon the earth.</div>
+</div>
+
+<div class="encadre def">
+    <span class="etiquette">Definition — Jubilus</span>
+    <p>
+        The <span class="mot-latin">jubilus</span> is the long vocalise that prolongs the
+        final «&nbsp;a&nbsp;» of <span class="mot-latin">Alleluia</span>. Saint Augustine
+        gives it its finest definition&nbsp;: the song of a heart too full to find its
+        words. It is the <strong>melisma</strong> in its pure state — the notes no longer
+        carry a text, but a joy.
+    </p>
+</div>
+
+<h2>How an Alleluia is built</h2>
+<p class="lettrine">
+    An Alleluia is not a chant «&nbsp;in a straight line&nbsp;»&nbsp;: it is a
+    there-and-back. The soloist launches the word <span class="mot-latin">Alleluia</span>,
+    the choir takes it up and prolongs it with the jubilus&nbsp;; the soloist then sings the
+    <strong>verse</strong>&nbsp;; then everyone returns to the starting point, jubilus
+    included. This <strong>responsorial</strong> form — a soloist, a response — is exactly
+    the one we met in the heritage of psalmody.
+</p>
+
+<h3>What that changes for reading</h3>
+<ul>
+    <li>
+The text is <strong>tiny</strong> (one word, then a short verse)&nbsp;: all the attention
+goes to the drawing of the neumes, not to the syllables.
+</li>
+    <li>
+The jubilus is read like any melisma&nbsp;: you <strong>cut it up</strong> into familiar
+neumes — pes, clivis, climacus, quilisma.
+</li>
+    <li>
+The return of the jubilus after the verse offers a rare opportunity&nbsp;: comparing
+<strong>the same line of neumes twice</strong>, a few centimetres apart.
+</li>
+</ul>
+
+<div class="encadre astuce">
+    <span class="etiquette">The role of the old notations here</span>
+    <p>
+        In such a long vocalise, square notation gives the notes but not the breath. It is
+        the layers of <strong>Laon</strong> (above) and <strong>St. Gall</strong> (below)
+        that cut the jubilus into breathable little units&nbsp;: a <strong>c</strong> (<span
+        class="mot-latin">celeriter</span>) to flow on, a <strong>t</strong> (<span
+        class="mot-latin">tenete</span>) or an episema to settle. Without them, the jubilus
+        is sung flat.
+    </p>
+</div>
+
+<div class="encadre def">
+    <span class="etiquette">Did you know — one Alleluia for several feasts</span>
+    <p>
+        Alleluia melodies travel&nbsp;: one and the same melodic line often serves several
+        verses through the liturgical year. The Alleluia repertoire is thus a wonderful
+        field for observing the <strong>reuse</strong> of melodies — a common procedure in
+        chant, where a known model is adapted to a new text.
+    </p>
+</div>
+
+<h2>Seeing the three notations</h2>
+<div class="facsimile">
+    <p>📜 <strong>Space for the facsimile of «&nbsp;Alleluia. Dies sanctificatus&nbsp;»</strong></p>
+    <p>
+Reproduce the beginning of the chant&nbsp;: the word <span class="mot-latin">Alleluia</span>
+and its jubilus are enough. Box the final «&nbsp;a&nbsp;» to show where the vocalise
+begins.<br> <code>&lt;img src="assets/img/alleluia-noel.jpg" alt="Alleluia
+Dies sanctificatus in the Graduale Triplex"&gt;</code>
+</p>
+</div>
+
+<div class="legende-triplex">
+    <span><span class="pastille laon"></span>Laon, above&nbsp;: where to press on, where to settle</span>
+    <span><span class="pastille vat"></span>Square notation, centre&nbsp;: the notes of the jubilus</span>
+    <span><span class="pastille sg"></span>St. Gall, below&nbsp;: the gesture, the episemas</span>
+</div>
+
+<div class="encadre">
+    <span class="etiquette">Key point for this chant</span>
+    <p>
+        The Alleluia is the form in which <strong>the melisma becomes the
+        subject</strong>&nbsp;: one word, an explosion of notes, a verse, and off we go
+        again. Now listen to the same genre at the other great pole of the liturgical
+        year&nbsp;: Easter.
+    </p>
+</div>
+
+
+</section>
+<section class="page-blog" id="alleluia-paques">
+
+<h1>Example 6 — <span class="mot-latin">Alleluia. Pascha nostrum</span></h1>
+<p class="chapeau">
+    The Alleluia of Easter Day. The same form as the Christmas one, but a wholly different
+    brilliance&nbsp;: the ideal occasion to <strong>compare two jubili</strong> and hear
+    what the <em>mode</em> changes in a melody.
+</p>
+
+<div class="fiche">
+    <dl>
+        <dt>Genre</dt><dd>Alleluia (acclamation before the Gospel)</dd>
+        <dt>Occasion</dt><dd>Mass of Easter Day, and throughout Eastertide</dd>
+        <dt>Text</dt><dd>1st letter to the Corinthians (1 Cor 5, 7)</dd>
+        <dt>Mode</dt><dd>Mode VII (<em>sol</em> mode, bright and soaring)</dd>
+        <dt>Style</dt><dd><strong>Melismatic</strong>&nbsp;: a brief verse, an ample vocalise</dd>
+        <dt>In the <em>Triplex</em></dt><dd>p. 197</dd>
+    </dl>
+</div>
+
+<div class="lecteur-audio">
+    <span class="etiquette">Listen to the chant</span>
+    <p class="note-audio">Listen first to the Christmas Alleluia, then to this one&nbsp;: mode II gathers itself in, mode VII soars.</p>
+    <div class="videos-audio">
+        
+        <p class="note-audio">
+<em>Recordings to be inserted&nbsp;: ideally the same ensemble as for the Christmas
+Alleluia, so that the comparison bears on the chant and not on the voices.</em>
+</p>
+    </div>
+</div>
+
+<h2>The text and its translation</h2>
+<div class="texte-latin">
+    <div class="entete lat">Latin</div>
+    <div class="entete fr">English</div>
+    <div class="lat">Alleluia.</div>
+    <div class="fr">Alleluia.</div>
+    <div class="lat"><span class="chip">Verse</span> Pascha nostrum immolatus est Christus.</div>
+    <div class="fr">Christ, our Passover, has been sacrificed.</div>
+</div>
+
+<div class="encadre def">
+    <span class="etiquette">Reminder — the mode</span>
+    <p>
+        The <strong>mode</strong> is the «&nbsp;family of notes&nbsp;» in which a melody
+        moves&nbsp;: its resting note, its favoured degrees, its colour. Chant has eight of
+        them. Two chants of the same form and the same length can thus produce opposite
+        impressions&nbsp;: that is exactly what happens between the mode II of Christmas,
+        grave and inward, and the Easter mode VII, luminous and rising.
+    </p>
+</div>
+
+<h2>Two Alleluias, the same mechanism</h2>
+<p class="lettrine">
+    Go back to the previous page and set the two chants side by side&nbsp;: you will see the
+    same architecture. The word <span class="mot-latin">Alleluia</span>, its jubilus, a
+    verse entrusted to the soloist, then the return of the jubilus. What Eastertide adds is
+    breadth&nbsp;: the vocalise stretches further, as if the joy of Easter needed more air.
+</p>
+
+<h3>A comparison exercise</h3>
+<ul>
+    <li>
+Count the neumes of the jubilus in both chants&nbsp;: the difference can be seen before it
+is heard.
+</li>
+    <li>
+Look for the <strong>resting note</strong> (the one the melody falls back to)&nbsp;:
+<em>re</em> for Christmas, <em>sol</em> for Easter.
+</li>
+    <li>
+Spot the <strong>quilismas</strong>&nbsp;: in the Easter ascents they are numerous — the
+voice gathers momentum.
+</li>
+</ul>
+
+<div class="encadre astuce">
+    <span class="etiquette">The role of the old notations here</span>
+    <p>
+        Now is the moment to check something amusing&nbsp;: across two different jubili, the
+        <strong>significative letters</strong> come back at the same strategic places — just
+        before an ascent, at the top of a curve, right at the end. Laon (above) and St. Gall
+        (below) do not decorate&nbsp;: they <strong>articulate</strong>.
+    </p>
+</div>
+
+<h2>Seeing the three notations</h2>
+<div class="facsimile">
+    <p>📜 <strong>Space for the facsimile of «&nbsp;Alleluia. Pascha nostrum&nbsp;»</strong></p>
+    <p>
+Ideally, place this facsimile <em>just below</em> the one for the Christmas Alleluia&nbsp;:
+the comparison of the two jubili then becomes immediate.<br> <code>&lt;img src="assets/img/alleluia-paques.jpg" alt="Alleluia Pascha nostrum in the Graduale
+Triplex"&gt;</code>
+</p>
+</div>
+
+<div class="legende-triplex">
+    <span><span class="pastille laon"></span>Laon, above&nbsp;: the rhythm of the jubilus</span>
+    <span><span class="pastille vat"></span>Square notation, centre&nbsp;: the notes</span>
+    <span><span class="pastille sg"></span>St. Gall, below&nbsp;: the gesture and the leanings</span>
+</div>
+
+<div class="encadre">
+    <span class="etiquette">Key point for this chant</span>
+    <p>
+        With these two Alleluias you have been round all the styles&nbsp;: syllabic,
+        neumatic, melismatic, and the responsorial form that sets them in dialogue. All that
+        remains is to keep the vocabulary at hand&nbsp;: on to the <a href="#glossaire">glossary</a>.
+    </p>
+</div>
+
+
+</section>
+<section class="page-blog" id="glossaire">
+
+<h1>A short glossary of Gregorian chant</h1>
+<p class="chapeau">
+    All the key words met throughout the blog, gathered here and explained in one sentence.
+    Keep it at hand as you read.
+</p>
+
+<h2>The styles of chant</h2>
+<table class="grille">
+    <thead><tr><th>Term</th><th>In plain words</th></tr></thead>
+    <tbody>
+        <tr><td><strong>Syllabic</strong></td><td>One note per syllable. The text stays very clear. E.g.&nbsp;: the sequence <span class="mot-latin">Victimæ paschali</span>.</td></tr>
+        <tr><td><strong>Neumatic</strong></td><td>A few notes (2 to 4) per syllable. E.g.&nbsp;: the introit <span class="mot-latin">Puer natus est</span>.</td></tr>
+        <tr><td><strong>Melismatic</strong></td><td>Many notes on a single syllable. E.g.&nbsp;: the gradual <span class="mot-latin">Viderunt omnes</span>.</td></tr>
+        <tr><td><strong>Melisma</strong></td><td>The long garland of notes itself, sung on a vowel.</td></tr>
+        <tr><td><strong>Jubilus</strong></td><td>The great melisma of joy, typically on the «&nbsp;a&nbsp;» of <span class="mot-latin">Alleluia</span>.</td></tr>
+    </tbody>
+</table>
+
+<h2>The basic neumes</h2>
+<table class="grille">
+    <thead><tr><th>Neume</th><th>Movement of the voice</th></tr></thead>
+    <tbody>
+        <tr><td><strong>Punctum</strong></td><td>One note (small square).</td></tr>
+        <tr><td><strong>Virga</strong></td><td>One note (square with a stem), often higher.</td></tr>
+        <tr><td><strong>Pes</strong> <span class="mot-latin">(podatus)</span></td><td>Two notes going up.</td></tr>
+        <tr><td><strong>Clivis</strong> <span class="mot-latin">(flexa)</span></td><td>Two notes going down.</td></tr>
+        <tr><td><strong>Torculus</strong></td><td>Three notes&nbsp;: low · high · low.</td></tr>
+        <tr><td><strong>Porrectus</strong></td><td>Three notes&nbsp;: high · low · high.</td></tr>
+        <tr><td><strong>Scandicus</strong></td><td>Three (or more) notes going up.</td></tr>
+        <tr><td><strong>Climacus</strong></td><td>One note then a descending cascade of diamonds.</td></tr>
+    </tbody>
+</table>
+
+<h2>The signs of nuance</h2>
+<table class="grille">
+    <thead><tr><th>Sign</th><th>What it asks for</th></tr></thead>
+    <tbody>
+        <tr><td><strong>Quilisma</strong></td><td>A light zigzag note, a springboard to the next note&nbsp;; the preceding note is slightly lengthened.</td></tr>
+        <tr><td><strong>Episema</strong></td><td>A small stroke&nbsp;: the note is settled on, broadened.</td></tr>
+        <tr><td><strong>Letter <span class="mot-latin">c</span></strong></td><td><span class="mot-latin">celeriter</span> — quickly, without leaning.</td></tr>
+        <tr><td><strong>Letter <span class="mot-latin">t</span></strong></td><td><span class="mot-latin">tenete</span> — hold, lengthen.</td></tr>
+        <tr><td><strong>Letter <span class="mot-latin">a</span></strong></td><td><span class="mot-latin">altius</span> — higher.</td></tr>
+    </tbody>
+</table>
+
+<h2>The notations and the book</h2>
+<table class="grille">
+    <thead><tr><th>Term</th><th>In plain words</th></tr></thead>
+    <tbody>
+        <tr><td><strong>Neume</strong></td><td>A sign notating one or more sounds on the same syllable (from the Greek <span class="mot-latin">pneuma</span>, breath).</td></tr>
+        <tr><td><strong>Staff / tetragram</strong></td><td>The four lines on which square notation is written.</td></tr>
+        <tr><td><strong>Clef</strong></td><td>A marker at the start of the line (<em>C</em> or <em>F</em> clef) that locates the semitones.</td></tr>
+        <tr><td><strong>Diastematic</strong></td><td>Notation that indicates exact pitches (square notation).</td></tr>
+        <tr><td><strong>Adiastematic</strong></td><td>Notation «&nbsp;in the open field&nbsp;», showing the gesture without precise pitches (the old neumes).</td></tr>
+        <tr><td><strong><span class="mot-latin">Litteræ significativæ</span></strong></td><td>The small letters added to the neumes to specify rhythm or expression.</td></tr>
+        <tr><td><strong>Mode</strong></td><td>The «&nbsp;family of notes&nbsp;» and the colour of a melody (eight modes in chant).</td></tr>
+        <tr><td><strong>Graduale Triplex</strong></td><td>Book from Solesmes (1979) superimposing three notations&nbsp;: Laon (top), square notation (centre), St. Gall (bottom).</td></tr>
+        <tr><td><strong>Laon (ms 239)</strong></td><td>9th-c. manuscript&nbsp;; <em>Messine</em> script, famous for its rhythmic precision.</td></tr>
+        <tr><td><strong>St. Gall</strong></td><td>Swiss manuscripts (<span class="mot-latin">Cantatorium</span> 359, Einsiedeln 121)&nbsp;; a clear script for the melodic gesture.</td></tr>
+    </tbody>
+</table>
+
+<h2>The genres of chant encountered</h2>
+<table class="grille">
+    <thead><tr><th>Genre</th><th>Role in the Mass</th></tr></thead>
+    <tbody>
+        <tr><td><strong>Introit</strong></td><td>Entrance chant. E.g.&nbsp;: <span class="mot-latin">Puer natus est</span>, <span class="mot-latin">Lux fulgebit</span>.</td></tr>
+        <tr><td><strong>Gradual</strong></td><td>Meditative chant after the 1st reading. E.g.&nbsp;: <span class="mot-latin">Viderunt omnes</span>.</td></tr>
+        <tr><td><strong>Sequence</strong></td><td>Strophic chant before the Gospel, on great feasts. E.g.&nbsp;: <span class="mot-latin">Victimæ paschali laudes</span>.</td></tr>
+        <tr><td><strong>Alleluia</strong></td><td>Acclamation before the Gospel, prolonged by the <em>jubilus</em>. E.g.&nbsp;: <span class="mot-latin">Dies sanctificatus</span>, <span class="mot-latin">Pascha nostrum</span>.</td></tr>
+    </tbody>
+</table>
+
+<div class="encadre astuce">
+    <span class="etiquette">Going further</span>
+    <p>
+        The best teacher remains the ear&nbsp;: listen to recordings of these six chants
+        (many monasteries share them freely) while following the text, then while following
+        the neumes. Little by little, the drawing and the sound will come together.
+    </p>
+</div>
+
+<h2>Bibliography &amp; resources</h2>
+<p>
+    A selection for going further, from the most accessible to the most specialised.
+    <em>Remember to check the reuse conditions</em> before reproducing images, scores or
+    recordings on your site.
+</p>
+
+<h3>Introductory works</h3>
+<ul class="biblio">
+    <li>
+        <span class="auteur">Saulnier, Daniel.</span> <em>Le chant grégorien.</em> Solesmes.
+        <span class="ref-note">A short, clear and accessible synthesis&nbsp;: the ideal
+        sequel to this blog.</span>
+    </li>
+    <li>
+        <span class="auteur">Hiley, David.</span> <em>Gregorian Chant.</em> Cambridge
+        University Press, 2009. <span class="ref-note">The standard introduction in English,
+        highly pedagogical.</span>
+    </li>
+</ul>
+
+<h3>Specialised works</h3>
+<ul class="biblio">
+    <li>
+        <span class="auteur">Cardine, Eugène.</span> <em>Sémiologie grégorienne.</em>
+        Solesmes, 1970. <span class="ref-note">The founding book on reading the old neumes
+        (St. Gall, Laon)&nbsp;; technical.</span>
+    </li>
+    <li>
+        <span class="auteur">Apel, Willi.</span> <em>Gregorian Chant.</em> Indiana
+        University Press, 1958. <span class="ref-note">A classic survey of history, genres
+        and forms.</span>
+    </li>
+    <li>
+        <span class="auteur">Solesmes Abbey.</span> <em>Paléographie Musicale</em> (series,
+        from 1889). <span class="ref-note">Annotated manuscript facsimiles&nbsp;; the origin
+        of the modern restoration.</span>
+    </li>
+</ul>
+
+<h3>Chant editions</h3>
+<ul class="biblio">
+    <li>
+        <span class="auteur">Solesmes Abbey.</span> <em>Graduale Triplex.</em> Solesmes,
+        1979 — and the <em>Offertoriale Triplex</em> (Solesmes, 1985) for the offertories
+        and their verses. <span class="ref-note">The edition at the heart of this
+        blog&nbsp;: square notation + neumes of Laon and St. Gall.</span>
+    </li>
+    <li>
+        <span class="auteur">Solesmes Abbey.</span> <em>Graduale Romanum.</em> (Vatican
+        edition). <span class="ref-note">The official gradual in square notation
+        only.</span>
+    </li>
+</ul>
+
+<h3>Digitised manuscripts &amp; online resources (freely accessible)</h3>
+<ul class="biblio">
+    <li>
+        <span class="auteur">e-codices.</span> Virtual manuscript library of Switzerland.
+        <span class="ref-note">Major witnesses from St. Gall&nbsp;: <em>Cantatorium</em> (ms
+        359), Hartker antiphonary (ms 390/391), and Einsiedeln 121.</span>
+    </li>
+    <li>
+        <span class="auteur">Gallica.</span> Digital library of the BnF. <span
+        class="ref-note">Many liturgical manuscripts, including the Laon tradition.</span>
+    </li>
+    <li>
+        <span class="auteur">GregoBase&nbsp;; Cantus Database.</span> Databases of scores
+        and Gregorian chants. <span class="ref-note">To find, catalogue and transcribe a
+        particular piece.</span>
+    </li>
+</ul>
+
+<div class="encadre">
+    <span class="etiquette">Listening</span>
+    <p>
+        The interpretations mentioned in this blog (Solesmes, Silos,
+        <strong>Organum</strong> / Marcel Pérès, <strong>Ensemble Anne-Marie
+        Deschamps</strong>) are gathered, ready to compare, on each chant page — start with
+        <a href="#puer-natus-est">Puer natus est</a>. The full historical
+        background is in <a href="#histoire">What do we mean by
+        «&nbsp;Gregorian&nbsp;»&nbsp;?</a>
+    </p>
+</div>
+
+
+</section>
+
+</div>
+</body>
+</html>

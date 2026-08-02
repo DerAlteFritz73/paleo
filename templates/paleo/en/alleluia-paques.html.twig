@@ -1,0 +1,136 @@
+{% extends 'base.en.html.twig' %}
+{% set nav_actif = 'alleluia_paques' %}
+{% set route_fr = 'paleo_alleluia_paques' %}
+{% set route_de = 'paleo_de_alleluia_paques' %}
+
+{% block titre %}Alleluia. Pascha nostrum{% endblock %}
+{% block meta_description %}The Alleluia Pascha nostrum, Mass of Easter Day: a second jubilus to compare with the Christmas one, in a completely different mode.{% endblock %}
+
+{% block contenu %}
+<h1>Example 6 — <span class="mot-latin">Alleluia. Pascha nostrum</span></h1>
+<p class="chapeau">
+    The Alleluia of Easter Day. The same form as the Christmas one, but a wholly different
+    brilliance&nbsp;: the ideal occasion to <strong>compare two jubili</strong> and hear
+    what the <em>mode</em> changes in a melody.
+</p>
+
+<div class="fiche">
+    <dl>
+        <dt>Genre</dt><dd>Alleluia (acclamation before the Gospel)</dd>
+        <dt>Occasion</dt><dd>Mass of Easter Day, and throughout Eastertide</dd>
+        <dt>Text</dt><dd>1st letter to the Corinthians (1 Cor 5, 7)</dd>
+        <dt>Mode</dt><dd>Mode VII (<em>sol</em> mode, bright and soaring)</dd>
+        <dt>Style</dt><dd><strong>Melismatic</strong>&nbsp;: a brief verse, an ample vocalise</dd>
+        <dt>In the <em>Triplex</em></dt><dd>p. 197</dd>
+    </dl>
+</div>
+
+<div class="lecteur-audio">
+    <span class="etiquette">Listen to the chant</span>
+    <p class="note-audio">Listen first to the Christmas Alleluia, then to this one&nbsp;: mode II gathers itself in, mode VII soars.</p>
+    <div class="videos-audio">
+        {# Add your recordings here, on the model of the other chant pages :
+           <figure class="video-yt">
+             <div class="ratio">
+               <iframe src="https://www.youtube-nocookie.com/embed/VIDEO_ID"
+                       title="Alleluia Pascha nostrum — performer" loading="lazy"
+                       referrerpolicy="strict-origin-when-cross-origin"
+                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                       allowfullscreen></iframe>
+             </div>
+             <figcaption><strong>Name of the performer</strong></figcaption>
+           </figure> #}
+        <p class="note-audio">
+<em>Recordings to be inserted&nbsp;: ideally the same ensemble as for the Christmas
+Alleluia, so that the comparison bears on the chant and not on the voices.</em>
+</p>
+    </div>
+</div>
+
+<h2>The text and its translation</h2>
+<div class="texte-latin">
+    <div class="entete lat">Latin</div>
+    <div class="entete fr">English</div>
+    <div class="lat">Alleluia.</div>
+    <div class="fr">Alleluia.</div>
+    <div class="lat"><span class="chip">Verse</span> Pascha nostrum immolatus est Christus.</div>
+    <div class="fr">Christ, our Passover, has been sacrificed.</div>
+</div>
+
+<div class="encadre def">
+    <span class="etiquette">Reminder — the mode</span>
+    <p>
+        The <strong>mode</strong> is the «&nbsp;family of notes&nbsp;» in which a melody
+        moves&nbsp;: its resting note, its favoured degrees, its colour. Chant has eight of
+        them. Two chants of the same form and the same length can thus produce opposite
+        impressions&nbsp;: that is exactly what happens between the mode II of Christmas,
+        grave and inward, and the Easter mode VII, luminous and rising.
+    </p>
+</div>
+
+<h2>Two Alleluias, the same mechanism</h2>
+<p class="lettrine">
+    Go back to the previous page and set the two chants side by side&nbsp;: you will see the
+    same architecture. The word <span class="mot-latin">Alleluia</span>, its jubilus, a
+    verse entrusted to the soloist, then the return of the jubilus. What Eastertide adds is
+    breadth&nbsp;: the vocalise stretches further, as if the joy of Easter needed more air.
+</p>
+
+<h3>A comparison exercise</h3>
+<ul>
+    <li>
+Count the neumes of the jubilus in both chants&nbsp;: the difference can be seen before it
+is heard.
+</li>
+    <li>
+Look for the <strong>resting note</strong> (the one the melody falls back to)&nbsp;:
+<em>re</em> for Christmas, <em>sol</em> for Easter.
+</li>
+    <li>
+Spot the <strong>quilismas</strong>&nbsp;: in the Easter ascents they are numerous — the
+voice gathers momentum.
+</li>
+</ul>
+
+<div class="encadre astuce">
+    <span class="etiquette">The role of the old notations here</span>
+    <p>
+        Now is the moment to check something amusing&nbsp;: across two different jubili, the
+        <strong>significative letters</strong> come back at the same strategic places — just
+        before an ascent, at the top of a curve, right at the end. Laon (above) and St. Gall
+        (below) do not decorate&nbsp;: they <strong>articulate</strong>.
+    </p>
+</div>
+
+<h2>Seeing the three notations</h2>
+<div class="facsimile">
+    <p>📜 <strong>Space for the facsimile of «&nbsp;Alleluia. Pascha nostrum&nbsp;»</strong></p>
+    <p>
+Ideally, place this facsimile <em>just below</em> the one for the Christmas Alleluia&nbsp;:
+the comparison of the two jubili then becomes immediate.<br> <code>&lt;img src="{{
+asset('assets/img/alleluia-paques.jpg') }}" alt="Alleluia Pascha nostrum in the Graduale
+Triplex"&gt;</code>
+</p>
+</div>
+
+<div class="legende-triplex">
+    <span><span class="pastille laon"></span>Laon, above&nbsp;: the rhythm of the jubilus</span>
+    <span><span class="pastille vat"></span>Square notation, centre&nbsp;: the notes</span>
+    <span><span class="pastille sg"></span>St. Gall, below&nbsp;: the gesture and the leanings</span>
+</div>
+
+<div class="encadre">
+    <span class="etiquette">Key point for this chant</span>
+    <p>
+        With these two Alleluias you have been round all the styles&nbsp;: syllabic,
+        neumatic, melismatic, and the responsorial form that sets them in dialogue. All that
+        remains is to keep the vocabulary at hand&nbsp;: on to the <a href="{{
+        path('paleo_en_glossaire') }}">glossary</a>.
+    </p>
+</div>
+
+<div class="suite">
+    <a class="prec" href="{{ path('paleo_en_alleluia_noel') }}">Example 5&nbsp;: Alleluia. Dies sanctificatus</a>
+    <a class="suiv" href="{{ path('paleo_en_glossaire') }}">Glossary &amp; bibliography</a>
+</div>
+{% endblock %}

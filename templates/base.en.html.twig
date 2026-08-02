@@ -1,0 +1,66 @@
+{#
+   base.en.html.twig — main layout of the “Paléo” blog (English version)
+   ---------------------------------------------------------------------------
+   Every page extends this layout :  {% extends 'base.en.html.twig' %}
+   then fills in the blocks  {% block titre %}  and  {% block contenu %}.
+
+   The variable  nav_actif  (set on each page with {% set nav_actif = '...' %})
+   highlights the current tab in the menu.  route_fr / route_de hold the route
+   names of the same page in the other languages (language switcher).
+#}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titre %}Paléo{% endblock %} — Paléo, Gregorian chant step by step</title>
+    <meta name="description" content="{% block meta_description %}Discovering neumes and Gregorian chant through the Graduale Triplex. A plain-language blog for beginners.{% endblock %}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <header class="site-header">
+        <div class="bandeau">
+            <h1 class="titre-site"><a href="{{ path('paleo_en_index') }}">Paléo</a></h1>
+            <p class="sous-titre">Gregorian chant and its neumes, explained step by step</p>
+            <nav class="choix-langue" aria-label="Language selection">
+                <a href="{{ path(route_fr) }}" lang="fr" hreflang="fr" title="This page in French">FR</a>
+                <a href="{{ path(route_de) }}" lang="de" hreflang="de" title="Diese Seite auf Deutsch">DE</a>
+                <span class="langue-actuelle" aria-current="true" lang="en">EN</span>
+            </nav>
+        </div>
+        <nav class="site-nav" aria-label="Main navigation">
+            <ul>
+                <li><a href="{{ path('paleo_en_index') }}"     {{ nav_actif == 'accueil'  ? 'aria-current="page"' : '' }}>Home</a></li>
+                <li><a href="{{ path('paleo_en_histoire') }}"   {{ nav_actif == 'histoire' ? 'aria-current="page"' : '' }}>“Gregorian”&nbsp;?</a></li>
+                <li><a href="{{ path('paleo_en_notation') }}"   {{ nav_actif == 'notation' ? 'aria-current="page"' : '' }}>The basics</a></li>
+                <li><a href="{{ path('paleo_en_triplex') }}"    {{ nav_actif == 'triplex'  ? 'aria-current="page"' : '' }}>The Graduale Triplex</a></li>
+                <li><a href="{{ path('paleo_en_puer') }}"       {{ nav_actif == 'puer'     ? 'aria-current="page"' : '' }}>Puer natus est</a></li>
+                <li><a href="{{ path('paleo_en_viderunt') }}"   {{ nav_actif == 'viderunt' ? 'aria-current="page"' : '' }}>Viderunt omnes</a></li>
+                <li><a href="{{ path('paleo_en_lux') }}"        {{ nav_actif == 'lux'      ? 'aria-current="page"' : '' }}>Lux fulgebit</a></li>
+                <li><a href="{{ path('paleo_en_victimae') }}"   {{ nav_actif == 'victimae' ? 'aria-current="page"' : '' }}>Victimæ paschali</a></li>
+                <li><a href="{{ path('paleo_en_alleluia_noel') }}"   {{ nav_actif == 'alleluia_noel'   ? 'aria-current="page"' : '' }}>Alleluia (Christmas)</a></li>
+                <li><a href="{{ path('paleo_en_alleluia_paques') }}" {{ nav_actif == 'alleluia_paques' ? 'aria-current="page"' : '' }}>Alleluia (Easter)</a></li>
+                <li><a href="{{ path('paleo_en_glossaire') }}"  {{ nav_actif == 'glossaire'? 'aria-current="page"' : '' }}>Glossary</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block contenu %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <div class="inner">
+            <p>
+                <a class="btn-pdf" href="{{ asset('assets/paleo-blog-en.pdf') }}" download>
+                    ⬇ Download the whole blog as a PDF (A4)
+                </a>
+            </p>
+            <p><strong>Paléo</strong> — a plain-language blog about musical palaeography.</p>
+            <p>All examples refer to the <em>Graduale Triplex</em> (Solesmes, 1979).
+               Remember to insert your own facsimiles or link to copyright-free sources.</p>
+        </div>
+    </footer>
+</body>
+</html>
