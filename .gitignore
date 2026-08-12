@@ -8,5 +8,6 @@ __pycache__/
 .idea/
 .vscode/
 
-# Runtime log written by deploy/auto-deploy.sh, not part of the source.
+# Runtime state written by deploy/auto-deploy.sh, not part of the source.
 .deploy.log
+.deployed-commit
