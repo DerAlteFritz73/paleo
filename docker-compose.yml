@@ -2,11 +2,11 @@ services:
   web:
     build:
       context: .
-    image: paleo-prod:latest
-    container_name: paleo-prod
+    image: paleo-dev:latest
+    container_name: paleo-dev
     restart: unless-stopped
     ports:
-      - 127.0.0.1:2226:80
+      - 127.0.0.1:2126:80
     logging:
       driver: json-file
       options:
