@@ -1,0 +1,14 @@
+services:
+  web:
+    build:
+      context: .
+    image: paleo-prod:latest
+    container_name: paleo-prod
+    restart: unless-stopped
+    ports:
+      - 127.0.0.1:2226:80
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: 3
