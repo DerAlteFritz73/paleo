@@ -11,3 +11,8 @@ __pycache__/
 # Runtime state written by deploy/auto-deploy.sh, not part of the source.
 .deploy.log
 .deployed-commit
+
+# Source scans kept for local reference only — never committed or served.
+# The full copyrighted Graduale Triplex must not end up in git history or
+# under public/ (Dockerfile ships public/ wholesale to the live site).
+/source-material/
