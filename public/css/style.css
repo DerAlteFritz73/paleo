@@ -425,6 +425,7 @@ a { color: var(--rubrique); }
   border-radius: 4px;
   border: 1px solid var(--ligne);
 }
+.carte-neume .svg-portee-moderne { display: block; width: 100%; height: auto; margin: 0.3rem auto 0.4rem; }
 .carte-neume .nom {
   font-weight: 700;
   color: var(--rubrique);
@@ -441,6 +442,7 @@ a { color: var(--rubrique); }
 .svg-neume   { fill: var(--encre); stroke: var(--encre); }
 .svg-laon    { fill: var(--bleu-laon); stroke: var(--bleu-laon); }
 .svg-sg      { fill: var(--vert-sg);  stroke: var(--vert-sg); }
+.svg-clef, .svg-slur, .svg-orn { fill: none; stroke: var(--encre); }
 
 /* Bibliographie (liste de références, retrait bibliographique) */
 .biblio { list-style: none; padding: 0; margin: 0.6rem 0 1.4rem; }
