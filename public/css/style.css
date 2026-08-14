@@ -594,6 +594,61 @@ table.grille tr:nth-child(even) td { background: rgba(0,0,0,0.02); }
 }
 .btn-pdf.grand { font-size: 1.05rem; padding: 0.7rem 1.5rem; margin-bottom: 0; }
 
+/* Formulaire de commentaires (bas du glossaire) */
+.form-feedback {
+  background: var(--carte);
+  border: 1px solid var(--ligne);
+  border-left: 5px solid var(--or);
+  border-radius: 4px;
+  padding: 1.2rem 1.4rem;
+  margin: 1.6rem 0;
+  box-shadow: 0 2px 8px var(--ombre);
+  font-family: var(--sans);
+}
+.form-ligne { margin-bottom: 0.9rem; display: flex; flex-direction: column; gap: 0.3rem; }
+.form-ligne label { font-size: 0.88rem; font-weight: 700; color: var(--encre); }
+.form-ligne .optionnel { font-weight: 400; color: var(--encre-douce); }
+.form-ligne input, .form-ligne textarea {
+  font: inherit;
+  font-size: 0.95rem;
+  padding: 0.5rem 0.65rem;
+  border: 1px solid var(--ligne);
+  border-radius: 4px;
+  background: var(--parchemin);
+  color: var(--encre);
+  resize: vertical;
+}
+.form-ligne input:focus, .form-ligne textarea:focus {
+  outline: 2px solid var(--or);
+  outline-offset: 1px;
+}
+/* Piège à robots : invisible pour un humain, rempli par les bots naïfs. */
+.form-piege {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.btn-form {
+  display: inline-block;
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  background: var(--rubrique);
+  color: #f8ead0;
+  border: 1px solid var(--or);
+  border-radius: 999px;
+  padding: 0.55rem 1.4rem;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.btn-form:hover { transform: translateY(-2px); box-shadow: 0 4px 12px var(--ombre); }
+.btn-form:disabled { opacity: 0.6; cursor: wait; transform: none; box-shadow: none; }
+.form-statut { margin: 0.7rem 0 0; font-size: 0.88rem; min-height: 1.2em; }
+.form-statut.ok { color: var(--vert-sg); font-weight: 700; }
+.form-statut.erreur { color: var(--rubrique); font-weight: 700; }
+
 /* Bandeau d'appel au téléchargement (page d'accueil) */
 .hero-pdf {
   text-align: center;

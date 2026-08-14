@@ -16,3 +16,7 @@ __pycache__/
 # The full copyrighted Graduale Triplex must not end up in git history or
 # under public/ (Dockerfile ships public/ wholesale to the live site).
 /source-material/
+
+# Real SMTP credentials for the feedback mail service. Never committed —
+# see .env for the placeholder documenting the expected variables.
+/.env.local

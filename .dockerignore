@@ -1,3 +1,10 @@
 .git
 deploy/
 .deploy.log
+
+# Secrets for the separate "mail" service (feedback/) — passed at container
+# runtime via docker-compose's env_file, never needed inside this (static
+# site) build context, so keep them out of its image layers entirely.
+.env
+.env.local
+source-material/

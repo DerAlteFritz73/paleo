@@ -174,6 +174,84 @@
     </p>
 </div>
 
+<h2>Your suggestions</h2>
+<p>
+    A remark, a typo you spotted, an idea for another chant to add&nbsp;? This blog is meant
+    to keep growing&nbsp;: feel free to write to us.
+</p>
+
+<form class="form-feedback" id="form-feedback" novalidate>
+    <div class="form-ligne">
+        <label for="ff-name">Name <span class="optionnel">(optional)</span></label>
+        <input type="text" id="ff-name" name="name" autocomplete="name" maxlength="200">
+    </div>
+    <div class="form-ligne">
+        <label for="ff-email">Email <span class="optionnel">(optional, for a reply)</span></label>
+        <input type="email" id="ff-email" name="email" autocomplete="email">
+    </div>
+    <div class="form-ligne">
+        <label for="ff-message">Your message</label>
+        <textarea id="ff-message" name="message" rows="5" required maxlength="8000"></textarea>
+    </div>
+    <div class="form-piege" aria-hidden="true">
+        <label for="ff-website">Website</label>
+        <input type="text" id="ff-website" name="website" tabindex="-1" autocomplete="off">
+    </div>
+    <button type="submit" class="btn-form">Send</button>
+    <p class="form-statut" id="form-statut" role="status" aria-live="polite"></p>
+</form>
+
+<script>
+(function () {
+    var form = document.getElementById('form-feedback');
+    if (!form) return;
+    var statut = document.getElementById('form-statut');
+    var btn = form.querySelector('button[type="submit"]');
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!form.message.value.trim()) {
+            statut.textContent = 'Please write a message before sending.';
+            statut.className = 'form-statut erreur';
+            return;
+        }
+        var data = {
+            name: form.name.value,
+            email: form.email.value,
+            message: form.message.value,
+            website: form.website.value,
+            lang: 'en',
+            page: window.location.pathname
+        };
+        btn.disabled = true;
+        statut.textContent = 'Sending…';
+        statut.className = 'form-statut';
+        fetch('/api/feedback', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        }).then(function (r) {
+            return r.json().catch(function () { return {}; }).then(function (j) {
+                return { ok: r.ok, body: j };
+            });
+        }).then(function (res) {
+            btn.disabled = false;
+            if (res.ok && res.body && res.body.ok) {
+                form.reset();
+                statut.textContent = 'Thank you, your message has been sent!';
+                statut.className = 'form-statut ok';
+            } else {
+                statut.textContent = 'Something went wrong — you can also write to us directly at marino@kreilos.com.';
+                statut.className = 'form-statut erreur';
+            }
+        }).catch(function () {
+            btn.disabled = false;
+            statut.textContent = 'Something went wrong — you can also write to us directly at marino@kreilos.com.';
+            statut.className = 'form-statut erreur';
+        });
+    });
+})();
+</script>
+
 <div class="suite">
     <a class="prec" href="{{ path('paleo_en_victimae') }}">Example 4&nbsp;: Victimæ paschali</a>
     <a class="suiv" href="{{ path('paleo_en_index') }}">Back to the home page</a>

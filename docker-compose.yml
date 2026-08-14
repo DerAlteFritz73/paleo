@@ -7,6 +7,26 @@ services:
     restart: unless-stopped
     ports:
       - 127.0.0.1:2226:80
+    depends_on:
+      - mail
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: 3
+
+  # Seul point dynamique du site (par ailleurs entièrement statique) : reçoit
+  # les commentaires du formulaire en bas de page et les envoie par e-mail.
+  # Jamais exposé hors du réseau Docker interne — nginx (service "web") lui
+  # fait un fastcgi_pass sur mail:9000.
+  mail:
+    build:
+      context: ./feedback
+    image: paleo-feedback:latest
+    container_name: paleo-feedback
+    restart: unless-stopped
+    env_file:
+      - .env.local
     logging:
       driver: json-file
       options:

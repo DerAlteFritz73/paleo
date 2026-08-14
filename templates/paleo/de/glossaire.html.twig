@@ -176,6 +176,84 @@
     </p>
 </div>
 
+<h2>Ihre Vorschläge</h2>
+<p>
+    Eine Anmerkung, ein entdeckter Tippfehler, eine Idee für einen weiteren Gesang&nbsp;?
+    Dieser Blog soll sich weiterentwickeln&nbsp;: schreiben Sie uns gerne.
+</p>
+
+<form class="form-feedback" id="form-feedback" novalidate>
+    <div class="form-ligne">
+        <label for="ff-name">Name <span class="optionnel">(freiwillig)</span></label>
+        <input type="text" id="ff-name" name="name" autocomplete="name" maxlength="200">
+    </div>
+    <div class="form-ligne">
+        <label for="ff-email">E-Mail <span class="optionnel">(freiwillig, für eine Antwort)</span></label>
+        <input type="email" id="ff-email" name="email" autocomplete="email">
+    </div>
+    <div class="form-ligne">
+        <label for="ff-message">Ihre Nachricht</label>
+        <textarea id="ff-message" name="message" rows="5" required maxlength="8000"></textarea>
+    </div>
+    <div class="form-piege" aria-hidden="true">
+        <label for="ff-website">Webseite</label>
+        <input type="text" id="ff-website" name="website" tabindex="-1" autocomplete="off">
+    </div>
+    <button type="submit" class="btn-form">Senden</button>
+    <p class="form-statut" id="form-statut" role="status" aria-live="polite"></p>
+</form>
+
+<script>
+(function () {
+    var form = document.getElementById('form-feedback');
+    if (!form) return;
+    var statut = document.getElementById('form-statut');
+    var btn = form.querySelector('button[type="submit"]');
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!form.message.value.trim()) {
+            statut.textContent = 'Bitte schreiben Sie eine Nachricht, bevor Sie senden.';
+            statut.className = 'form-statut erreur';
+            return;
+        }
+        var data = {
+            name: form.name.value,
+            email: form.email.value,
+            message: form.message.value,
+            website: form.website.value,
+            lang: 'de',
+            page: window.location.pathname
+        };
+        btn.disabled = true;
+        statut.textContent = 'Wird gesendet…';
+        statut.className = 'form-statut';
+        fetch('/api/feedback', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        }).then(function (r) {
+            return r.json().catch(function () { return {}; }).then(function (j) {
+                return { ok: r.ok, body: j };
+            });
+        }).then(function (res) {
+            btn.disabled = false;
+            if (res.ok && res.body && res.body.ok) {
+                form.reset();
+                statut.textContent = 'Vielen Dank, Ihre Nachricht wurde gesendet!';
+                statut.className = 'form-statut ok';
+            } else {
+                statut.textContent = 'Es ist ein Fehler aufgetreten — Sie können uns auch direkt unter marino@kreilos.com schreiben.';
+                statut.className = 'form-statut erreur';
+            }
+        }).catch(function () {
+            btn.disabled = false;
+            statut.textContent = 'Es ist ein Fehler aufgetreten — Sie können uns auch direkt unter marino@kreilos.com schreiben.';
+            statut.className = 'form-statut erreur';
+        });
+    });
+})();
+</script>
+
 <div class="suite">
     <a class="prec" href="{{ path('paleo_de_victimae') }}">Beispiel 4&nbsp;: Victimæ paschali</a>
     <a class="suiv" href="{{ path('paleo_de_index') }}">Zurück zur Startseite</a>
