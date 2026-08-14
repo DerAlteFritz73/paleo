@@ -5,17 +5,21 @@ pour l'impression A4 (dist/paleo-blog[-langue].html), puis le convertit en PDF
 avec Chromium headless (dist/paleo-blog[-langue].pdf).
 
 - Les templates Twig restent la source de vérité.
-- Les iframes YouTube (non imprimables) sont converties en liste de liens.
+- Les iframes YouTube (non imprimables) sont converties en miniature statique
+  (même image que celle affichée par le lecteur intégré avant lecture).
 - Les liens internes path('paleo_xxx') deviennent des ancres (#...).
 
 Usage :  python3 build_pdf.py            → les trois langues
          python3 build_pdf.py fr         → français seul (idem de / en)
 """
 
+import base64
 import re
 import subprocess
 import shutil
 import sys
+import urllib.error
+import urllib.request
 from datetime import date
 from pathlib import Path
 
@@ -157,8 +161,34 @@ def resolve(text, anchors):
     return text
 
 
+_THUMB_CACHE = {}
+
+
+def _youtube_thumbnail_data_uri(video_id):
+    """Télécharge la miniature YouTube (hqdefault, toujours disponible) et la
+    renvoie encodée en data URI, pour que le PDF reste autonome (aucune
+    requête réseau au moment de l'impression). Mise en cache par identifiant
+    de vidéo ; renvoie None si le téléchargement échoue (pas de connexion au
+    moment du build, etc.)."""
+    if video_id in _THUMB_CACHE:
+        return _THUMB_CACHE[video_id]
+    url = f"https://img.youtube.com/vi/{video_id}/hqdefault.jpg"
+    uri = None
+    try:
+        with urllib.request.urlopen(url, timeout=10) as resp:
+            data = resp.read()
+        uri = "data:image/jpeg;base64," + base64.b64encode(data).decode("ascii")
+    except (urllib.error.URLError, OSError, TimeoutError) as e:
+        print(f"  [!!] miniature YouTube introuvable pour {video_id} : {e}")
+    _THUMB_CACHE[video_id] = uri
+    return uri
+
+
 def videos_to_links(text):
-    """Remplace chaque <figure class="video-yt">…iframe…</figure> par un lien."""
+    """Remplace chaque <figure class="video-yt">…iframe…</figure> par la
+    miniature statique de la vidéo (même image que celle affichée par le
+    lecteur intégré du site avant lecture). Repli sur un simple lien si la
+    miniature n'a pas pu être téléchargée."""
     pat = re.compile(
         r'<figure class="video-yt">\s*'
         r'<div class="ratio">\s*'
@@ -170,6 +200,14 @@ def videos_to_links(text):
 
     def repl(m):
         vid, cap = m.group(1), m.group(2).strip()
+        # alt doit rester du texte brut : la légende contient du HTML (gras,
+        # mot-latin…) dont les guillemets casseraient l'attribut tel quel.
+        alt = re.sub(r"<[^>]+>", "", cap).replace('"', "&quot;")
+        uri = _youtube_thumbnail_data_uri(vid)
+        if uri:
+            return (f'<figure class="video-still"><img src="{uri}" alt="{alt}">'
+                     f'<figcaption>{cap}<br><span class="ecoute-url">youtu.be/{vid}</span>'
+                     f'</figcaption></figure>')
         return (f'<div class="ecoute-item"><span class="ecoute-nom">{cap}</span>'
                 f'<span class="ecoute-url">youtu.be/{vid}</span></div>')
 
@@ -253,8 +291,21 @@ a {{ color: var(--rubrique) !important; text-decoration: none; }}
 .grille-cartes, .galerie-neumes {{ gap: 0.6rem; }}
 .carte-lien {{ box-shadow: none; }}
 
-/* Liste d'écoutes (remplace les vidéos) */
-.videos-audio {{ display: block; margin: 0.4rem 0; }}
+/* Miniatures à la place des vidéos intégrées */
+.videos-audio {{
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.6rem; margin: 0.4rem 0;
+}}
+.video-still {{ margin: 0; break-inside: avoid; page-break-inside: avoid; }}
+.video-still img {{
+  display: block; width: 100%; height: auto; border-radius: 4px;
+  border: 1px solid var(--ligne);
+}}
+.video-still figcaption {{
+  font-family: var(--sans); font-size: 0.78rem; color: var(--encre-douce);
+  margin-top: 0.25rem; line-height: 1.3;
+}}
+/* Repli texte si une miniature n'a pas pu être téléchargée */
 .ecoute-item {{
   display: flex; justify-content: space-between; gap: 1rem;
   padding: 0.2rem 0; border-bottom: 1px dotted var(--ligne);
