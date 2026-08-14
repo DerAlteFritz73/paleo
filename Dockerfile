@@ -3,7 +3,7 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y --no-install-recommends chromium && rm -rf /var/lib/apt/lists/*
 COPY . .
 RUN pip install --no-cache-dir pyyaml jinja2 pillow pypdf
-RUN python3 build_static.py && python3 build_pdf.py && python3 build_pdf.py de && python3 build_pdf.py en
+RUN python3 build_pdf.py && python3 build_pdf.py de && python3 build_pdf.py en && python3 build_static.py
 
 FROM nginx:1.27-alpine
 COPY --from=builder /app/preview /usr/share/nginx/html/preview
