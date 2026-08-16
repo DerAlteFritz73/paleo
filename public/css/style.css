@@ -444,6 +444,9 @@ a { color: var(--rubrique); }
 .svg-sg      { fill: var(--vert-sg);  stroke: var(--vert-sg); }
 .svg-clef, .svg-slur, .svg-orn { fill: none; stroke: var(--encre); }
 
+/* Icônes de clé (fac-similés du Graduale Triplex), insérées en ligne dans le texte */
+.icone-cle { height: 1.15em; width: auto; vertical-align: -0.2em; }
+
 /* Bibliographie (liste de références, retrait bibliographique) */
 .biblio { list-style: none; padding: 0; margin: 0.6rem 0 1.4rem; }
 .biblio li {
