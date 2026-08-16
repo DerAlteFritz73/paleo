@@ -149,15 +149,50 @@ def block(name, text):
     return m.group(1) if m else ""
 
 
+_IMG_MIME = {".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".png": "image/png",
+             ".gif": "image/gif", ".webp": "image/webp"}
+_LOCAL_IMG_CACHE = {}
+
+
+def _local_image_data_uri(rel_path):
+    """Inline une image locale (public/<rel_path>) en data URI. Le HTML combiné
+    du PDF vit dans dist/, pas dans public/ : un <img src="assets/img/...">
+    relatif n'y pointerait vers rien (dist/assets/img/ n'existe pas). Inliner
+    évite ce problème de racine une fois pour toutes, plutôt que de dépendre
+    d'une copie de dossier qui pourrait un jour se retrouver désynchronisée."""
+    if rel_path in _LOCAL_IMG_CACHE:
+        return _LOCAL_IMG_CACHE[rel_path]
+    ext = Path(rel_path).suffix.lower()
+    mime = _IMG_MIME.get(ext)
+    path = ROOT / "public" / rel_path
+    uri = None
+    if mime and path.is_file():
+        data = path.read_bytes()
+        uri = f"data:{mime};base64," + base64.b64encode(data).decode("ascii")
+    else:
+        print(f"  [!!] image locale introuvable pour le PDF : {rel_path}")
+    _LOCAL_IMG_CACHE[rel_path] = uri
+    return uri
+
+
 def resolve(text, anchors):
     # commentaires Twig
     text = re.sub(r"{#.*?#}", "", text, flags=re.DOTALL)
     # path('route') -> ancre interne
     text = re.sub(r"{{\s*path\(\s*'([^']+)'\s*\)\s*}}",
                   lambda m: anchors.get(m.group(1), "#" + m.group(1)), text)
-    # asset('...') -> chemin (n'apparaît que dans des exemples de code)
-    text = re.sub(r"{{\s*asset\(\s*'([^']+)'\s*\)\s*}}",
-                  lambda m: m.group(1), text)
+
+    # asset('assets/img/...') -> image inlinée en data URI (voir
+    # _local_image_data_uri) ; les autres asset() (ex. liens vers les PDF
+    # dans les exemples de code) restent de simples chemins littéraux.
+    def asset_repl(m):
+        rel_path = m.group(1)
+        if rel_path.startswith("assets/img/"):
+            uri = _local_image_data_uri(rel_path)
+            if uri:
+                return uri
+        return rel_path
+    text = re.sub(r"{{\s*asset\(\s*'([^']+)'\s*\)\s*}}", asset_repl, text)
     return text
 
 
