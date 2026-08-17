@@ -29,6 +29,9 @@
                 <a href="{{ path(route_en) }}" lang="en" hreflang="en" title="This page in English">EN</a>
             </nav>
         </div>
+    </header>
+
+    <div class="page-layout">
         <nav class="site-nav" aria-label="Hauptnavigation">
             <ul>
                 <li><a href="{{ path('paleo_de_index') }}"     {{ nav_actif == 'accueil'  ? 'aria-current="page"' : '' }}>Startseite</a></li>
@@ -44,11 +47,11 @@
                 <li><a href="{{ path('paleo_de_glossaire') }}"  {{ nav_actif == 'glossaire'? 'aria-current="page"' : '' }}>Glossar</a></li>
             </ul>
         </nav>
-    </header>
 
-    <main>
-        {% block contenu %}{% endblock %}
-    </main>
+        <main>
+            {% block contenu %}{% endblock %}
+        </main>
+    </div>
 
     <footer class="site-footer">
         <div class="inner">

@@ -29,6 +29,9 @@
                 <span class="langue-actuelle" aria-current="true" lang="en">EN</span>
             </nav>
         </div>
+    </header>
+
+    <div class="page-layout">
         <nav class="site-nav" aria-label="Main navigation">
             <ul>
                 <li><a href="{{ path('paleo_en_index') }}"     {{ nav_actif == 'accueil'  ? 'aria-current="page"' : '' }}>Home</a></li>
@@ -44,11 +47,11 @@
                 <li><a href="{{ path('paleo_en_glossaire') }}"  {{ nav_actif == 'glossaire'? 'aria-current="page"' : '' }}>Glossary</a></li>
             </ul>
         </nav>
-    </header>
 
-    <main>
-        {% block contenu %}{% endblock %}
-    </main>
+        <main>
+            {% block contenu %}{% endblock %}
+        </main>
+    </div>
 
     <footer class="site-footer">
         <div class="inner">

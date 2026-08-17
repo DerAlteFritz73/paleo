@@ -161,6 +161,49 @@ main {
   padding: 2.2rem 1.2rem 3rem;
 }
 
+/* --------------------------------------- Mise en page large : nav en colonne */
+@media (min-width: 1100px) {
+  .page-layout {
+    display: flex;
+    align-items: flex-start;
+    gap: 2.5rem;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+  .page-layout .site-nav {
+    position: sticky;
+    top: 1.5rem;
+    flex: 0 0 210px;
+    align-self: flex-start;
+    background: var(--rubrique);
+    border-radius: 10px;
+    padding: 0.8rem 0;
+  }
+  .page-layout .site-nav ul {
+    max-width: none;
+    padding: 0;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 0;
+  }
+  .page-layout .site-nav a {
+    padding: 0.6rem 1.1rem;
+    border-bottom: none;
+    border-left: 3px solid transparent;
+  }
+  .page-layout .site-nav a:hover,
+  .page-layout .site-nav a[aria-current="page"] {
+    border-bottom-color: transparent;
+    border-left-color: var(--or-clair);
+  }
+  .page-layout main {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin: 0;
+    padding: 2.2rem 0 3rem;
+  }
+}
+
 h1, h2, h3 { font-weight: 600; line-height: 1.25; }
 h1 {
   font-size: 2rem;
