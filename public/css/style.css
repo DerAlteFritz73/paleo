@@ -153,6 +153,9 @@ body {
   border-bottom-color: var(--or-clair);
   background: rgba(0,0,0,0.12);
 }
+.site-nav .sous-nav {
+  display: none;
+}
 
 /* --------------------------------------------------------------- Contenu */
 main {
@@ -195,6 +198,25 @@ main {
   .page-layout .site-nav a[aria-current="page"] {
     border-bottom-color: transparent;
     border-left-color: var(--or-clair);
+  }
+  .page-layout .site-nav .sous-nav {
+    display: block;
+    list-style: none;
+    margin: 0.2rem 0 0.6rem;
+    padding: 0 0 0 1rem;
+  }
+  .page-layout .site-nav .sous-nav a {
+    padding: 0.32rem 0.6rem;
+    font-size: 0.72rem;
+    text-transform: none;
+    letter-spacing: 0.01em;
+    color: rgba(248, 234, 208, 0.72);
+    border-left: 2px solid rgba(255, 255, 255, 0.18);
+  }
+  .page-layout .site-nav .sous-nav a:hover {
+    color: #fff;
+    border-left-color: var(--or-clair);
+    background: rgba(0, 0, 0, 0.08);
   }
   .page-layout main {
     flex: 1 1 auto;

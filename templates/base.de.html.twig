@@ -65,5 +65,43 @@
             <p>&copy;&nbsp;Marie-Noëlle Kreilos 2026</p>
         </div>
     </footer>
+
+    <script>
+    (function () {
+        var current = document.querySelector('.site-nav a[aria-current="page"]');
+        var main = document.querySelector('main');
+        if (!current || !main) return;
+        var headings = main.querySelectorAll('h2');
+        if (!headings.length) return;
+
+        var used = {};
+        function slugify(text) {
+            var slug = (text || '').toLowerCase()
+                .normalize('NFD').replace(/[̀-ͯ]/g, '')
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-+|-+$/g, '') || 'section';
+            var base = slug, n = 2;
+            while (used[slug]) { slug = base + '-' + n; n++; }
+            used[slug] = true;
+            return slug;
+        }
+
+        var sousNav = document.createElement('ul');
+        sousNav.className = 'sous-nav';
+        for (var i = 0; i < headings.length; i++) {
+            var h = headings[i];
+            if (!h.id) h.id = slugify(h.textContent);
+            var li = document.createElement('li');
+            var a = document.createElement('a');
+            a.href = '#' + h.id;
+            a.textContent = h.textContent;
+            li.appendChild(a);
+            sousNav.appendChild(li);
+        }
+
+        var parentLi = current.closest('li');
+        if (parentLi) parentLi.appendChild(sousNav);
+    })();
+    </script>
 </body>
 </html>
