@@ -1,0 +1,64 @@
+{% extends 'base.en.html.twig' %}
+{% set nav_actif = 'apropos' %}
+{% set route_fr = 'paleo_apropos' %}
+{% set route_de = 'paleo_de_apropos' %}
+
+{% block titre %}About the author{% endblock %}
+{% block meta_description %}Marie-Noëlle Kreilos, the author of this blog: musical palaeography in Strasbourg, music teaching in Schaffhausen, president of ERTA — the background behind Paléo.{% endblock %}
+
+{% block contenu %}
+<h1>About the author</h1>
+<p class="chapeau">
+    <strong>Marie-Noëlle Kreilos</strong> — musician, teacher, and the author of this
+    blog. <em>Paléo</em> grew out of her own path, between the classroom and the
+    study room.
+</p>
+
+<div class="encadre def">
+    <span class="etiquette">Where the name “Paléo” comes from</span>
+    <p>
+        Between 1994 and 1996, Marie-Noëlle Kreilos studied <strong>musical
+        palaeography</strong> at the <strong>University of Strasbourg</strong>&nbsp;:
+        the discipline that deciphers old musical writing — the very one that gave this
+        blog its name. That taste for neumes and old manuscripts never left her&nbsp;:
+        <em>Paléo</em> is its continuation, meant to pass it on simply.
+    </p>
+</div>
+
+<h2>Background</h2>
+<div class="fiche">
+    <dl>
+        <dt>1987 – 1990</dt><dd>Recorder teaching diploma <span class="mot-latin">(Lehrdiplom Blockflöte)</span>, Bundesakademie Trossingen</dd>
+        <dt>1990 – 1994</dt><dd>Postgraduate diploma in musicology <span class="mot-latin">(Musikwissenschaft und Schulmusik)</span>, University of Strasbourg</dd>
+        <dt>1994 – 1996</dt><dd>Musical palaeography, University of Strasbourg</dd>
+        <dt>1990 – 2012</dt><dd>Music teacher at the Musikschule of Schaffhausen, Switzerland</dd>
+        <dt>Since 2013</dt><dd>DELF/DALF examiner (official French-as-a-foreign-language exams)</dd>
+        <dt>Since 2015</dt><dd>President of ERTA <span class="mot-latin">(European Recorder Teachers Association)</span></dd>
+    </dl>
+</div>
+
+<p class="lettrine">
+    One foot in music teaching, the other in the study of old manuscripts&nbsp;: this
+    dual background gives <em>Paléo</em> its particular tone — that of a teacher used
+    to making technical knowledge accessible, applied here to a thousand-year-old
+    script.
+</p>
+
+<div class="encadre astuce">
+    <span class="etiquette">Interests</span>
+    <p>
+        Fighting poverty, education, arts and culture, human rights, animal welfare,
+        the environment.
+    </p>
+</div>
+
+<div class="encadre">
+    <span class="etiquette">A word about this blog</span>
+    <p>
+        <em>Paléo</em> was born from the wish to share a script as beautiful as it is
+        little-known, without jargon or prerequisites. A remark, a question&nbsp;? The
+        suggestion form at the bottom of the <a href="{{ path('paleo_en_glossaire') }}">glossary</a>
+        is open.
+    </p>
+</div>
+{% endblock %}

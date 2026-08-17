@@ -1,0 +1,64 @@
+{% extends 'base.de.html.twig' %}
+{% set nav_actif = 'apropos' %}
+{% set route_fr = 'paleo_apropos' %}
+{% set route_en = 'paleo_en_apropos' %}
+
+{% block titre %}Über die Autorin{% endblock %}
+{% block meta_description %}Marie-Noëlle Kreilos, Autorin dieses Blogs: musikalische Paläographie in Straßburg, Musikpädagogik in Schaffhausen, Präsidentin der ERTA — der Werdegang hinter Paléo.{% endblock %}
+
+{% block contenu %}
+<h1>Über die Autorin</h1>
+<p class="chapeau">
+    <strong>Marie-Noëlle Kreilos</strong> — Musikerin, Pädagogin, und die Autorin dieses
+    Blogs. Aus ihrem eigenen Werdegang, zwischen Unterrichtsraum und Studiersaal, ist
+    <em>Paléo</em> entstanden.
+</p>
+
+<div class="encadre def">
+    <span class="etiquette">Woher der Name „Paléo“ kommt</span>
+    <p>
+        Zwischen 1994 und 1996 studiert Marie-Noëlle Kreilos <strong>musikalische
+        Paläographie</strong> an der <strong>Universität Straßburg</strong>&nbsp;: jene
+        Disziplin, die alte musikalische Schriften entziffert — genau die, die diesem
+        Blog seinen Namen gegeben hat. Diese Vorliebe für Neumen und alte Handschriften
+        hat sie nie verlassen&nbsp;: <em>Paléo</em> ist ihre Fortsetzung, gedacht, um sie
+        einfach weiterzugeben.
+    </p>
+</div>
+
+<h2>Werdegang</h2>
+<div class="fiche">
+    <dl>
+        <dt>1987 – 1990</dt><dd>Lehrdiplom Blockflöte, Bundesakademie Trossingen</dd>
+        <dt>1990 – 1994</dt><dd>DEA Musicologie <span class="mot-latin">(Musikwissenschaft und Schulmusik)</span>, Universität Straßburg</dd>
+        <dt>1994 – 1996</dt><dd>Musikalische Paläographie, Universität Straßburg</dd>
+        <dt>1990 – 2012</dt><dd>Dozentin an der Musikschule Schaffhausen, Schweiz</dd>
+        <dt>Seit 2013</dt><dd>Prüferin DELF/DALF (offizielle Prüfungen für Französisch als Fremdsprache)</dd>
+        <dt>Seit 2015</dt><dd>Präsidentin der ERTA <span class="mot-latin">(European Recorder Teachers Association)</span>, des europäischen Verbands der Blockflötenlehrer</dd>
+    </dl>
+</div>
+
+<p class="lettrine">
+    Ein Bein in der Musikpädagogik, das andere in der Erforschung alter Handschriften&nbsp;:
+    diese doppelte Ausbildung gibt <em>Paléo</em> seinen besonderen Ton — den einer
+    Pädagogin, die daran gewöhnt ist, technisches Wissen zugänglich zu machen,
+    hier angewandt auf eine tausend Jahre alte Schrift.
+</p>
+
+<div class="encadre astuce">
+    <span class="etiquette">Interessen</span>
+    <p>
+        Armutsbekämpfung, Bildung, Kunst und Kultur, Menschenrechte, Tierwohl, Umwelt.
+    </p>
+</div>
+
+<div class="encadre">
+    <span class="etiquette">Ein Wort zu diesem Blog</span>
+    <p>
+        <em>Paléo</em> ist aus dem Wunsch entstanden, eine ebenso schöne wie wenig
+        bekannte Schrift ohne Fachjargon und Vorkenntnisse zu teilen. Eine Anmerkung,
+        eine Frage&nbsp;? Das Vorschlagsformular am Ende des <a href="{{ path('paleo_de_glossaire') }}">Glossars</a>
+        steht offen.
+    </p>
+</div>
+{% endblock %}

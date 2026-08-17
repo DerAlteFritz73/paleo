@@ -86,6 +86,12 @@ class PaleoController extends AbstractController
         return $this->render('paleo/glossaire.html.twig');
     }
 
+    #[Route('/a-propos', name: 'paleo_apropos')]
+    public function apropos(): Response
+    {
+        return $this->render('paleo/a-propos.html.twig');
+    }
+
     /* ------------------------------------------------------------------ */
     /* Version allemande — templates/paleo/de/, routes paleo_de_*          */
     /* ------------------------------------------------------------------ */
@@ -156,6 +162,12 @@ class PaleoController extends AbstractController
         return $this->render('paleo/de/glossaire.html.twig');
     }
 
+    #[Route('/de/ueber-die-autorin', name: 'paleo_de_apropos')]
+    public function deApropos(): Response
+    {
+        return $this->render('paleo/de/a-propos.html.twig');
+    }
+
     /* ------------------------------------------------------------------ */
     /* Version anglaise — templates/paleo/en/, routes paleo_en_*           */
     /* ------------------------------------------------------------------ */
@@ -224,5 +236,11 @@ class PaleoController extends AbstractController
     public function enGlossaire(): Response
     {
         return $this->render('paleo/en/glossaire.html.twig');
+    }
+
+    #[Route('/en/about-the-author', name: 'paleo_en_apropos')]
+    public function enApropos(): Response
+    {
+        return $this->render('paleo/en/a-propos.html.twig');
     }
 }

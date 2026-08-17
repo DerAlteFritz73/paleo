@@ -49,6 +49,7 @@ PAGES_LIST = [
     ("alleluia-noel.html.twig",      "alleluia-noel.html",      "alleluia_noel"),
     ("alleluia-paques.html.twig",    "alleluia-paques.html",    "alleluia_paques"),
     ("glossaire.html.twig",          "glossaire.html",          "glossaire"),
+    ("a-propos.html.twig",           "a-propos.html",           "apropos"),
 ]
 
 # langue → (sous-dossier de templates, sous-dossier de sortie, gabarit)

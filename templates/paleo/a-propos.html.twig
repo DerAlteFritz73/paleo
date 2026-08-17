@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+{% set nav_actif = 'apropos' %}
+{% set route_de = 'paleo_de_apropos' %}
+{% set route_en = 'paleo_en_apropos' %}
+
+{% block titre %}À propos de l'autrice{% endblock %}
+{% block meta_description %}Marie-Noëlle Kreilos, autrice de ce blog : paléographie musicale à Strasbourg, enseignement musical à Schaffhouse, présidente de l'ERTA — le parcours derrière Paléo.{% endblock %}
+
+{% block contenu %}
+<h1>À propos de l'autrice</h1>
+<p class="chapeau">
+    <strong>Marie-Noëlle Kreilos</strong> — musicienne, pédagogue, et l'autrice de ce blog.
+    C'est de son propre parcours, entre salle de classe et salle d'étude, qu'est né <em>Paléo</em>.
+</p>
+
+<div class="encadre def">
+    <span class="etiquette">D'où vient le nom «&nbsp;Paléo&nbsp;»</span>
+    <p>
+        Entre 1994 et 1996, Marie-Noëlle Kreilos étudie la <strong>paléographie
+        musicale</strong> à l'<strong>université de Strasbourg</strong>&nbsp;: la
+        discipline qui déchiffre les écritures musicales anciennes, celle-là même qui a
+        donné son nom à ce blog. Ce goût pour les neumes et les vieux manuscrits ne l'a
+        jamais quittée&nbsp;: <em>Paléo</em> en est le prolongement, pensé pour le
+        transmettre simplement.
+    </p>
+</div>
+
+<h2>Parcours</h2>
+<div class="fiche">
+    <dl>
+        <dt>1987 – 1990</dt><dd>Lehrdiplom Blockflöte (diplôme d'enseignement de la flûte à bec), Bundesakademie Trossingen</dd>
+        <dt>1990 – 1994</dt><dd>DEA de musicologie <span class="mot-latin">(Musikwissenschaft und Schulmusik)</span>, université de Strasbourg</dd>
+        <dt>1994 – 1996</dt><dd>Paléographie musicale, université de Strasbourg</dd>
+        <dt>1990 – 2012</dt><dd>Dozentin (professeure de musique) à la Musikschule de Schaffhouse, Suisse</dd>
+        <dt>Depuis 2013</dt><dd>Évaluatrice DELF/DALF (examens officiels de français langue étrangère)</dd>
+        <dt>Depuis 2015</dt><dd>Présidente de l'ERTA <span class="mot-latin">(European Recorder Teachers Association)</span>, l'association européenne des professeurs de flûte à bec</dd>
+    </dl>
+</div>
+
+<p class="lettrine">
+    Un pied dans l'enseignement musical, l'autre dans la recherche sur les manuscrits
+    anciens&nbsp;: c'est cette double formation qui donne à <em>Paléo</em> son ton
+    particulier — celui d'une pédagogue habituée à rendre un savoir technique accessible,
+    appliqué ici à une écriture vieille de mille ans.
+</p>
+
+<div class="encadre astuce">
+    <span class="etiquette">Centres d'intérêt</span>
+    <p>
+        Lutte contre la pauvreté, formation, arts et culture, droits de l'homme, bien-être
+        animal, environnement.
+    </p>
+</div>
+
+<div class="encadre">
+    <span class="etiquette">Un mot sur ce blog</span>
+    <p>
+        <em>Paléo</em> est né du désir de partager, sans jargon ni prérequis, une écriture
+        aussi belle que méconnue. Une remarque, une question&nbsp;? Le formulaire de
+        suggestions, en bas du <a href="{{ path('paleo_glossaire') }}">glossaire</a>, reste
+        ouvert.
+    </p>
+</div>
+{% endblock %}
