@@ -563,17 +563,15 @@ table.grille th {
 }
 table.grille tr:nth-child(even) td { background: rgba(0,0,0,0.02); }
 table.grille td.cel-visuel { width: 1%; white-space: nowrap; text-align: center; }
-.mini-neume {
+.mini-neume-svg {
   display: block;
-  height: 42px;
-  width: auto;
-  max-width: 64px;
-  object-fit: contain;
+  width: 48px;
+  height: 32px;
   margin: 0 auto;
   background: var(--carte);
   border: 1px solid var(--ligne);
   border-radius: 4px;
-  padding: 2px;
+  padding: 3px;
 }
 
 /* Légende de couleurs des trois notations */
