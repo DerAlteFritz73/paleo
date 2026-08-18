@@ -491,6 +491,10 @@ a { color: var(--rubrique); }
   border: 1px solid var(--ligne);
 }
 .carte-neume .svg-portee-moderne { display: block; width: 100%; height: auto; margin: 0.3rem auto 0.4rem; }
+.carte-neume img.contenir {
+  object-fit: contain;
+  background: var(--parchemin);
+}
 .carte-neume img.mini-neume {
   height: 44px;
   width: auto;
