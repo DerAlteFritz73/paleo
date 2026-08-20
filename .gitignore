@@ -20,3 +20,7 @@ __pycache__/
 # Real SMTP credentials for the feedback mail service. Never committed —
 # see .env for the placeholder documenting the expected variables.
 /.env.local
+
+# Static offline preview export (flattened HTML/CSS/assets), regenerated
+# on demand — not part of the Symfony app's source.
+/preview/
