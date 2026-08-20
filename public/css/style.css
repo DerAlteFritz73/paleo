@@ -351,6 +351,18 @@ a { color: var(--rubrique); }
   gap: 1rem;
   margin: 0.8rem 0 0.4rem;
 }
+
+/* Variante à deux éléments (vidéo + image) qu'on veut centrée et de
+   taille modérée plutôt qu'étirée sur toute la largeur du contenu. */
+.videos-audio.paire-centree {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (max-width: 600px) {
+  .videos-audio.paire-centree { grid-template-columns: 1fr; }
+}
 .video-yt { margin: 0; }
 .video-yt .ratio {
   position: relative;
