@@ -419,12 +419,47 @@ a { color: var(--rubrique); }
   font-family: var(--sans);
   font-size: 0.9rem;
 }
-.facsimile img { max-width: 100%; height: auto; border-radius: 4px; }
+.facsimile img { max-width: 100%; height: auto; border-radius: 4px; cursor: zoom-in; }
 .facsimile figcaption {
   margin-top: 0.7rem;
   font-style: italic;
   font-size: 0.9rem;
 }
+
+/* Lightbox : agrandissement au clic des images de fac-similé */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(20, 16, 10, 0.88);
+  padding: 4vh 4vw;
+  z-index: 1000;
+}
+.lightbox.actif { display: flex; }
+.lightbox img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 6px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+  cursor: zoom-out;
+}
+.lightbox-fermer {
+  position: fixed;
+  top: 1.2rem;
+  right: 1.5rem;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  border: 0;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.lightbox-fermer:hover { background: rgba(255, 255, 255, 0.28); }
 
 /* Fac-similé placé à côté d'une vidéo dans la grille .videos-audio :
    même gabarit que le lecteur (largeur de colonne égale via la grille,

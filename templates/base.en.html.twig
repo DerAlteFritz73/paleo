@@ -66,7 +66,39 @@
         </div>
     </footer>
 
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-fermer" type="button" aria-label="Close">&times;</button>
+        <img src="" alt="">
+    </div>
+
     <script>
+    (function () {
+        var lightbox = document.getElementById('lightbox');
+        var images = document.querySelectorAll('.facsimile img');
+        if (!lightbox || !images.length) return;
+        var lbImg = lightbox.querySelector('img');
+
+        function ouvrir(img) {
+            lbImg.src = img.currentSrc || img.src;
+            lbImg.alt = img.alt || '';
+            lightbox.classList.add('actif');
+        }
+        function fermer() {
+            lightbox.classList.remove('actif');
+            lbImg.src = '';
+        }
+
+        for (var i = 0; i < images.length; i++) {
+            (function (img) {
+                img.addEventListener('click', function () { ouvrir(img); });
+            })(images[i]);
+        }
+        lightbox.addEventListener('click', fermer);
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') fermer();
+        });
+    })();
+
     (function () {
         var current = document.querySelector('.site-nav a[aria-current="page"]');
         var main = document.querySelector('main');
