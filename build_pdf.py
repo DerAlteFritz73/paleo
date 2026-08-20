@@ -46,6 +46,7 @@ PAGE_ORDER = [
     ("alleluia-noel.html.twig",      "alleluia-noel",      "alleluia_noel"),
     ("alleluia-paques.html.twig",    "alleluia-paques",    "alleluia_paques"),
     ("glossaire.html.twig",          "glossaire",          "glossaire"),
+    ("a-propos.html.twig",           "a-propos",           "apropos"),
 ]
 
 # Titres du sommaire, par langue. La référence « T. p. XX » renvoie à la
@@ -63,6 +64,7 @@ TOC_TITLES = {
         "Exemple 5 — Alleluia. Dies sanctificatus · Noël · T. p. 49",
         "Exemple 6 — Alleluia. Pascha nostrum · Pâques · T. p. 197",
         "Glossaire & bibliographie",
+        "À propos des auteurs",
     ],
     "de": [
         "Einführung",
@@ -76,6 +78,7 @@ TOC_TITLES = {
         "Beispiel 5 — Alleluia. Dies sanctificatus · Weihnachten · T. S. 49",
         "Beispiel 6 — Alleluia. Pascha nostrum · Ostern · T. S. 197",
         "Glossar & Bibliographie",
+        "Über die Autoren",
     ],
     "en": [
         "Introduction",
@@ -89,6 +92,7 @@ TOC_TITLES = {
         "Example 5 — Alleluia. Dies sanctificatus · Christmas · T. p. 49",
         "Example 6 — Alleluia. Pascha nostrum · Easter · T. p. 197",
         "Glossary & bibliography",
+        "About the authors",
     ],
 }
 
