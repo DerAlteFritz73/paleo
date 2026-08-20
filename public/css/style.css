@@ -414,6 +414,31 @@ a { color: var(--rubrique); }
   font-size: 0.9rem;
 }
 
+/* Fac-similé placé à côté d'une vidéo dans la grille .videos-audio :
+   même gabarit que le lecteur (largeur de colonne égale via la grille,
+   ratio 16/9 recadré) pour un alignement visuel cohérent. */
+.videos-audio .facsimile {
+  margin: 0;
+  border: 1px solid var(--ligne);
+  background: none;
+  padding: 0;
+  text-align: left;
+}
+.videos-audio .facsimile img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 6px;
+}
+.videos-audio .facsimile figcaption {
+  margin-top: 0.4rem;
+  font-style: normal;
+  font-size: 0.82rem;
+  color: var(--encre-douce);
+  line-height: 1.35;
+}
+
 /* Bloc de texte latin + traduction côte à côte */
 .texte-latin {
   display: grid;
