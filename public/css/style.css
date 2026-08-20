@@ -476,6 +476,7 @@ a { color: var(--rubrique); }
   width: 100%;
   aspect-ratio: 16 / 9;
   object-fit: cover;
+  object-position: 50% 15%;
   border-radius: 6px;
 }
 .videos-audio .facsimile figcaption {
