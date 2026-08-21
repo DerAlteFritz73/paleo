@@ -8,7 +8,7 @@ services:
     ports:
       - 127.0.0.1:2226:80
     volumes:
-      - nginx-logs:/var/log/nginx
+      - paleo-access-logs:/var/log/paleo
       - goaccess-report:/usr/share/nginx/html/stats:ro
     depends_on:
       - mail
@@ -19,8 +19,8 @@ services:
         max-file: 3
 
   # Tableau de bord de fréquentation (GoAccess), lu directement depuis les
-  # journaux d'accès nginx du service "web" (volume nginx-logs, lecture
-  # seule). Aucune donnée personnelle n'est envoyée par e-mail ni à un tiers
+  # journaux d'accès nginx du service "web" (volume paleo-access-logs,
+  # lecture seule). Aucune donnée personnelle n'est envoyée par e-mail ni à un tiers
   # : tout reste local. Le rapport HTML est écrit dans goaccess-report, servi
   # par nginx sur /stats/ (protégé par mot de passe, voir default.conf) ; le
   # port 7890 ne sert que le flux WebSocket de rafraîchissement en direct et
@@ -30,7 +30,7 @@ services:
     container_name: paleo-stats
     restart: unless-stopped
     command: >
-      /var/log/nginx/access.log
+      /var/log/paleo/access.log
       -o /report/index.html
       --log-format=COMBINED
       --real-time-html
@@ -40,7 +40,7 @@ services:
     ports:
       - 127.0.0.1:2228:7890
     volumes:
-      - nginx-logs:/var/log/nginx:ro
+      - paleo-access-logs:/var/log/paleo:ro
       - goaccess-report:/report
     depends_on:
       - web
@@ -69,10 +69,13 @@ services:
         max-file: 3
 
 volumes:
-  # Journaux d'accès nginx, persistés à travers les reconstructions du
-  # conteneur "web" par docker compose up -d --build (déclenchées à chaque
-  # déploiement) et lus par "stats" (GoAccess).
-  nginx-logs:
+  # Journaux d'accès nginx (chemin dédié /var/log/paleo, distinct de
+  # /var/log/nginx dont access.log/error.log sont des liens symboliques vers
+  # stdout/stderr dans l'image de base — les écraser via un volume aurait
+  # figé ces liens plutôt que de vrais fichiers). Persistés à travers les
+  # reconstructions du conteneur "web" (docker compose up -d --build,
+  # déclenché à chaque déploiement) et lus par "stats" (GoAccess).
+  paleo-access-logs:
   # Rapport HTML généré par GoAccess, partagé en lecture avec "web" (servi
   # sous /stats/) et en écriture avec "stats" (qui le régénère en continu).
   goaccess-report:
