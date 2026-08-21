@@ -741,14 +741,9 @@ table.grille td.cel-visuel { width: 1%; white-space: nowrap; text-align: center;
   width: 0.9rem; height: 0.9rem; border-radius: 50%;
   display: inline-block;
 }
-.pastille.sg   { background: var(--vert-sg); }
-.pastille.vat  { background: var(--encre); }
-.pastille.laon { background: var(--bleu-laon); }
-
-/* Variante monochrome + carré (page Graduale Triplex) */
-.legende-triplex.mono .pastille.laon { background: var(--encre); }
-.legende-triplex.mono .pastille.sg   { background: var(--rubrique); }
-.legende-triplex.mono .pastille.vat  { border-radius: 2px; }
+.pastille.laon { background: var(--encre); }
+.pastille.vat  { background: var(--encre); border-radius: 2px; }
+.pastille.sg   { background: var(--rubrique); }
 
 /* Navigation entre les 4 exemples (pied de page d'article) */
 .suite {
