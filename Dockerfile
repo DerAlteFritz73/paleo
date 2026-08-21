@@ -1,6 +1,6 @@
 FROM python:3.11-slim as builder
 WORKDIR /app
-RUN apt-get update && apt-get install -y --no-install-recommends chromium && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y --no-install-recommends chromium fonts-noto-color-emoji && rm -rf /var/lib/apt/lists/*
 COPY . .
 RUN pip install --no-cache-dir pyyaml jinja2 pillow pypdf
 RUN python3 build_pdf.py && python3 build_pdf.py de && python3 build_pdf.py en && python3 build_static.py
