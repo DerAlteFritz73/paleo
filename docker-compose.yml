@@ -30,7 +30,7 @@ services:
     container_name: paleo-stats
     restart: unless-stopped
     command: >
-      goaccess /var/log/nginx/access.log
+      /var/log/nginx/access.log
       -o /report/index.html
       --log-format=COMBINED
       --real-time-html
