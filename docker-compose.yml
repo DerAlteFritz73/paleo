@@ -36,6 +36,7 @@ services:
     volumes:
       - paleo-access-logs:/var/log/paleo:ro
       - goaccess-report:/report
+      - ./docker/stats/geoip:/geoip:ro
     depends_on:
       - web
     logging:

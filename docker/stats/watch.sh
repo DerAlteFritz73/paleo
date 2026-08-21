@@ -8,9 +8,17 @@ set -eu
 
 LOG=/var/log/paleo/access.log
 OUT=/report/index.html
+GEOIP=/geoip/dbip-city-lite.mmdb
 
 regen() {
-    goaccess "$LOG" -a -o "$OUT" --log-format=COMBINED --ignore-crawlers
+    if [ -f "$GEOIP" ]; then
+        goaccess "$LOG" -a -o "$OUT" --log-format=COMBINED --ignore-crawlers \
+            --geoip-database="$GEOIP"
+    else
+        # Base GeoIP absente (pas encore téléchargée, voir .gitignore) :
+        # on continue sans le panneau géolocalisation plutôt que de planter.
+        goaccess "$LOG" -a -o "$OUT" --log-format=COMBINED --ignore-crawlers
+    fi
 }
 
 regen

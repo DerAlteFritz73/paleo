@@ -25,6 +25,13 @@ __pycache__/
 # locally on the server, never committed — see README for how to regenerate.
 /docker/nginx/.htpasswd-stats
 
+# GeoIP database for the /stats/ dashboard's location panel (DB-IP Lite,
+# ~130MB, CC-BY 4.0, no account needed: https://db-ip.com/db/lite.php).
+# Downloaded directly on the server, never committed. Refresh monthly by
+# re-downloading dbip-city-lite-<year>-<month>.mmdb.gz and replacing
+# docker/stats/geoip/dbip-city-lite.mmdb.
+/docker/stats/geoip/
+
 # Static offline preview export (flattened HTML/CSS/assets), regenerated
 # on demand — not part of the Symfony app's source.
 /preview/
