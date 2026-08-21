@@ -9,10 +9,14 @@ Trois langues sont produites :
     preview/en/        → anglais
 
 Ce n'est PAS un moteur Twig complet : il ne gère que le sous-ensemble utilisé
-par ce projet (extends, blocks titre / meta_description / contenu, set nav_actif
-et set route_xx, path('route'), path(variable), asset(), et l'opérateur ternaire
-sur nav_actif). Les templates restent la source de vérité ; ce script n'est
-qu'un utilitaire de prévisualisation.
+par ce projet (extends, blocks titre / meta_description / head / contenu, set
+nav_actif et set route_xx, path('route'), path(variable), asset(), et
+l'opérateur ternaire sur nav_actif). Les templates restent la source de
+vérité ; ce script n'est qu'un utilitaire de prévisualisation — mais comme
+Dockerfile en fait un des étages du build de production (le résultat, servi
+par nginx, EST le site en ligne), c'est aussi ici qu'on injecte les balises
+SEO (canonical, hreflang, Open Graph, Twitter Card) et qu'on génère
+sitemap.xml / robots.txt.
 
 Usage :  python3 build_static.py
 Puis ouvrez  preview/index.html  dans votre navigateur.
@@ -21,6 +25,7 @@ Puis ouvrez  preview/index.html  dans votre navigateur.
 import re
 import shutil
 import sys
+from datetime import date
 from pathlib import Path
 
 # La sortie console peut être en latin-1 selon la locale : on force l'UTF-8
@@ -32,6 +37,11 @@ ROOT = Path(__file__).resolve().parent
 TPL = ROOT / "templates"
 PAGES = TPL / "paleo"
 OUT = ROOT / "preview"
+
+# Domaine public du site, utilisé pour les URLs absolues (canonical, hreflang,
+# Open Graph, sitemap) — voir SEO_LOCALE / page_url() plus bas.
+SITE = "https://paleo.kreilos.fr"
+SEO_LOCALE = {"fr": "fr_FR", "de": "de_DE", "en": "en_US"}
 
 # Les onze pages du blog : (fichier template, fichier de sortie, suffixe de route)
 # Le suffixe de route sert à construire les noms de routes Symfony :
@@ -58,6 +68,13 @@ LANGS = {
     "de": ("de", "de", "base.de.html.twig"),
     "en": ("en", "en", "base.en.html.twig"),
 }
+
+
+def page_url(lang, out_name):
+    """URL absolue publique d'une page (canonical, hreflang, sitemap, OG)."""
+    _tpl_dir, out_dir, _base = LANGS[lang]
+    path = f"{out_dir}/{out_name}" if out_dir else out_name
+    return f"{SITE}/{path}"
 
 
 def route_name(lang, suffix):
@@ -144,6 +161,7 @@ def build_lang(lang, base_text):
 
         titre = block("titre", page, "Paléo").strip()
         meta = block("meta_description", page).strip()
+        head_extra = block("head", page).strip()
         contenu = block("contenu", page)
 
         html = base_text
@@ -156,9 +174,35 @@ def build_lang(lang, base_text):
             html = re.sub(r"{%\s*block\s+meta_description\s*%}(.*?){%\s*endblock\s*%}",
                           r"\1", html, flags=re.DOTALL)
         html = re.sub(r"{%\s*block\s+head\s*%}.*?{%\s*endblock\s*%}",
-                      "", html, flags=re.DOTALL)
+                      lambda _: head_extra, html, flags=re.DOTALL)
         html = re.sub(r"{%\s*block\s+contenu\s*%}.*?{%\s*endblock\s*%}",
                       lambda _: contenu, html, flags=re.DOTALL)
+
+        # Canonical, hreflang (fr/de/en + x-default) et Open Graph/Twitter
+        # Card, générés depuis les données déjà connues du script (aucune
+        # édition de gabarit nécessaire, reste juste si des pages sont
+        # ajoutées/retirées de PAGES_LIST).
+        canonical = page_url(lang, out_name)
+        alt_tags = "\n".join(
+            f'    <link rel="alternate" hreflang="{al}" href="{page_url(al, out_name)}">'
+            for al in ("fr", "de", "en")
+        )
+        alt_tags += (f'\n    <link rel="alternate" hreflang="x-default" '
+                     f'href="{page_url("fr", out_name)}">')
+        seo_tags = (
+            f'    <link rel="canonical" href="{canonical}">\n'
+            f'{alt_tags}\n'
+            f'    <meta property="og:type" content="website">\n'
+            f'    <meta property="og:site_name" content="Paléo">\n'
+            f'    <meta property="og:locale" content="{SEO_LOCALE[lang]}">\n'
+            f'    <meta property="og:title" content="{titre}">\n'
+            f'    <meta property="og:description" content="{meta}">\n'
+            f'    <meta property="og:url" content="{canonical}">\n'
+            f'    <meta name="twitter:card" content="summary">\n'
+            f'    <meta name="twitter:title" content="{titre}">\n'
+            f'    <meta name="twitter:description" content="{meta}">\n'
+        )
+        html = html.replace("</head>", seo_tags + "</head>", 1)
 
         # commentaires Twig éventuels dans le contenu de page
         html = re.sub(r"{#.*?#}", "", html, flags=re.DOTALL)
@@ -172,6 +216,50 @@ def build_lang(lang, base_text):
         print(f"  [ok] {rel}")
         count += 1
     return count
+
+
+def write_sitemap():
+    """sitemap.xml listant les 36 pages (12 x fr/de/en), avec les variantes
+    de langue en <xhtml:link> pour chaque URL (recommandé par Google pour
+    les sites multilingues)."""
+    today = date.today().isoformat()
+    entries = []
+    for _tpl, out_name, _suffix in PAGES_LIST:
+        for lang in LANGS:
+            url = page_url(lang, out_name)
+            alt_links = "\n".join(
+                f'      <xhtml:link rel="alternate" hreflang="{al}" '
+                f'href="{page_url(al, out_name)}"/>'
+                for al in LANGS
+            )
+            entries.append(
+                f"  <url>\n"
+                f"    <loc>{url}</loc>\n"
+                f"{alt_links}\n"
+                f'      <xhtml:link rel="alternate" hreflang="x-default" '
+                f'href="{page_url("fr", out_name)}"/>\n'
+                f"    <lastmod>{today}</lastmod>\n"
+                f"  </url>"
+            )
+    xml = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n'
+        '        xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
+        + "\n".join(entries) + "\n"
+        "</urlset>\n"
+    )
+    (OUT / "sitemap.xml").write_text(xml, encoding="utf-8")
+    print(f"  [ok] sitemap.xml ({len(PAGES_LIST) * len(LANGS)} URLs)")
+
+
+def write_robots():
+    txt = (
+        "User-agent: *\n"
+        "Allow: /\n"
+        f"Sitemap: {SITE}/sitemap.xml\n"
+    )
+    (OUT / "robots.txt").write_text(txt, encoding="utf-8")
+    print("  [ok] robots.txt")
 
 
 def main():
@@ -196,6 +284,9 @@ def main():
         base_text = re.sub(r"{#.*?#}", "", base_file.read_text(encoding="utf-8"),
                            flags=re.DOTALL)
         total += build_lang(lang, base_text)
+
+    write_sitemap()
+    write_robots()
 
     print(f"\nOK — {total} pages générées dans {OUT}/")
     print(f"Ouvrez : {OUT / 'index.html'}")
