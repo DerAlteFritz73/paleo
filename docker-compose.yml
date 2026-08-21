@@ -38,7 +38,7 @@ services:
       --addr=0.0.0.0
       --ignore-crawlers
     ports:
-      - 127.0.0.1:2227:7890
+      - 127.0.0.1:2228:7890
     volumes:
       - nginx-logs:/var/log/nginx:ro
       - goaccess-report:/report
