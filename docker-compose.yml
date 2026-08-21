@@ -21,23 +21,18 @@ services:
   # Tableau de bord de fréquentation (GoAccess), lu directement depuis les
   # journaux d'accès nginx du service "web" (volume paleo-access-logs,
   # lecture seule). Aucune donnée personnelle n'est envoyée par e-mail ni à un
-  # tiers : tout reste local. Rapport HTML statique régénéré toutes les 60s
-  # (boucle shell, pas de mode --real-time-html) — pas de WebSocket à exposer
-  # ou sécuriser ; rechargez /stats/ pour voir les données à jour. Servi par
-  # nginx sur /stats/, protégé par mot de passe (voir default.conf).
+  # tiers : tout reste local. Rapport HTML statique régénéré à chaque écriture
+  # dans le journal (une visite = une ligne = un événement inotify, voir
+  # docker/stats/watch.sh) plutôt qu'à intervalle fixe — pas de mode
+  # --real-time-html, donc pas de WebSocket à exposer ou sécuriser ;
+  # rechargez /stats/ pour voir le rapport, déjà à jour. Servi par nginx sur
+  # /stats/, protégé par mot de passe (voir default.conf).
   stats:
-    image: allinurl/goaccess:latest
+    build:
+      context: ./docker/stats
+    image: paleo-stats:latest
     container_name: paleo-stats
     restart: unless-stopped
-    entrypoint: ["/bin/sh", "-c"]
-    command: >
-      while true; do
-        goaccess /var/log/paleo/access.log
-          -a -o /report/index.html
-          --log-format=COMBINED
-          --ignore-crawlers;
-        sleep 60;
-      done
     volumes:
       - paleo-access-logs:/var/log/paleo:ro
       - goaccess-report:/report
