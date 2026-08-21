@@ -63,7 +63,7 @@
             <line x1="34" y1="48" x2="150" y2="48" class="svg-portee"/>
             <line x1="34" y1="58" x2="150" y2="58" class="svg-portee"/>
             <image href="{{ asset('assets/img/treble-clef.png') }}" x="2" y="8" width="36" height="58"/>
-            <ellipse cx="90" cy="38" rx="5" ry="3.5" class="svg-neume"/>
+            <ellipse cx="90" cy="43" rx="4.3" ry="3" class="svg-neume"/>
             <text x="90" y="82" font-family="serif" font-size="13" text-anchor="middle" class="svg-neume">tus</text>
         </svg>
         <span class="nom">Punctum</span>
@@ -82,7 +82,7 @@
             <line x1="34" y1="48" x2="150" y2="48" class="svg-portee"/>
             <line x1="34" y1="58" x2="150" y2="58" class="svg-portee"/>
             <image href="{{ asset('assets/img/treble-clef.png') }}" x="2" y="8" width="36" height="58"/>
-            <ellipse cx="90" cy="28" rx="5" ry="3.5" class="svg-neume"/>
+            <ellipse cx="90" cy="22" rx="4.3" ry="3" class="svg-neume"/>
             <text x="90" y="82" font-family="serif" font-size="13" text-anchor="middle" class="svg-neume">le-</text>
         </svg>
         <span class="nom">Virga</span>
@@ -262,19 +262,21 @@
     <div class="carte-neume">
         <span class="mini-legende">Graduale Triplex</span>
         <img class="zoomable" src="{{ asset('assets/img/neume-quilisma.jpg') }}" alt="Un quilisma : note ornée en dents de scie au sein d'un groupe ascendant, ici sur « De- » de « Dei », Graduale Triplex p. 48">
+        <span class="mini-legende">Notation carrée</span>
+        <img class="mini-neume zoomable" src="{{ asset('assets/img/basel-carree-quilisma.png') }}" alt="Quilisma, notation carrée (université de Bâle)">
         <span class="mini-legende">Transcription moderne</span>
-        <svg viewBox="0 0 160 90" role="img" aria-label="Transcription moderne : notes ascendantes avec ornement quilisma" class="svg-portee-moderne zoomable">
+        <svg viewBox="0 0 160 90" role="img" aria-label="Transcription moderne : notes ascendantes, la note du milieu (le quilisma) plus petite" class="svg-portee-moderne zoomable">
             <line x1="34" y1="18" x2="150" y2="18" class="svg-portee"/>
             <line x1="34" y1="28" x2="150" y2="28" class="svg-portee"/>
             <line x1="34" y1="38" x2="150" y2="38" class="svg-portee"/>
             <line x1="34" y1="48" x2="150" y2="48" class="svg-portee"/>
             <line x1="34" y1="58" x2="150" y2="58" class="svg-portee"/>
             <image href="{{ asset('assets/img/treble-clef.png') }}" x="2" y="8" width="36" height="58"/>
-            <path d="M65,50 Q95,10 125,20" class="svg-slur"/>
-            <ellipse cx="70" cy="58" rx="5" ry="3.5" class="svg-neume"/>
-            <ellipse cx="95" cy="43" rx="5" ry="3.5" class="svg-neume"/>
-            <path d="M89,33 l3,-5 l2.5,5 l3,-5 l2.5,5" class="svg-orn" stroke-width="1.5"/>
-            <ellipse cx="120" cy="28" rx="5" ry="3.5" class="svg-neume"/>
+            <path d="M60,50 Q85,15 110,30" class="svg-slur"/>
+            <ellipse cx="65" cy="58" rx="5" ry="3.5" class="svg-neume"/>
+            <ellipse cx="85" cy="48" rx="3" ry="2.2" class="svg-neume"/>
+            <ellipse cx="105" cy="38" rx="5" ry="3.5" class="svg-neume"/>
+            <text x="85" y="82" font-family="serif" font-size="13" text-anchor="middle" class="svg-neume">De-</text>
         </svg>
         <span class="nom">Quilisma</span>
         <span class="desc">note légère de passage — « <strong>De</strong>-i », p.&nbsp;48</span>
