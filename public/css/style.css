@@ -497,7 +497,8 @@ a { color: var(--rubrique); }
   padding: 1.2rem 1.4rem;
   margin: 1.5rem 0;
 }
-.texte-latin .lat { font-style: italic; }
+.texte-latin .lat,
+.texte-latin .fr  { font-style: italic; }
 .texte-latin .fr  { color: var(--encre-douce); }
 .texte-latin .entete {
   font-family: var(--sans);
