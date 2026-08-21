@@ -319,7 +319,7 @@ a { color: var(--rubrique); }
   font-weight: 700;
   align-self: baseline;
 }
-.fiche dd { margin: 0; }
+.fiche dd { margin: 0; align-self: baseline; }
 
 /* Bloc « Écouter le chant » + lecteur audio */
 .lecteur-audio {
