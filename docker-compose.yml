@@ -7,8 +7,43 @@ services:
     restart: unless-stopped
     ports:
       - 127.0.0.1:2226:80
+    volumes:
+      - nginx-logs:/var/log/nginx
+      - goaccess-report:/usr/share/nginx/html/stats:ro
     depends_on:
       - mail
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: 3
+
+  # Tableau de bord de fréquentation (GoAccess), lu directement depuis les
+  # journaux d'accès nginx du service "web" (volume nginx-logs, lecture
+  # seule). Aucune donnée personnelle n'est envoyée par e-mail ni à un tiers
+  # : tout reste local. Le rapport HTML est écrit dans goaccess-report, servi
+  # par nginx sur /stats/ (protégé par mot de passe, voir default.conf) ; le
+  # port 7890 ne sert que le flux WebSocket de rafraîchissement en direct et
+  # n'est exposé que sur 127.0.0.1.
+  stats:
+    image: allinurl/goaccess:latest
+    container_name: paleo-stats
+    restart: unless-stopped
+    command: >
+      goaccess /var/log/nginx/access.log
+      -o /report/index.html
+      --log-format=COMBINED
+      --real-time-html
+      --port=7890
+      --addr=0.0.0.0
+      --ignore-crawlers
+    ports:
+      - 127.0.0.1:2227:7890
+    volumes:
+      - nginx-logs:/var/log/nginx:ro
+      - goaccess-report:/report
+    depends_on:
+      - web
     logging:
       driver: json-file
       options:
@@ -32,3 +67,12 @@ services:
       options:
         max-size: 10m
         max-file: 3
+
+volumes:
+  # Journaux d'accès nginx, persistés à travers les reconstructions du
+  # conteneur "web" par docker compose up -d --build (déclenchées à chaque
+  # déploiement) et lus par "stats" (GoAccess).
+  nginx-logs:
+  # Rapport HTML généré par GoAccess, partagé en lecture avec "web" (servi
+  # sous /stats/) et en écriture avec "stats" (qui le régénère en continu).
+  goaccess-report:

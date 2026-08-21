@@ -21,6 +21,10 @@ __pycache__/
 # see .env for the placeholder documenting the expected variables.
 /.env.local
 
+# Basic-auth credentials for the /stats/ GoAccess dashboard. Generated
+# locally on the server, never committed — see README for how to regenerate.
+/docker/nginx/.htpasswd-stats
+
 # Static offline preview export (flattened HTML/CSS/assets), regenerated
 # on demand — not part of the Symfony app's source.
 /preview/

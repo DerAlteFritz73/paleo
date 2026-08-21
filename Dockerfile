@@ -11,5 +11,6 @@ COPY --from=builder /app/public /usr/share/nginx/html/public
 COPY --from=builder /app/dist /usr/share/nginx/html/dist
 RUN mkdir -p /usr/share/nginx/html/assets && cp /usr/share/nginx/html/dist/*.pdf /usr/share/nginx/html/public/assets/ 2>/dev/null || true
 COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY docker/nginx/.htpasswd-stats /etc/nginx/.htpasswd-stats
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
